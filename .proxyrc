@@ -1,0 +1,17 @@
+{
+	"/api": {
+		"target": "https://moderation.freedraw.app",
+		"changeOrigin": true,
+		"headers": {
+			host: "moderation.freedraw.app"
+		}
+	},
+
+	"/socket.io": {
+		"target": "https://moderation.freedraw.app",
+		"changeOrigin": true,
+		"headers": {
+			host: "moderation.freedraw.app"
+		}
+	}
+}

@@ -1,0 +1,29 @@
+.viewer {
+	position: relative;
+}
+
+.canvas {
+	pointer-events: none;
+}
+
+.hover-details {
+	position: absolute;
+	top: 0;
+	left: 0;
+	pointer-events: none;
+	user-select: none;
+
+	background: rgba(0, 0, 0, 50%);
+	padding: 8px 12px;
+	border-radius: 8px;
+
+	.username {
+		color: white;
+		font-size: 16px;
+	}
+
+	visibility: hidden;
+	&.active {
+		visibility: visible;
+	}
+}
