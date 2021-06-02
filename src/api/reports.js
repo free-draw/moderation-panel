@@ -2,7 +2,6 @@ import EventEmitter from "eventemitter2"
 import axios from "axios"
 import { io } from "socket.io-client"
 import lodash from "lodash"
-import { mdiAbugidaThai } from "@mdi/js"
 
 class Report extends EventEmitter {
 	constructor(data) {
