@@ -2,10 +2,11 @@ import React from "react"
 import { Link, useRouteMatch } from "react-router-dom"
 
 import Maid from "/src/class/Maid"
+import useAsync from "/src/util/useAsync"
 
 import Spinner from "/src/components/Spinner"
 
-import roblox from "/src/api/roblox"
+import { getRobloxUser, getRobloxThumbnail } from "/src/api/roblox"
 import reports from "/src/api/reports"
 
 function Report(props) {
@@ -14,8 +15,8 @@ function Report(props) {
 	const path = `/reports/${report.id}`
 	const match = useRouteMatch({ path, sensitive: true })
 
-	const targetUser = roblox.useUser(report.target)
-	const targetAvatar = roblox.useThumbnail("AvatarHeadShot", report.target, "150x150")
+	const targetUser = useAsync(getRobloxUser)(report.target)
+	const targetAvatar = useAsync(getRobloxThumbnail)("AvatarHeadShot", report.target, "150x150")
 
 	return (
 		<Link to={path} className={`report ${match ? "selected" : ""} ${targetUser ? "" : "loading"}`}>

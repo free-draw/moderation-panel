@@ -2,7 +2,9 @@ import React from "react"
 import Icon from "@mdi/react"
 import { mdiAccountDetails, mdiMessageText, mdiHumanHandsdown } from "@mdi/js"
 
-import roblox from "/src/api/roblox"
+import useAsync from "/src/util/useAsync"
+
+import { getRobloxUser, getRobloxThumbnail } from "/src/api/roblox"
 
 const tabs = [
 	{
@@ -12,8 +14,8 @@ const tabs = [
 		render(props) {
 			const report = props.report
 			
-			const targetUser = roblox.useUser(report.target)
-			const targetAvatar = roblox.useThumbnail("AvatarHeadShot", report.target, "150x150")
+			const targetUser = useAsync(getRobloxUser)(report.target)
+			const targetAvatar = useAsync(getRobloxThumbnail)("AvatarHeadShot", report.target, "150x150")
 
 			return (
 				<>

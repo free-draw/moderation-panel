@@ -2,11 +2,7 @@ import axios from "axios"
 
 import Resource from "/src/class/Resource"
 
-import useAsync from "/src/util/useAsync"
-
-// Resources
-
-const UserResource = new Resource(async (batch) => {
+const RobloxUserResource = new Resource(async (batch) => {
 	const response = await axios.post("/api/roblox/users", {
 		userIds: Object.values(batch),
 		excludeBannedUsers: false,
@@ -19,7 +15,7 @@ const UserResource = new Resource(async (batch) => {
 	return results
 })
 
-const ThumbnailResource = new Resource(async (batch) => {
+const RobloxThumbnailResource = new Resource(async (batch) => {
 	const response = await axios.post("/api/roblox/thumbnails", Object.entries(batch).map(([ batchId, batchItem ]) => {
 		return {
 			requestId: batchId,
@@ -36,22 +32,12 @@ const ThumbnailResource = new Resource(async (batch) => {
 	return results
 })
 
-// Batch invokers
-
-function getUser(userId) {
+export function getRobloxUser(userId) {
 	userId = parseInt(userId)
-	return UserResource.invoke(userId, userId)
+	return RobloxUserResource.invoke(userId, userId)
 }
 
-function getThumbnail(type, id, size) {
+export function getRobloxThumbnail(type, id, size) {
 	const batchId = `${type}-${id}-${size}`
-	return ThumbnailResource.invoke(batchId, { type, id, size })
-}
-
-export default {
-	getUser,
-	getThumbnail,
-
-	useUser: useAsync(getUser),
-	useThumbnail: useAsync(getThumbnail),
+	return RobloxThumbnailResource.invoke(batchId, { type, id, size })
 }
