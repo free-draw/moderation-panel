@@ -7,7 +7,7 @@ import useAsync from "/src/util/useAsync"
 import Spinner from "/src/components/Spinner"
 
 import { getRobloxUser, getRobloxThumbnail } from "/src/api/roblox"
-import reports from "/src/api/reports"
+import { reportList } from "/src/api/reports"
 
 function Report(props) {
 	const report = props.report
@@ -44,21 +44,17 @@ class ReportList extends React.Component {
 		this.maid = new Maid()
 
 		this.state = {
-			reports: reports.list.current,
+			reports: reportList.current,
 		}
 	}
 
 	componentDidMount() {
-		reports.list.enable()
-		this.maid.listen(reports.list, "update", () => {
-			this.setState({
-				reports: reports.list.current,
-			})
-		})
+		reportList.connect()
+		this.maid.listen(reportList, "update", reports => this.setState({ reports }))
 	}
 
 	componentWillUnmount() {
-		reports.list.disable()
+		reportList.disconnect()
 		this.maid.clean()
 	}
 

@@ -12,6 +12,7 @@ class Report extends EventEmitter {
 		this.notes = data.notes
 		this.from = data.fromUserId
 		this.target = data.targetUserId
+		this.snapshot = data.snapshot
 
 		this._data = data
 	}
@@ -107,11 +108,9 @@ class ReportList extends EventEmitter {
 	}
 }
 
-export default {
-	async getReport(reportId) {
-		const response = await axios(`/api/reports/${reportId}`)
-		return new Report(response.data.report)
-	},
-
-	list: new ReportList(),
+export async function getReport(reportId) {
+	const response = await axios(`/api/reports/${reportId}`)
+	return new Report(response.data.report)
 }
+
+export const reportList = new ReportList()
