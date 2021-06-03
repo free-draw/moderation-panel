@@ -1,8 +1,10 @@
 import React from "react"
 import { useRouteMatch } from "react-router-dom" 
 
-import reports from "/src/api/reports"
+import { getReport } from "/src/api/reports"
+import { getSnapshot } from "/src/api/snapshots"
 
+import Viewer from "/src/components/Viewer"
 import Details from "./Details"
 
 import "./style.scss"
@@ -11,30 +13,41 @@ function ReportsView() {
 	const match = useRouteMatch("/reports/:reportId")
 
 	const [ report, setReport ] = React.useState(null)
-	const [ reportStatus, setReportStatus ] = React.useState("NONE")
+	const [ snapshot, setSnapshot ] = React.useState(null)
+	const [ status, setStatus ] = React.useState("NONE")
 
 	React.useEffect(async () => {
 		setReport(null)
+		setSnapshot(null)
 
 		if (match) {
-			setReportStatus("LOADING")
+			setStatus("LOADING")
 
 			try {
-				setReport(await reports.getReport(match.params.reportId))
-				setReportStatus("LOADED")
+				const report = await getReport(match.params.reportId)
+				const snapshot = await getSnapshot(report.snapshot)
+
+				await snapshot.initialize()
+
+				setReport(report)
+				setSnapshot(snapshot)
+
+				setStatus("LOADED")
 			} catch(error) {
-				setReportStatus("ERROR")
+				setStatus("ERROR")
+				throw error
 			}
 		} else {
-			setReportStatus("NONE")
+			setStatus("NONE")
 		}
 	}, [ match ? match.params.reportId : null ])
 
-	switch (reportStatus) {
+	switch (status) {
 		case "LOADED":
 			return (
 				<div className="reports-view">
-					<Details report={report} />
+					<Details report={report} snapshot={snapshot} />
+					<Viewer data={snapshot.canvas} />
 				</div>
 			)
 		
