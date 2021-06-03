@@ -1,0 +1,86 @@
+@use "sass:map";
+
+@use "/src/style/colors";
+
+.details {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	display: flex;
+	flex-direction: row;
+	padding: 20px;
+	z-index: 10;
+
+	&.active {
+		background: white;
+
+		&:after {
+			content: "";
+			position: absolute;
+			left: 100%;
+			top: 0;
+			width: 1px;
+			height: 100%;
+			background: #BFBFBF;
+		}
+	}
+
+	.details-buttons {
+		display: flex;
+		flex-direction: column;
+
+		.details-button {
+			width: 56px;
+			height: 56px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border: 1px solid #BFBFBF;
+			border-radius: 12px;
+			cursor: pointer;
+			background: white;
+
+			&.active {
+				border: none;
+				background: map.get(colors.$brand, "600");
+			}
+
+			+ .details-button {
+				margin-top: 10px;
+			}
+		}
+	}
+
+	.details-container {
+		margin-left: 20px;
+	}
+}
+
+.chat {
+	width: 330px;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	overflow-y: auto;
+
+	.chat-message {
+		font-size: 15px;
+		font-weight: 400;
+
+		em {
+			font-weight: 700;
+			font-style: normal;
+		}
+
+		&.target {
+			em {
+				color: map.get(colors.$brand, "600");
+			}
+		}
+
+		& + .chat-message {
+			margin-top: 4px;
+		}
+	}
+}
