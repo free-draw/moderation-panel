@@ -40,8 +40,8 @@ const File = new Parser()
 		length: "layerCount",
 	})
 
-function parse(buffer) {
-	const data = File.parse(buffer)
+export function parse(buffer) {
+	const data = parseRaw(buffer)
 
 	const layers = data.layers.map((layerData, index) => {
 		return {
@@ -77,11 +77,6 @@ function parse(buffer) {
 	}
 }
 
-function parseRaw(buffer) {
+export function parseRaw(buffer) {
 	return File.parse(buffer)
-}
-
-export {
-	parse,
-	parseRaw,
 }
