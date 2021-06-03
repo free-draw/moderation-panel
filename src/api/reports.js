@@ -58,7 +58,7 @@ class ReportList extends EventEmitter {
 		this.emit("update", this.current)
 	}
 
-	enable() {
+	connect() {
 		if (!this.active) {
 			this.refresh()
 
@@ -99,7 +99,7 @@ class ReportList extends EventEmitter {
 		}
 	}
 
-	disable() {
+	disconnect() {
 		if (this.active) {
 			this.socket.disconnect()
 			this.socket = null
