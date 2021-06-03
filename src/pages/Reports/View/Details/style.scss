@@ -2,7 +2,7 @@
 
 @use "/src/style/colors";
 
-.details {
+.page-reports .details {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -57,7 +57,7 @@
 	}
 }
 
-.chat {
+.page-reports .chat {
 	width: 330px;
 	height: 100%;
 	display: flex;
