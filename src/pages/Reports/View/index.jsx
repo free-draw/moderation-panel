@@ -5,6 +5,8 @@ import reports from "/src/api/reports"
 
 import Details from "./Details"
 
+import "./style.scss"
+
 function ReportsView() {
 	const match = useRouteMatch("/reports/:reportId")
 

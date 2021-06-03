@@ -12,35 +12,7 @@
 		position: relative;
 		flex-grow: 1;
 
-		.reports-view {
-			position: absolute;
-			width: 100%;
-			height: 100%;
-			left: 0;
-			top: 0;
-
-			&.text-only {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				justify-content: center;
-
-				padding-right: 340px + 20px * 2;
-
-				.reports-view-text-primary {
-					font-size: 28px;
-					font-weight: 700;
-				}
-
-				.reports-view-text-secondary {
-					margin-top: 10px;
-					opacity: 0.75;
-					font-size: 14px;
-					font-weight: 400;
-					font-style: italic;
-				}
-			}
-		}
+		// .reports-view is in View/style.scss
 	
 		.reports-list {
 			position: absolute;
@@ -50,6 +22,7 @@
 			top: 0;
 			padding: 20px;
 			overflow-y: auto;
+			z-index: 10;
 
 			.report {
 				display: flex;
@@ -99,111 +72,6 @@
 
 				+ .report {
 					margin-top: 10px;
-				}
-			}
-		}
-	}
-}
-
-.report-details {
-	position: absolute;
-	left: 0;
-	bottom: 0;
-	display: flex;
-	flex-direction: column-reverse;
-	padding: 40px;
-
-	.report-details-tabs {
-		display: flex;
-		flex-direction: row;
-		user-select: none;
-
-		.report-details-tab-button {
-			width: 48;
-			height: 48;
-			border-radius: 50%;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			border: 1px solid #A7A7A7;
-			cursor: pointer;
-
-			&.active {
-				border: none;
-				background: #575757;
-			}
-
-			+ .report-details-tab-button {
-				margin-left: 10px;
-			}
-		}
-	}
-
-	.report-details-contents {
-		margin-bottom: 30px;
-
-		.report-details-section {
-			display: flex;
-			flex-direction: column;
-
-			.report-details-section-name {
-				font-size: 14px;
-				font-weight: 700;
-				letter-spacing: 3px;
-				text-transform: uppercase;
-				margin-bottom: 16px;
-			}
-
-			+ .report-details-section {
-				margin-top: 30px;
-			}
-
-			// Report Info
-
-			.report-reason {
-				font-size: 24px;
-				font-weight: 400;
-				margin-bottom: 8px;
-			}
-
-			.report-notes {
-				font-size: 14px;
-				font-weight: 400;
-
-				&.empty {
-					font-style: italic;
-				}
-			}
-
-			.report-target {
-				display: flex;
-				flex-direction: row;
-
-				.report-target-avatar {
-					width: 64px;
-					height: 64px;
-					background: white;
-					border-radius: 50%;
-					box-shadow: 0 10px 20px rgba(0, 0, 0, 18%);
-				}
-
-				.report-target-text {
-					display: flex;
-					flex-direction: column;
-					justify-content: center;
-					margin-left: 20px;
-
-					.report-target-name {
-						font-size: 28px;
-						font-weight: 700;
-						margin-bottom: 6px;
-					}
-
-					.report-target-click-prompt {
-						font-size: 16px;
-						font-weight: 400;
-						font-style: italic;
-					}
 				}
 			}
 		}
