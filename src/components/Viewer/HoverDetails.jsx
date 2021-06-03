@@ -35,7 +35,7 @@ class HoverDetails extends React.Component {
 				const owner = collector.owner
 
 				this.setState({
-					name: owner,
+					name: owner.name,
 				})
 			}
 

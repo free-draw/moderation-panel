@@ -198,11 +198,11 @@ class Collector extends EventEmitter {
 	constructor(data) {
 		super()
 
-		this.owner = data.owner
+		this.owner = data.player
 		this.layers = []
 
 		this.container = new PIXI.Container()
-		this.container.name = data.owner
+		this.container.name = data.player.name
 
 		data.layers.forEach((layerData) => {
 			const layer = new Layer(this, layerData)
