@@ -55,7 +55,7 @@ function ReportAcceptDialog(props) {
 function Actions(props) {
 	const report = props.report
 
-	const [dialogOpen, setDialogOpen] = React.useState(false)
+	const [ dialogOpen, setDialogOpen ] = React.useState(false)
 	
 	return (
 		<div className="actions">
