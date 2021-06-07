@@ -1,0 +1,75 @@
+@use "sass:map";
+
+@use "/src/style/colors.scss";
+
+$acceptColor: map.get(colors.$brand, "600");
+$declineColor: #D81B60;
+
+@mixin action($color, $stroke) {
+	border: $stroke solid $color;
+
+	svg path {
+		stroke: $color;
+		stroke-width: $stroke;
+	}
+
+	&:hover {
+		border: none;
+		background: $color;
+
+		svg path {
+			stroke: white;
+		}
+	}
+}
+
+.page-reports .actions {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	pointer-events: none;
+	position: absolute;
+	bottom: 60px;
+	width: 100%;
+	z-index: 10;
+
+	.action {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 50%;
+		width: 64px;
+		height: 64px;
+		cursor: pointer;
+		pointer-events: all;
+		background: white;
+		box-sizing: border-box;
+		background: white;
+
+		svg {
+			pointer-events: none;
+		}
+
+		&.action-accept {
+			@include action($acceptColor, 4px);
+
+			svg {
+				width: 35px;
+				height: 26px;
+			}
+		}
+		
+		&.action-decline {
+			@include action($declineColor, 4px);
+
+			svg {
+				width: 30px;
+				height: 30px;
+			}
+		}
+	}
+
+	.action + .action {
+		margin-left: 20px;
+	}
+}

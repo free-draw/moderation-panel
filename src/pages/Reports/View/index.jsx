@@ -5,7 +5,9 @@ import { getReport } from "/src/api/reports"
 import { getSnapshot } from "/src/api/snapshots"
 
 import Viewer from "/src/components/Viewer"
+
 import Details from "./Details"
+import Actions from "./Actions"
 
 import "./style.scss"
 
@@ -47,6 +49,7 @@ function ReportsView() {
 			return (
 				<div className="reports-view">
 					<Details report={report} snapshot={snapshot} />
+					<Actions report={report} />
 					<Viewer data={snapshot.canvas} />
 				</div>
 			)
