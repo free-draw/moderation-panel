@@ -8,7 +8,7 @@ import "./style.scss"
 function Dialog(props) {
 	return ReactDOM.createPortal((
 		<div className="dialog-container" onClick={props.onCancel}>
-			<div className="dialog">
+			<div className="dialog" onClick={event => event.stopPropagation()}>
 				{props.title ? <span className="dialog-title">{props.title}</span> : null}
 				{props.description ? <span className="dialog-description">{props.description}</span> : null}
 				{

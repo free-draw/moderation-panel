@@ -14,7 +14,7 @@ function Actions(props) {
 	
 	return (
 		<div className="actions">
-			<div className="action action-accept" onClick={dialogOpen ? null : () => setDialogOpen(true)}>
+			<div className="action action-accept" onClick={() => setDialogOpen(true)}>
 				<AcceptIcon />
 				{
 					dialogOpen ? (
