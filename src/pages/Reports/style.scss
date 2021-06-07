@@ -23,6 +23,7 @@
 	padding: 20px;
 	overflow-y: auto;
 	z-index: 10;
+	pointer-events: none;
 
 	.report {
 		display: flex;
@@ -34,6 +35,7 @@
 		padding: 10px;
 		height: 86px;
 		background: white;
+		pointer-events: all;
 
 		.report-avatar {
 			width: 64px;
