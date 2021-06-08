@@ -16,9 +16,10 @@ function Chat(props) {
 	return (
 		<div className="chat">
 			{
-				snapshot.logs.map((logData) => {
+				snapshot.logs.map((logData, index) => {
 					return (
 						<ChatMessage
+							key={index}
 							isTarget={logData.player.id === report.target}
 							player={logData.player}
 							message={logData.message}
