@@ -38,7 +38,7 @@ function Dropdown(props) {
 	const currentOption = props.options.find(option => option.id === props.currentOption)
 
 	return (
-		<div className="dropdown-container">
+		<div className="dropdown-container" style={props.index ? { zIndex: -props.index } : null}>
 			<div className={makeClassName("dropdown", { open })}>
 				{
 					open ? (
