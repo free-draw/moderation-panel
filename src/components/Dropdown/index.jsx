@@ -1,13 +1,22 @@
 import React from "react"
 import Icon from "@mdi/react"
 
+import makeClassName from "/src/util/makeClassName"
+
 import Arrow from "./arrow.svg"
 
 import "./style.scss"
 
 function DropdownItem(props) {
 	return (
-		<div className={`dropdown-option ${props.primary ? "primary" : ""} ${props.current ? "current" : ""}`} onClick={props.onClick}>
+		<div
+			className={makeClassName("dropdown-option", {
+				primary: props.isPrimary,
+				placeholder: props.isPlaceholder,
+				current: props.isCurrent,
+			})}
+			onClick={props.onClick}
+		>
 			{
 				props.icon ? (
 					<Icon
@@ -18,7 +27,7 @@ function DropdownItem(props) {
 					/>
 				) : null
 			}
-			<span className="dropdown-text">{props.text}</span>
+			<span className="dropdown-name">{props.name}</span>
 		</div>
 	)
 }
@@ -30,7 +39,7 @@ function Dropdown(props) {
 
 	return (
 		<div className="dropdown-container">
-			<div className={`dropdown ${open ? "open" : ""}`}>
+			<div className={makeClassName("dropdown", { open })}>
 				{
 					open ? (
 						<div className="dropdown-options">
@@ -38,13 +47,14 @@ function Dropdown(props) {
 								props.options.map((option) => {
 									return (
 										<DropdownItem
-											current={option === currentOption}
+											isCurrent={option === currentOption}
+											key={option.id}
+											name={option.name}
 											onClick={(event) => {
 												setOpen(false)
 												props.onSelection(option.id)
 												event.stopPropagation()
 											}}
-											{...option}
 										/>
 									)
 								})
@@ -52,12 +62,13 @@ function Dropdown(props) {
 						</div>
 					) : (
 						<DropdownItem
-							primary
+							isPrimary
+							isPlaceholder={!currentOption}
+							name={currentOption ? currentOption.name : props.placeholder}
 							onClick={(event) => {
 								setOpen(true)
 								event.stopPropagation()
 							}}
-							{...currentOption}
 						/>
 					)
 				}

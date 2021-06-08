@@ -26,7 +26,7 @@ $height: 42px;
 				margin-left: 8px;
 			}
 	
-			.dropdown-text {
+			.dropdown-name {
 				margin-left: 12px;
 				font-size: 16px;
 				font-weight: 400;
@@ -34,6 +34,16 @@ $height: 42px;
 
 			&:not(.primary):hover {
 				background: rgba(black, 0.1);
+			}
+
+			&.placeholder {
+				.dropdown-icon path {
+					fill: rgba(black, 0.5);
+				}
+
+				.dropdown-name {
+					color: rgba(black, 0.5);
+				}
 			}
 		}
 	}
