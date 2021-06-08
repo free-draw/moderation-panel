@@ -1,10 +1,10 @@
 import EventEmitter from "eventemitter2"
 import * as PIXI from "pixi.js"
 
-import Maid from "../../class/Maid"
-import AABB from "../../class/AABB"
+import Maid from "../../../class/Maid"
+import AABB from "../../../class/AABB"
 
-import { clamp, getAngleDelta } from "../../util/number"
+import { clamp, getAngleDelta } from "../../../util/number"
 
 function getCornerOffset(points, index) {
 	const lastPoint = points[index - 1]
