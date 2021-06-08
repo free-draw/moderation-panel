@@ -5,6 +5,7 @@ import { mdiDraw, mdiInformationVariant, mdiMessageText } from "@mdi/js"
 import makeClassName from "/src/util/makeClassName"
 
 import Chat from "./Chat"
+import Info from "./Info"
 
 import "./style.scss"
 
@@ -16,6 +17,7 @@ const tabs = [
 	{
 		id: "info",
 		icon: mdiInformationVariant,
+		component: Info,
 	},
 	{
 		id: "chat",
