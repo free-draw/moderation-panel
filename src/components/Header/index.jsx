@@ -1,13 +1,15 @@
 import React from "react"
 import { Link } from "react-router-dom"
 
+import makeClassName from "/src/util/makeClassName"
+
 import logo from "url:/src/assets/logo.svg"
 
 import "./style.scss"
 
 function HeaderNavigationButton(props) {
 	return (
-		<Link className={`header-navigation-button ${props.active ? "active" : ""}`} to={props.to}>
+		<Link className={makeClassName("header-navigation-button", { active: props.active })} to={props.to}>
 			<span className="header-navigation-button-text">{props.text}</span>
 		</Link>
 	)

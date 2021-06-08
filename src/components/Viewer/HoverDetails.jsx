@@ -3,6 +3,8 @@ import React from "react"
 import Maid from "../../class/Maid"
 import Vector2 from "../../class/Vector2"
 
+import makeClassName from "/src/util/makeClassName"
+
 class HoverDetails extends React.Component {
 	constructor() {
 		super()
@@ -49,7 +51,7 @@ class HoverDetails extends React.Component {
 
 	render() {
 		return (
-			<div className={`hover-details ${this.state.active ? "active" : ""}`} ref={this.ref}>
+			<div className={makeClassName("hover-details", { active: this.state.active })} ref={this.ref}>
 				<span className="username">{this.state.name}</span>
 			</div>
 		)

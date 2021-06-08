@@ -1,8 +1,10 @@
 import React from "react"
 
+import makeClassName from "/src/util/makeClassName"
+
 function ChatMessage(props) {
 	return (
-		<span className={`chat-message ${props.isTarget ? "target" : ""}`}>
+		<span className={makeClassName("chat-message", { target: props.isTarget })}>
 			<em>{props.player.name}</em>: {props.message}
 		</span>
 	)

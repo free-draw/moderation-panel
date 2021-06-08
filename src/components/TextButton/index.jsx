@@ -1,11 +1,13 @@
 import React from "react"
 
+import makeClassName from "/src/util/makeClassName"
+
 import "./style.scss"
 
 function TextButton(props) {
 	return (
 		<span
-			className={`text-button ${props.style ?? ""} ${props.variant ?? ""}`}
+			className={makeClassName("text-button", [ props.style, props.variant ])}
 			role="button"
 			onClick={props.onClick}
 		>

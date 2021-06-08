@@ -2,6 +2,8 @@ import React from "react"
 import Icon from "@mdi/react"
 import { mdiDraw, mdiInformationVariant, mdiMessageText } from "@mdi/js"
 
+import makeClassName from "/src/util/makeClassName"
+
 import Chat from "./Chat"
 
 import "./style.scss"
@@ -24,7 +26,7 @@ const tabs = [
 
 function DetailsButton(props) {
 	return (
-		<div className={`details-button ${props.active ? "active" : ""}`} onClick={props.onClick}>
+		<div className={makeClassName("details-button", { active: props.active })} onClick={props.onClick}>
 			<Icon path={props.icon} size={32 / 24} color={props.active ? "white" : "black"} />
 		</div>
 	)
@@ -35,7 +37,7 @@ function Details(props) {
 	const currentTab = tabs.find(tab => tab.id === currentTabId)
 
 	return (
-		<div className={`details ${currentTab.component ? "active" : ""}`}>
+		<div className={makeClassName("details", { active: !!currentTab.component })}>
 			<div className="details-buttons">
 				{
 					tabs.map((tab) => {
