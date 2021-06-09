@@ -8,12 +8,6 @@ import HoverDetails from "./HoverDetails"
 
 import "./style.scss"
 
-/*
-	<Viewer
-		data={parsed}
-	/>
-*/
-
 class Viewer extends React.Component {
 	constructor(props) {
 		super()
