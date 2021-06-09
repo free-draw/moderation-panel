@@ -4,10 +4,12 @@ import { useRouteMatch } from "react-router-dom"
 import { getReport } from "/src/api/reports"
 import { getSnapshot } from "/src/api/snapshots"
 
-import Viewer from "/src/components/Viewer"
+import { ViewerCanvas, ViewerHoverDetails, ViewerPositionalOverlay } from "/src/components/viewer"
 
 import Details from "./Details"
 import Actions from "./Actions"
+
+import Vector2 from "/src/class/Vector2"
 
 import "./style.scss"
 
@@ -50,7 +52,9 @@ function ReportsView() {
 				<div className="reports-view">
 					<Details report={report} snapshot={snapshot} />
 					<Actions report={report} />
-					<Viewer data={snapshot.canvas} />
+					<ViewerCanvas data={snapshot.canvas}>
+						<ViewerHoverDetails />
+					</ViewerCanvas>
 				</div>
 			)
 		

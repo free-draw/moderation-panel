@@ -4,11 +4,11 @@ import Canvas from "./core/Canvas"
 import Camera from "./core/Camera"
 import Input from "./core/Input"
 
-import HoverDetails from "./HoverDetails"
+import ViewerContext from "../ViewerContext"
 
 import "./style.scss"
 
-class Viewer extends React.Component {
+class ViewerCanvas extends React.Component {
 	constructor(props) {
 		super()
 
@@ -45,12 +45,20 @@ class Viewer extends React.Component {
 	}
 
 	render() {
+		const context = {
+			canvas: this.canvas,
+			input: this.input,
+			camera: this.camera,
+		}
+
 		return (
-			<div className="viewer" ref={this.ref}>
-				<HoverDetails canvas={this.canvas} input={this.input} />
-			</div>
+			<ViewerContext.Provider value={context}>
+				<div className="viewer-canvas" ref={this.ref}>
+					{this.props.children}
+				</div>
+			</ViewerContext.Provider>
 		)
 	}
 }
 
-export default Viewer
+export default ViewerCanvas
