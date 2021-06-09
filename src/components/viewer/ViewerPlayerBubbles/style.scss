@@ -7,6 +7,7 @@ $size: 64px;
 	align-items: center;
 	transform: translate(-$size / 2, -$size / 2);
 	user-select: none;
+	pointer-events: none;
 
 	.viewer-player-bubble-avatar {
 		width: $size;
@@ -14,6 +15,7 @@ $size: 64px;
 		border-radius: 50%;
 		background: white;
 		box-shadow: 0 10px 20px rgba(black, 18%);
+		pointer-events: all;
 	}
 
 	.viewer-player-bubble-name {
