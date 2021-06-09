@@ -1,6 +1,7 @@
 @use "sass:map";
 
 @use "/src/style/colors";
+@use "/src/style/mixins";
 
 .header {
 	position: relative;
@@ -12,15 +13,7 @@
 	align-items: center;
 	margin-bottom: 1px;
 
-	&:after {
-		content: "";
-		position: absolute;
-		width: 100%;
-		height: 1px;
-		left: 0;
-		top: 100%;
-		background: #BFBFBF,
-	}
+	@include mixins.divider("bottom");
 
 	.header-logo {
 		height: 36px;
