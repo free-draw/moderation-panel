@@ -1,7 +1,7 @@
 import axios from "axios"
 
 import { getRobloxUser } from "./roblox"
-import { parse } from "../util/saveFormat"
+import { parse } from "/src/util/saveFormat"
 
 class Player {
 	constructor(data) {
