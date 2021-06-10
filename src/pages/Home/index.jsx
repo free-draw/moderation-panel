@@ -7,7 +7,7 @@ import "./style.scss"
 function HomePage() {
 	return (
 		<div className="page page-home">
-			<Header page="home" />
+			<Header />
 		</div>
 	)
 }

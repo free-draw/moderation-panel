@@ -7,7 +7,7 @@ import "./style.scss"
 function BansPage() {
 	return (
 		<div className="page page-bans">
-			<Header page="bans" />
+			<Header />
 		</div>
 	)
 }

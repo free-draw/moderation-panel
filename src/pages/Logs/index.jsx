@@ -7,7 +7,7 @@ import "./style.scss"
 function LogsPage() {
 	return (
 		<div className="page page-logs">
-			<Header page="logs" />
+			<Header />
 		</div>
 	)
 }

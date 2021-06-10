@@ -10,7 +10,7 @@ import "./style.scss"
 function ReportsPage() {
 	return (
 		<div className="page page-reports">
-			<Header page="reports" />
+			<Header />
 			<div className="container">
 				<ReportsView />
 				<ReportsList />
