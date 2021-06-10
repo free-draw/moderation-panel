@@ -3,6 +3,8 @@ import { Route } from "react-router-dom"
 
 import Header from "/src/components/Header"
 
+import "./style.scss"
+
 function HomePage() {
 	return (
 		<Route path="/" exact>

@@ -1,8 +1,10 @@
 import React from "react"
 import { BrowserRouter, Route, Switch } from "react-router-dom"
 
-import Home from "/src/pages/Home"
-import Reports from "/src/pages/Reports"
+import Home from "./pages/Home"
+import Reports from "./pages/Reports"
+import Bans from "./pages/Bans"
+import Logs from "./pages/Logs"
 
 class App extends React.Component {
 	render() {
@@ -11,6 +13,8 @@ class App extends React.Component {
 				<Switch>
 					<Route component={Home} path="/" exact />
 					<Route component={Reports} path="/reports" />
+					<Route component={Bans} path="/reports" />
+					<Route component={Logs} path="/logs" />
 				</Switch>
 			</BrowserRouter>
 		)
