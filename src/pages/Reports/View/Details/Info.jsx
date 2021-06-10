@@ -61,6 +61,7 @@ function Info(props) {
 					Object.values(snapshot.players).map((player) => {
 						return (
 							<Player
+								key={player.id}
 								isTarget={player.id === report.target}
 								{...player}
 							/>
