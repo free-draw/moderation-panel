@@ -3,11 +3,14 @@ import axios from "axios"
 import { getRobloxUser } from "./roblox"
 import { parse } from "/src/util/saveFormat"
 
+import Vector2 from "/src/class/Vector2"
+
 class Player {
 	constructor(data) {
 		this.id = data.id
 		this.name = data.name
 		this.displayName = data.displayName
+		this.position = data.position ? new Vector2(data.position.x, data.position.y) : new Vector2(0, 0)
 	}
 }
 
