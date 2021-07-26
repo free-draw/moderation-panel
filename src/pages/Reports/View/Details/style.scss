@@ -58,30 +58,40 @@
 	}
 }
 
-.page-reports .chat {
+.page-reports .logs {
 	width: 330px;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
 	overflow-y: auto;
 
-	.chat-message {
+	.base-message {
 		font-size: 15px;
 		font-weight: 400;
 
-		em {
-			font-weight: 700;
-			font-style: normal;
-		}
+		&.chat {
+			&.target {
+				em {
+					color: map.get(colors.$brand, "600");
+				}
+			}
 
-		&.target {
 			em {
-				color: map.get(colors.$brand, "600");
+				font-weight: 700;
+				font-style: normal;
+			}
+	
+			& + .chat-message {
+				margin-top: 4px;
 			}
 		}
 
-		& + .chat-message {
-			margin-top: 4px;
+		&.event {
+			font-style: italic;
+		}
+
+		& + .base-message {
+			margin-top: 6px;
 		}
 	}
 }

@@ -42,8 +42,9 @@ class Snapshot {
 		this.players = playersMap
 		this.logs = data.logs.map((logData) => {
 			return { 
+				type: logData.type,
 				player: playersMap[logData.userId],
-				message: logData.message,
+				data: logData.data,
 			}
 		})
 		this.canvas = data.canvas.map((canvasData) => {
