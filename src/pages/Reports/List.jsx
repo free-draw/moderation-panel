@@ -1,5 +1,7 @@
 import React from "react"
 import { Link, useRouteMatch } from "react-router-dom"
+import Icon from "@mdi/react"
+import { mdiBroom } from "@mdi/js"
 
 import Maid from "/src/class/Maid"
 import useAsync from "/src/util/useAsync"
@@ -63,15 +65,32 @@ class ReportList extends React.Component {
 			return null
 		}
 
-		const reports = this.state.reports.map((report) => {
-			return <Report key={report.id} report={report} />
-		})
-	
-		return (
-			<div className="reports-list">
-				{reports}
-			</div>
-		)
+		if (this.state.reports.length > 0) {
+			const reports = this.state.reports.map((report) => {
+				return <Report key={report.id} report={report} />
+			})
+		
+			return (
+				<div className="reports-list">
+					{reports}
+				</div>
+			)
+		} else {
+			return (
+				<div className="reports-list empty">
+					<div className="empty-container">
+						<Icon
+							path={mdiBroom}
+							size={3}
+							color="black"
+							className="empty-icon"
+						/>
+						<span className="empty-primary-text">All done!</span>
+						<span className="empty-secondary-text">It looks like you've cleared out all the reports — hooray!</span>
+					</div>
+				</div>
+			)
+		}
 	}
 }
 
