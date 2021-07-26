@@ -1,4 +1,5 @@
 import axios from "axios"
+import lodash from "lodash"
 
 import { getRobloxUser } from "./roblox"
 import { parse } from "/src/util/saveFormat"
@@ -26,15 +27,21 @@ class Snapshot {
 	async initialize() {
 		const data = this._data
 
-		const players = await Promise.all(data.players.map(getRobloxUser))
-		const playersMap = {}
-		players.forEach((playerData) => {
-			playersMap[playerData.id] = new Player(playerData)
-		})
+		const players = await Promise.all(data.players.map(async (playerData) => {
+			const userData = await getRobloxUser(playerData.userId)
+
+			return new Player({
+				id: userData.id,
+				name: userData.name,
+				displayName: userData.displayName,
+				position: playerData.position,
+			})
+		}))
+		const playersMap = lodash.keyBy(players, "id")
 
 		this.players = playersMap
 		this.logs = data.logs.map((logData) => {
-			return {
+			return { 
 				player: playersMap[logData.userId],
 				message: logData.message,
 			}
