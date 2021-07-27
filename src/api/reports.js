@@ -17,14 +17,14 @@ class Report extends EventEmitter {
 		this._data = data
 	}
 
-	async accept(type, duration) {
-		await axios.post(`/reports/${this.id}/accept`, { type, duration })
+	async accept(type, reason, duration) {
+		await axios.post(`/api/reports/${this.id}/accept`, { type, reason, duration })
 		this.result = "ACCEPTED"
 		this.emit("accept")
 	}
 
 	async decline() {
-		await axios.post(`/reports/${this.id}/decline`)
+		await axios.post(`/api/reports/${this.id}/decline`)
 		this.result = "DECLINED"
 		this.emit("decline")
 	}
@@ -63,7 +63,7 @@ class ReportList extends EventEmitter {
 			this.refresh()
 
 			this.socket = io("/reports")
-			
+
 			this.socket.on("reportCreate", (reportData) => {
 				if (!this.getReportById(reportData.id)) {
 					const report = new Report(reportData)

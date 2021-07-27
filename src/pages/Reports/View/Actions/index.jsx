@@ -20,19 +20,19 @@ const reasons = [
 ]
 
 const types = [
-	{ id: "Game", name: "Game" },
-	{ id: "Draw", name: "Draw" },
-	{ id: "Chat", name: "Chat" },
+	{ id: "BAN", name: "Ban" },
+	{ id: "DRAWBAN", name: "Draw-ban" },
+	{ id: "MUTE", name: "Mute" },
 ]
 
 const durations = [
-	{ id: "3d", name: "3 days" },
-	{ id: "1w", name: "1 week" },
-	{ id: "2w", name: "2 weeks" },
-	{ id: "1m", name: "1 month" },
-	{ id: "3m", name: "3 months" },
-	{ id: "6m", name: "6 months" },
-	{ id: "1y", name: "1 year" },
+	{ id: ms("3d"), name: "3 days" },
+	{ id: ms("1w"), name: "1 week" },
+	{ id: ms("2w"), name: "2 weeks" },
+	{ id: ms("4w"), name: "1 month" },
+	{ id: ms("12w"), name: "3 months" },
+	{ id: ms("24w"), name: "6 months" },
+	{ id: ms("1y"), name: "1 year" },
 	{ id: "forever", name: "Forever" },
 ]
 
@@ -61,12 +61,7 @@ function ReportAcceptDialog(props) {
 					style: "bordered",
 					onClick: () => {
 						if (reason && type && duration) {
-							report.accept({
-								reason,
-								type,
-								duration: duration !== "forever" ? ms(duration) / 1000 : null,
-							})
-	
+							report.accept(type, reason, duration !== "forever" ? duration : null)
 							props.close()
 						}
 					},
@@ -103,7 +98,7 @@ function Actions(props) {
 	const report = props.report
 
 	const [ dialogOpen, setDialogOpen ] = React.useState(false)
-	
+
 	return (
 		<div className="actions">
 			<div className="action action-accept" onClick={() => setDialogOpen(true)}>
