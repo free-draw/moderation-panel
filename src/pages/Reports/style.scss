@@ -2,18 +2,6 @@
 
 @use "/src/style/colors";
 
-.page-reports {
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-	overflow: hidden;
-
-	.container {
-		position: relative;
-		flex-grow: 1;
-	}
-}
-
 .page-reports .reports-list {
 	position: absolute;
 	width: 340px + 20px * 2;

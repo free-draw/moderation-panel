@@ -1,0 +1,14 @@
+.page {
+	display: flex;
+	flex-direction: column;
+
+	&.fixed {
+		height: 100%;
+		overflow: hidden;
+
+		.page-container {
+			position: relative;
+			flex-grow: 1;
+		}
+	}
+}

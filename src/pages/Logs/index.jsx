@@ -1,14 +1,14 @@
 import React from "react"
 
-import Header from "/src/components/Header"
+import Page from "/src/components/Page"
 
 import "./style.scss"
 
 function LogsPage() {
 	return (
-		<div className="page page-logs">
-			<Header />
-		</div>
+		<Page name="logs">
+
+		</Page>
 	)
 }
 
