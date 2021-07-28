@@ -24,7 +24,7 @@ function Header() {
 			<div className="header-navigation">
 				<HeaderNavigationButton text="Home" to="/" exact />
 				<HeaderNavigationButton text="Reports" to="/reports" />
-				<HeaderNavigationButton text="Bans" to="/bans" />
+				<HeaderNavigationButton text="Users" to="/users" />
 				<HeaderNavigationButton text="Logs" to="/logs" />
 			</div>
 		</div>

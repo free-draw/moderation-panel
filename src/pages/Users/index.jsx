@@ -4,12 +4,12 @@ import Header from "/src/components/Header"
 
 import "./style.scss"
 
-function BansPage() {
+function UsersPage() {
 	return (
-		<div className="page page-bans">
+		<div className="page page-users">
 			<Header />
 		</div>
 	)
 }
 
-export default BansPage
+export default UsersPage

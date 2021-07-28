@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom"
 
 import Home from "./pages/Home"
 import Reports from "./pages/Reports"
-import Bans from "./pages/Bans"
+import Users from "./pages/Users"
 import Logs from "./pages/Logs"
 
 class App extends React.Component {
@@ -13,7 +13,7 @@ class App extends React.Component {
 				<Switch>
 					<Route component={Home} path="/" exact />
 					<Route component={Reports} path="/reports" />
-					<Route component={Bans} path="/bans" />
+					<Route component={Users} path="/users" />
 					<Route component={Logs} path="/logs" />
 				</Switch>
 			</BrowserRouter>
