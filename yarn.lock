@@ -3316,6 +3316,11 @@ inherits@2, inherits@^2.0.1, inherits@^2.0.3, inherits@^2.0.4, inherits@~2.0.3:
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.4.tgz#0fa2c64f932917c3433a0ded55363aae37416b7c"
   integrity sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
 
+inter-ui@^3.19.2:
+  version "3.19.2"
+  resolved "https://registry.yarnpkg.com/inter-ui/-/inter-ui-3.19.2.tgz#8d44124e9ec3334f13eaeca11f51c8c372fbd933"
+  integrity sha512-37zvANW4A5gyXbV7gXFGAUup7q1f07j1qSTAR0n+kHcyynTIisFb1UQNhd4jSbqYnyheMIbbT/sQ/LJ6Migw4A==
+
 invert-kv@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/invert-kv/-/invert-kv-1.0.0.tgz#104a8e4aaca6d3d8cd157a8ef8bfab2d7a3ffdb6"
