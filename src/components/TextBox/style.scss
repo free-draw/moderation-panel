@@ -1,3 +1,5 @@
+@use "/src/style/colors";
+
 .text-box {
 	color: black;
 	font-size: 16px;
@@ -5,7 +7,7 @@
 	height: 42px;
 	width: 100%;
 	padding-left: 12px;
-	border: 1px solid #BFBFBF;
+	border: 1px solid colors.$border;
 	border-radius: 8px;
 
 	&:placeholder {

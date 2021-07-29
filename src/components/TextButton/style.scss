@@ -36,7 +36,7 @@
 	&.bordered {
 		color: black;
 		box-sizing: border-box;
-		border: 1px solid #BFBFBF;
+		border: 1px solid colors.$border;
 	}
 
 	&.bordered, &.flat {

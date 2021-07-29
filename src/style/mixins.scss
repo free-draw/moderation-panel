@@ -1,4 +1,5 @@
-$divider-color: #BFBFBF;
+@use "/src/style/colors";
+
 @mixin divider($side) {
 	@if $side == "left" or $side == "top" {
 		&:before {
@@ -16,7 +17,7 @@ $divider-color: #BFBFBF;
 
 			content: "";
 			position: absolute;
-			background: $divider-color;
+			background: colors.$divider;
 		}
 	} @else if $side == "right" or $side == "bottom" {
 		&:after {
@@ -34,7 +35,7 @@ $divider-color: #BFBFBF;
 
 			content: "";
 			position: absolute;
-			background: $divider-color;
+			background: colors.$divider;
 		}
 	}
 }

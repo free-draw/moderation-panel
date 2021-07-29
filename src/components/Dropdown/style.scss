@@ -1,3 +1,5 @@
+@use "/src/style/colors";
+
 $height: 42px;
 
 .dropdown-container {
@@ -9,10 +11,10 @@ $height: 42px;
 		display: flex;
 		flex-direction: column;
 		width: 100%;
-		border: 1px solid #BFBFBF;
+		border: 1px solid colors.$border;
 		border-radius: 8px;
 		background: white;
-	
+
 		.dropdown-option {
 			display: flex;
 			flex-direction: row;
@@ -21,11 +23,11 @@ $height: 42px;
 			height: $height;
 			cursor: pointer;
 			border-radius: 8px;
-			
+
 			.dropdown-icon {
 				margin-left: 8px;
 			}
-	
+
 			.dropdown-name {
 				margin-left: 12px;
 				font-size: 16px;

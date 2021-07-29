@@ -16,7 +16,7 @@
 	.report {
 		display: flex;
 		flex-direction: horizontal;
-		border: 1px solid #C7C7C7;
+		border: 1px solid colors.$border;
 		border-radius: 8px;
 		cursor: pointer;
 		user-select: none;

@@ -30,7 +30,7 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			border: 1px solid #BFBFBF;
+			border: 1px solid colors.$border;
 			border-radius: 12px;
 			cursor: pointer;
 			background: white;
@@ -80,7 +80,7 @@
 				font-weight: 700;
 				font-style: normal;
 			}
-	
+
 			& + .chat-message {
 				margin-top: 4px;
 			}
@@ -134,9 +134,9 @@
 				text-transform: uppercase;
 				margin-bottom: 4px;
 			}
-			
+
 			.important-player-name {
-				
+
 			}
 		}
 	}
