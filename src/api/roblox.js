@@ -45,16 +45,11 @@ const RobloxThumbnailResource = new Resource(async (batch) => {
 	return results
 })
 
-export function getRobloxUser(userId) {
-	userId = parseInt(userId)
-	return RobloxUserResource.invoke(userId, userId)
-}
-
-export function getRobloxUsername(username) {
-	return RobloxUsernameResource.invoke(username, username)
-}
-
-export function getRobloxThumbnail(type, id, size) {
-	const batchId = `${type}-${id}-${size}`
-	return RobloxThumbnailResource.invoke(batchId, { type, id, size })
-}
+export const getRobloxUser = RobloxUserResource.createInvoker({ mapId: parseInt, mapData: parseInt })
+export const getRobloxUsername = RobloxUsernameResource.createInvoker()
+export const getRobloxThumbnail = RobloxThumbnailResource.createInvoker({
+	mapId: (type, id, size) => `${type}-${id}-${size}`,
+	mapData: (type, id, size) => {
+		return { type, id, size }
+	},
+})

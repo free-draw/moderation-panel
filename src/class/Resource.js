@@ -58,6 +58,17 @@ class Resource {
 		this._batchPromises[id] = promise
 		return promise
 	}
+
+	createInvoker(options) {
+		const { mapId, mapData, mapResult } = options ?? {}
+
+		return async (...args) => {
+			const id = mapId ? mapId(...args) : args[0]
+			const data = mapData ? mapData(...args) : args[0]
+			const result = await this.invoke(id, data)
+			return mapResult ? mapResult(result, { id, data, args }) : result
+		}
+	}
 }
 
 export default Resource
