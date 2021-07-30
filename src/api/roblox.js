@@ -15,6 +15,19 @@ const RobloxUserResource = new Resource(async (batch) => {
 	return results
 })
 
+const RobloxUsernameResource = new Resource(async (batch) => {
+	const response = await axios.post("/api/roblox/usernames", {
+		usernames: Object.values(batch),
+		excludeBannedUsers: false,
+	})
+
+	const results = {}
+	response.data.data.forEach((user) => {
+		results[user.requestedUsername] = user.id
+	})
+	return results
+})
+
 const RobloxThumbnailResource = new Resource(async (batch) => {
 	const response = await axios.post("/api/roblox/thumbnails", Object.entries(batch).map(([ batchId, batchItem ]) => {
 		return {
@@ -35,6 +48,10 @@ const RobloxThumbnailResource = new Resource(async (batch) => {
 export function getRobloxUser(userId) {
 	userId = parseInt(userId)
 	return RobloxUserResource.invoke(userId, userId)
+}
+
+export function getRobloxUsername(username) {
+	return RobloxUsernameResource.invoke(username, username)
 }
 
 export function getRobloxThumbnail(type, id, size) {
