@@ -39,13 +39,7 @@ $height: 42px;
 			}
 
 			&.placeholder {
-				.dropdown-icon path {
-					fill: rgba(black, 0.5);
-				}
-
-				.dropdown-name {
-					color: rgba(black, 0.5);
-				}
+				color: rgba(black, 0.5);
 			}
 		}
 	}
@@ -57,13 +51,10 @@ $height: 42px;
 		width: 6px;
 		height: 12px;
 		pointer-events: none;
+		color: #9F9F9F;
 
 		&.open {
 			transform: rotate(90deg);
-		}
-
-		path {
-			fill: #9F9F9F;
 		}
 	}
 }

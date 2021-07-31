@@ -31,10 +31,7 @@
 				right: 14px;
 				top: calc(50% - (24px / 2));
 				cursor: pointer;
-
-				path {
-					color: map.get(colors.$brand, "600");
-				}
+				color: map.get(colors.$brand, "600");
 
 				&.active {
 					visibility: visible;
