@@ -10,6 +10,7 @@ import { getRobloxUsername } from "/src/api/roblox"
 import Page from "/src/components/Page"
 import Dialog from "/src/components/Dialog"
 import Spinner from "/src/components/Spinner"
+import TextBox from "/src/components/TextBox"
 
 import "./style.scss"
 
@@ -59,7 +60,7 @@ function UsersPage() {
 		<Page name="users" fixed>
 			<div className="search-container">
 				<div className="search-bar-container">
-					<input
+					<TextBox
 						className={makeClassName("search-bar", { error: !isContentValid })}
 						type="text"
 						placeholder="Username"
