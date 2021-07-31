@@ -1,6 +1,9 @@
+@use "sass:map";
+
 @use "/src/style/colors";
 
 .text-box {
+	background: none;
 	color: black;
 	font-size: 16px;
 	font-weight: 400;
@@ -12,5 +15,10 @@
 
 	&:placeholder {
 		color: rgba(black, 0.5);
+	}
+
+	&:focus-visible {
+		border: 1px solid map.get(colors.$brand, "600");
+		outline: none;
 	}
 }
