@@ -1,7 +1,7 @@
 {
   "scripts": {
     "dev": "parcel serve src/index.html",
-    "test": "parcel --version"
+    "build": "parcel build src/index.html"
   },
   "dependencies": {
     "@mdi/js": "^5.9.55",
