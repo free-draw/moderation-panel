@@ -50,4 +50,56 @@
 			}
 		}
 	}
+
+	.header-spacer {
+		flex: 1;
+	}
+
+	.header-context {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+
+		.current-user {
+			font-size: 16px;
+			font-weight: 400;
+			margin-right: 18px;
+
+			em {
+				font-style: normal;
+				font-weight: 700;
+			}
+		}
+
+		.settings-container {
+			position: relative;
+
+			.settings-icon {
+				cursor: pointer;
+			}
+
+			.settings {
+				position: absolute;
+				top: calc(100% + 20px);
+				right: 0;
+				background: white;
+				border-radius: 12px;
+				border: 1px solid colors.$border;
+				padding: 16px;
+				max-width: 300px;
+				z-index: 1000;
+
+				&:not(.open) {
+					visibility: hidden;
+				}
+
+				.settings-notice {
+					display: inline-block;
+					font-size: 16px;
+					font-weight: 400;
+					white-space: nowrap;
+				}
+			}
+		}
+	}
 }
