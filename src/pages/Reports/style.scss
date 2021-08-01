@@ -2,95 +2,99 @@
 
 @use "/src/style/colors";
 
-.page-reports .reports-list {
-	position: absolute;
-	width: 340px + 20px * 2;
+.page-reports {
 	height: 100%;
-	right: 0;
-	top: 0;
-	padding: 20px;
-	overflow-y: auto;
-	z-index: 10;
-	pointer-events: none;
 
-	.report {
-		display: flex;
-		flex-direction: horizontal;
-		border: 1px solid colors.$border;
-		border-radius: 8px;
-		cursor: pointer;
-		user-select: none;
-		padding: 10px;
-		height: 86px;
-		background: white;
-		pointer-events: all;
+	.reports-list {
+		position: absolute;
+		width: 340px + 20px * 2;
+		height: 100%;
+		right: 0;
+		top: 0;
+		padding: 20px;
+		overflow-y: auto;
+		z-index: 10;
+		pointer-events: none;
 
-		.report-avatar {
-			width: 64px;
-			height: 64px;
-			border-radius: 50%;
-		}
-
-		.report-text {
-			flex-grow: 1;
+		.report {
 			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			margin-left: 20px;
+			flex-direction: horizontal;
+			border: 1px solid colors.$border;
+			border-radius: 8px;
+			cursor: pointer;
+			user-select: none;
+			padding: 10px;
+			height: 86px;
+			background: white;
+			pointer-events: all;
 
-			.report-username {
-				font-size: 18px;
-				font-weight: 700;
-				margin-bottom: 4px;
+			.report-avatar {
+				width: 64px;
+				height: 64px;
+				border-radius: 50%;
 			}
 
-			.report-reason {
-				font-size: 16px;
-				font-weight: 400;
+			.report-text {
+				flex-grow: 1;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				margin-left: 20px;
+
+				.report-username {
+					font-size: 18px;
+					font-weight: 700;
+					margin-bottom: 4px;
+				}
+
+				.report-reason {
+					font-size: 16px;
+					font-weight: 400;
+				}
+			}
+
+			&.loading {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			&.selected {
+				padding: 10px - 1px;
+				border: 2px solid map.get(colors.$brand, "600");
+			}
+
+			+ .report {
+				margin-top: 10px;
 			}
 		}
 
-		&.loading {
+		&.empty {
 			display: flex;
 			align-items: center;
 			justify-content: center;
-		}
 
-		&.selected {
-			padding: 10px - 1px;
-			border: 2px solid map.get(colors.$brand, "600");
-		}
+			.empty-container {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
 
-		+ .report {
-			margin-top: 10px;
-		}
-	}
+				.empty-primary-text {
+					font-size: 18px;
+					font-weight: 500;
+					margin-top: 20px;
+				}
 
-	&.empty {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-
-		.empty-container {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
-
-			.empty-primary-text {
-				font-size: 18px;
-				font-weight: 500;
-				margin-top: 20px;
-			}
-
-			.empty-secondary-text {
-				font-size: 16px;
-				font-weight: 300;
-				font-style: italic;
-				text-align: center;
-				line-height: 22px;
-				margin-top: 8px;
-				width: 270px;
+				.empty-secondary-text {
+					font-size: 16px;
+					font-weight: 300;
+					font-style: italic;
+					text-align: center;
+					line-height: 22px;
+					margin-top: 8px;
+					width: 270px;
+				}
 			}
 		}
 	}

@@ -2,7 +2,8 @@
 
 @use "/src/style/colors";
 
-.page-users .page-container {
+.page-users {
+	height: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
