@@ -90,7 +90,7 @@
 				z-index: 1000;
 
 				&:not(.open) {
-					visibility: hidden;
+					display: none;
 				}
 
 				.settings-notice {
