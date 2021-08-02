@@ -8,22 +8,20 @@ import Reports from "./pages/Reports"
 import Users from "./pages/Users"
 import Logs from "./pages/Logs"
 
-class App extends React.Component {
-	render() {
-		return (
-			<BrowserRouter>
-				<Header />
-				<div className="page-container">
-					<Switch>
-						<Route component={Home} path="/" exact />
-						<Route component={Reports} path="/reports" />
-						<Route component={Users} path="/users" />
-						<Route component={Logs} path="/logs" />
-					</Switch>
-				</div>
-			</BrowserRouter>
-		)
-	}
+function App() {
+	return (
+		<BrowserRouter>
+			<Header />
+			<div className="page-container">
+				<Switch>
+					<Route component={Home} path="/" exact />
+					<Route component={Reports} path="/reports" />
+					<Route component={Users} path="/users" exact />
+					<Route component={Logs} path="/logs" />
+				</Switch>
+			</div>
+		</BrowserRouter>
+	)
 }
 
 export default App
