@@ -2,6 +2,7 @@ import React from "react"
 import { Link, useRouteMatch } from "react-router-dom"
 import Icon from "@mdi/react"
 import { mdiCog } from "@mdi/js"
+import { useSpring, animated } from "react-spring"
 
 import makeClassName from "/src/util/makeClassName"
 
@@ -32,6 +33,14 @@ function Header() {
 		setLoaded(true)
 	}, [])
 
+	const settingsSpring = useSpring({
+		to: { active: settingsOpen ? 1 : 0 },
+		config: {
+			frequency: 1/6,
+			damping: 0.7,
+		},
+	})
+
 	return (
 		<div className="header">
 			<img src={logo} className="header-logo" />
@@ -57,9 +66,16 @@ function Header() {
 						size={1}
 						onClick={() => setSettingsOpen(!settingsOpen)}
 					/>
-					<div className={makeClassName("settings", { open: settingsOpen })}>
+					<animated.div
+						className={makeClassName("settings", { open: settingsOpen })}
+						style={{
+							transform: settingsSpring.active.to(value => `translate(0px, ${-(1 - value) * 10}px)`),
+							opacity: settingsSpring.active,
+							display: settingsSpring.active.to(value => value > 0.025 ? "block" : "none"),
+						}}
+					>
 						<span className="settings-notice">There's nothing here yet!</span>
-					</div>
+					</animated.div>
 				</div>
 			</div>
 		</div>
