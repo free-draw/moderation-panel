@@ -8,6 +8,7 @@ import Header from "./components/Header"
 import Home from "./pages/Home"
 import Reports from "./pages/Reports"
 import Users from "./pages/Users"
+import User from "./pages/User"
 import Logs from "./pages/Logs"
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
 					<Route component={Home} path="/" exact />
 					<Route component={Reports} path="/reports" />
 					<Route component={Users} path="/users" exact />
+					<Route component={User} path="/users/:userId" />
 					<Route component={Logs} path="/logs" />
 				</Switch>
 			</div>
