@@ -12,8 +12,8 @@ function Dialog(props) {
 			onClick={(event) => {
 				if (props.onCancel) {
 					props.onCancel()
-					event.stopPropagation()
 				}
+				event.stopPropagation()
 			}}
 		>
 			<div className="dialog" onClick={event => event.stopPropagation()}>
