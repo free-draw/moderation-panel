@@ -55,7 +55,7 @@ function Action(props) {
 				</div>
 				<div className="buttons">
 					{
-						props.active && action.report ? (
+						action.report ? (
 							<IconButton
 								icon={mdiMagnify}
 								onClick={() => history.push(`/reports/${action.report}`)}
@@ -63,7 +63,14 @@ function Action(props) {
 						) : null
 					}
 					<>
-						<IconButton icon={mdiTrashCanOutline} onClick={() => setPrompt(true)} />
+						{
+							props.active ? (
+								<IconButton
+									icon={mdiTrashCanOutline}
+									onClick={() => setPrompt(true)}
+								/>
+							) : null
+						}
 						{
 							prompt ? (
 								<ActionDeleteDialog
