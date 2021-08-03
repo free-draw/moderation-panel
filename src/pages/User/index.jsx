@@ -38,6 +38,17 @@ function ActionDeleteDialog(props) {
 	)
 }
 
+function ActionField(props) {
+	return (
+		<div className={makeClassName("field", { inline: props.inline })}>
+			<span className="field-name">{props.name}</span>
+			<span className={makeClassName("field-value", { empty: props.empty })}>
+				{props.value}
+			</span>
+		</div>
+	)
+}
+
 function Action(props) {
 	const { action } = props
 
@@ -87,24 +98,21 @@ function Action(props) {
 				</div>
 			</div>
 			<div className="secondary-details">
-				<div className="field full">
-					<span className="field-name">Notes</span>
-					<span className={makeClassName("field-value", { empty: !action.notes })}>
-						{action.notes ?? "No notes specified"}
-					</span>
-				</div>
-				<div className="field">
-					<span className="field-name">Moderator</span>
-					<span className="field-value">
-						[TODO]
-					</span>
-				</div>
-				<div className="field">
-					<span className="field-name">Time</span>
-					<span className="field-value">
-						{action.timestamp.toLocaleString()}
-					</span>
-				</div>
+				<ActionField
+					name="Notes"
+					value={action.notes ?? "No notes specified"}
+					empty={!action.notes}
+				/>
+				<ActionField
+					name="Moderator"
+					value="[TODO]"
+					inline
+				/>
+				<ActionField
+					name="Time"
+					value={action.timestamp.toLocaleString()}
+					inline
+				/>
 			</div>
 		</div>
 	)

@@ -148,12 +148,11 @@
 							display: flex;
 							flex-direction: column;
 
-							&.full {
-								width: 100%;
-							}
-
-							&:not(.full) {
+							&.inline {
 								flex: 1;
+							}
+							&:not(.inline) {
+								width: 100%;
 							}
 
 							.field-name {
