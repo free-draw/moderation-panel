@@ -113,6 +113,15 @@ function Action(props) {
 					value={action.timestamp.toLocaleString()}
 					inline
 				/>
+				{
+					action.expiry ? (
+						<ActionField
+							name="Expiry"
+							value={action.expiry.toLocaleString()}
+							inline
+						/>
+					) : null
+				}
 			</div>
 		</div>
 	)
