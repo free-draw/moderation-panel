@@ -11,6 +11,7 @@ class Action {
 		this.reason = data.reason
 		this.snapshot = data.snapshot
 		this.report = data.report
+		this.moderator = data.moderator
 		this.timestamp = new Date(data.timestamp)
 
 		this.active = active
