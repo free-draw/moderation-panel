@@ -1,0 +1,11 @@
+.icon-button {
+	display: inline-block;
+	padding: 9px;
+	border-radius: 50%;
+	cursor: pointer;
+	z-index: 5;
+
+	&:hover {
+		background: rgba(black, 10%);
+	}
+}
