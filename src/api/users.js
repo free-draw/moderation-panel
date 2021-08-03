@@ -7,7 +7,7 @@ class Action {
 		this.id = data.id
 		this.type = data.type
 		this.data = data.data
-		this.expiry = new Date(data.expiry)
+		this.expiry = data.expiry ? new Date(data.expiry) : null
 		this.reason = data.reason
 		this.snapshot = data.snapshot
 		this.report = data.report
