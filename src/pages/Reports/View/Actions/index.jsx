@@ -61,7 +61,7 @@ function ReportAcceptDialog(props) {
 					style: "bordered",
 					onClick: () => {
 						if (reason && type && duration) {
-							report.accept(type, reason, duration !== "forever" ? duration : null)
+							report.accept(type, reason, duration !== "forever" ? duration / 1000 : null)
 							props.close()
 						}
 					},
