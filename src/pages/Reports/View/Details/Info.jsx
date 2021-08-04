@@ -54,7 +54,7 @@ function Info(props) {
 			<ImportantPlayer label="From" {...snapshot.players[report.from]}/>
 			<ImportantPlayer label="Target" {...snapshot.players[report.target]}/>
 			<InfoSection id="notes" header="Notes">
-				{snapshot.notes ?? <em>No notes specified</em>}
+				{report.notes ?? <em>No notes specified</em>}
 			</InfoSection>
 			<InfoSection id="players" header="Players">
 				{
