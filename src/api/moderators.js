@@ -1,5 +1,7 @@
 import axios from "axios"
 
+import Resource from "/src/class/Resource"
+
 class ModeratorAccount {
 	constructor(data) {
 		this.type = data.type
@@ -26,7 +28,19 @@ class Moderator {
 	}
 }
 
-export async function getModerator(moderatorId) {
-	const response = await axios(`/api/moderators/${moderatorId}`)
-	return new Moderator(response.data.moderator)
-}
+const ModeratorResource = new Resource(async (batch) => {
+	const moderators = await Promise.all(
+		Object.values(batch).map(async (moderatorId) => {
+			const response = await axios(`/api/moderators/${moderatorId}`)
+			return new Moderator(response.data.moderator)
+		})
+	)
+
+	const results = {}
+	moderators.forEach((moderator) => {
+		results[moderator.id] = moderator
+	})
+	return results
+})
+
+export const getModerator = ModeratorResource.createInvoker()

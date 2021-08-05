@@ -6,6 +6,7 @@ import useAsync from "/src/util/useAsync"
 import makeClassName from "/src/util/makeClassName"
 
 import { getRobloxUser, getRobloxThumbnail } from "/src/api/roblox"
+import { getModerator } from "/src/api/moderators"
 import { getUser } from "/src/api/users"
 
 import Page from "/src/components/Page"
@@ -51,11 +52,14 @@ function ActionField(props) {
 
 function Action(props) {
 	const { action } = props
+	const history = useHistory()
 
 	const [ expanded, setExpanded ] = React.useState(false)
 	const [ prompt, setPrompt ] = React.useState(false)
 
-	const history = useHistory()
+	const moderator = useAsync(getModerator, !action.moderator || !expanded)(action.moderator)
+	const moderatorName = action.moderator ? (moderator ? moderator.name : "Loading...") : "Unknown"
+	const moderatorNameLoaded = action.moderator && moderator
 
 	return (
 		<div className={makeClassName("action", { inactive: !action.active, expanded })} onClick={() => setExpanded(!expanded)}>
@@ -105,7 +109,8 @@ function Action(props) {
 				/>
 				<ActionField
 					name="Moderator"
-					value="[TODO]"
+					value={moderatorName}
+					empty={!moderatorNameLoaded}
 					inline
 				/>
 				<ActionField
