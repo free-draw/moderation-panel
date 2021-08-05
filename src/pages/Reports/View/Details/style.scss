@@ -1,7 +1,6 @@
 @use "sass:map";
 
 @use "/src/style/colors";
-@use "/src/style/mixins";
 
 .page-reports .details {
 	position: absolute;
@@ -13,16 +12,13 @@
 	flex-basis: auto;
 	z-index: 10;
 	background: white;
-
-	@include mixins.divider("right");
+	max-height: 100%;
 
 	.details-buttons {
 		display: flex;
 		flex-direction: column;
 		position: relative;
 		padding: 20px;
-
-		@include mixins.divider("right");
 
 		.details-button {
 			width: 56px;
@@ -47,8 +43,18 @@
 	}
 
 	.details-container {
-		margin: 20px;
+		padding: 20px 0;
 		display: none;
+		max-height: 100%;
+		position: relative;
+
+		.details-component-container {
+			border: 1px solid colors.$border;
+			border-radius: 12px;
+			padding: 20px;
+			max-height: 100%;
+			overflow-y: auto;
+		}
 	}
 
 	&.active {
@@ -60,7 +66,6 @@
 
 .page-reports .logs {
 	width: 330px;
-	height: 100%;
 	display: flex;
 	flex-direction: column;
 	overflow-y: auto;

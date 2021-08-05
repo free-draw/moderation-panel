@@ -56,9 +56,13 @@ function Details(props) {
 			</div>
 
 			{
-				currentTab.component ? <div className="details-container">
-					<currentTab.component {...props} />
-				</div> : null
+				currentTab.component ? (
+					<div className="details-container">
+						<div className="details-component-container">
+							<currentTab.component {...props} />
+						</div>
+					</div>
+				) : null
 			}
 		</div>
 	)
