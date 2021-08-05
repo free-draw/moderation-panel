@@ -79,7 +79,7 @@ function Action(props) {
 					}
 					<>
 						{
-							props.active ? (
+							action.active ? (
 								<IconButton
 									icon={mdiTrashCanOutline}
 									onClick={() => setPrompt(true)}
