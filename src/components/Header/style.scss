@@ -37,6 +37,10 @@
 				font-weight: 300;
 			}
 
+			&:hover {
+				background: rgba(black, 10%);
+			}
+
 			&.active {
 				border: none;
 				background: map.get(colors.$brand, "600");
