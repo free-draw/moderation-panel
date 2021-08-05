@@ -1,7 +1,10 @@
 import axios from "axios"
+import EventEmitter from "eventemitter2"
 
-class Action {
+class Action extends EventEmitter {
 	constructor(user, data, active) {
+		super()
+
 		this.user = user
 
 		this.id = data.id
@@ -18,13 +21,25 @@ class Action {
 	}
 
 	async delete() {
+		if (!this.active) {
+			throw new Error("Action is already deleted")
+		}
+
 		await axios.delete(`/api/users/${this.user.id}/action/${this.id}`)
+
 		this.user.actions = this.user.actions.filter(action => action !== this)
+		this.user.history.push(this)
+
+		this.active = false
+		this.emit("delete")
+		this.user.emit("actionDelete", this)
 	}
 }
 
-class User {
+class User extends EventEmitter {
 	constructor(data) {
+		super()
+
 		this.id = data.userId
 		this.actions = data.actions.map(actionData => new Action(this, actionData, true))
 		this.history = data.history.map(actionData => new Action(this, actionData, false))
@@ -36,13 +51,17 @@ class User {
 			id: response.data.actionId,
 		}), true)
 		this.actions.push(action)
+		this.emit("actionCreate", action)
 		return action
 	}
 
 	async deleteActionsByType(type) {
-		const response = await axios.delete(`/api/users/${this.userId}/type/${type}`)
-		this.actions = this.actions.filter(action => action.type !== type)
-		return response.data.discardedActions.map(actionData => new Action(this, actionData, false))
+		await axios.delete(`/api/users/${this.userId}/type/${type}`)
+
+		const deletedActions = this.actions.filter(action => action.type === type)
+		deletedActions.forEach(action => action.delete())
+
+		return deletedActions
 	}
 }
 

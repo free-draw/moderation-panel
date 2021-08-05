@@ -5,6 +5,8 @@ import { mdiMagnify, mdiTrashCanOutline } from "@mdi/js"
 import useAsync from "/src/util/useAsync"
 import makeClassName from "/src/util/makeClassName"
 
+import Maid from "/src/class/Maid"
+
 import { getRobloxUser, getRobloxThumbnail } from "/src/api/roblox"
 import { getModerator } from "/src/api/moderators"
 import { getUser } from "/src/api/users"
@@ -90,9 +92,9 @@ function Action(props) {
 							prompt ? (
 								<ActionDeleteDialog
 									action={action}
-									onDelete={() => {
+									onDelete={async () => {
 										setPrompt(false)
-										action.delete()
+										await action.delete()
 									}}
 									onClose={() => setPrompt(false)}
 								/>
@@ -139,11 +141,30 @@ function UserPage(props) {
 	const avatar = useAsync(getRobloxThumbnail)("AvatarHeadShot", userId, "420x420")
 	const user = useAsync(getUser)(userId)
 
-	let actions
-	if (user) {
-		actions = [].concat(user.actions, user.history)
-		actions.sort((B, A) => A.timestamp.getTime() - B.timestamp.getTime())
-		actions = actions.map(action => <Action key={action.id} action={action} />)
+	const [ actions, setActions ] = React.useState(null)
+	React.useEffect(() => {
+		setActions(null)
+
+		if (user) {
+			function update() {
+				setActions([].concat(user.actions, user.history))
+			}
+
+			const maid = new Maid()
+			maid.listen(user, "actionCreate", update)
+			maid.listen(user, "actionDelete", update)
+
+			update()
+
+			return () => maid.clean()
+		}
+	}, [ user ])
+
+	let actionElements
+	if (actions) {
+		actionElements = [ ...actions ]
+			.sort((B, A) => A.timestamp.getTime() - B.timestamp.getTime())
+			.map(action => <Action key={action.id} action={action} />)
 	}
 
 	return (
@@ -169,7 +190,7 @@ function UserPage(props) {
 				<div className="content-section">
 					<span className="content-header">Actions</span>
 					<div className={makeClassName("content-container actions", { loading: !user })}>
-						{actions ?? <Spinner />}
+						{actionElements ?? <Spinner />}
 					</div>
 				</div>
 			</div>
