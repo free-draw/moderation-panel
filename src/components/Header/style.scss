@@ -90,6 +90,8 @@
 				padding: 16px;
 				max-width: 300px;
 				z-index: 1000;
+				user-select: none;
+				cursor: default;
 
 				.settings-notice {
 					display: inline-block;
