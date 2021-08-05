@@ -59,7 +59,13 @@ function UsersPage() {
 	return (
 		<Page name="users" fixed>
 			<div className="search-container">
-				<div className="search-bar-container">
+				<form
+					className="search-bar-form"
+					onSubmit={(event) => {
+						search()
+						event.preventDefault()
+					}}
+				>
 					<TextBox
 						className={makeClassName("search-bar", { error: !isContentValid })}
 						type="text"
@@ -77,7 +83,7 @@ function UsersPage() {
 					{
 						loading ? <Spinner /> : null
 					}
-				</div>
+				</form>
 
 				<span className={makeClassName("search-hint", { error: !isContentValid })}>
 					{
