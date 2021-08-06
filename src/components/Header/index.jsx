@@ -8,7 +8,7 @@ import makeClassName from "/src/util/makeClassName"
 
 import { getCurrentUser } from "/src/api/auth"
 
-import logo from "url:/src/assets/logo.svg"
+import Logo from "/src/assets/logo.svg"
 
 import "./style.scss"
 
@@ -43,7 +43,7 @@ function Header() {
 
 	return (
 		<div className="header">
-			<img src={logo} className="header-logo" />
+			<Logo className="header-logo" />
 			<div className="header-navigation">
 				<HeaderNavigationButton text="Home" to="/" exact />
 				<HeaderNavigationButton text="Reports" to="/reports" />

@@ -1,4 +1,5 @@
-@import "inter-ui/inter.css";
+// I have no clue if directly defining node_modules is a good idea, but it works so I don't entirely care
+@import "~/node_modules/inter-ui/inter.css";
 
 html, body, #app {
 	top: 0;
