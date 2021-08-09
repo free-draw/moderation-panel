@@ -25,17 +25,11 @@ function App() {
 
 	const [ loginStatus, setLoginStatus ] = React.useState("UNKNOWN")
 	React.useEffect(async () => {
-		const token = Cookies.get("token")
-
-		if (token) {
-			try {
-				await getCurrentUser()
-				setLoginStatus("SUCCESS")
-			} catch {
-				setLoginStatus("INVALID_USER")
-			}
-		} else {
-			setLoginStatus("NO_COOKIE")
+		try {
+			await getCurrentUser()
+			setLoginStatus("SUCCESS")
+		} catch {
+			setLoginStatus("INVALID_USER")
 		}
 	}, [])
 
