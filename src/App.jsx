@@ -1,5 +1,4 @@
 import React from "react"
-import Cookies from "js-cookie"
 import { BrowserRouter, Route, Switch } from "react-router-dom"
 import { useReduceMotion } from "react-reduce-motion"
 import { Globals } from "react-spring"
