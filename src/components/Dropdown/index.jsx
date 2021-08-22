@@ -3,7 +3,7 @@ import Icon from "@mdi/react"
 
 import makeClassName from "/src/util/makeClassName"
 
-import Arrow from "./arrow.svg"
+import Arrow from "/src/assets/arrow.svg"
 
 import "./style.scss"
 
