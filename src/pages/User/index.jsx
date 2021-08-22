@@ -15,6 +15,7 @@ import Page from "/src/components/Page"
 import Spinner from "/src/components/Spinner"
 import IconButton from "/src/components/IconButton"
 import Dialog from "/src/components/Dialog"
+import { Field, FieldGroup } from "/src/components/fields"
 
 import "./style.scss"
 
@@ -38,17 +39,6 @@ function ActionDeleteDialog(props) {
 			]}
 			onCancel={props.onClose}
 		/>
-	)
-}
-
-function ActionField(props) {
-	return (
-		<div className={makeClassName("field", { inline: props.inline })}>
-			<span className="field-name">{props.name}</span>
-			<span className={makeClassName("field-value", { empty: props.empty })}>
-				{props.value}
-			</span>
-		</div>
 	)
 }
 
@@ -104,31 +94,33 @@ function Action(props) {
 				</div>
 			</div>
 			<div className="secondary-details">
-				<ActionField
-					name="Notes"
-					value={action.notes ?? "No notes specified"}
-					empty={!action.notes}
-				/>
-				<ActionField
-					name="Moderator"
-					value={moderatorName}
-					empty={!moderatorNameLoaded}
-					inline
-				/>
-				<ActionField
-					name="Time"
-					value={action.timestamp.toLocaleString()}
-					inline
-				/>
-				{
-					action.expiry ? (
-						<ActionField
-							name="Expiry"
-							value={action.expiry.toLocaleString()}
-							inline
-						/>
-					) : null
-				}
+				<FieldGroup>
+					<Field
+						name="Notes"
+						value={action.notes ?? "No notes specified"}
+						empty={!action.notes}
+					/>
+					<Field
+						name="Moderator"
+						value={moderatorName}
+						empty={!moderatorNameLoaded}
+						inline
+					/>
+					<Field
+						name="Time"
+						value={action.timestamp.toLocaleString()}
+						inline
+					/>
+					{
+						action.expiry ? (
+							<Field
+								name="Expiry"
+								value={action.expiry.toLocaleString()}
+								inline
+							/>
+						) : null
+					}
+				</FieldGroup>
 			</div>
 		</div>
 	)
