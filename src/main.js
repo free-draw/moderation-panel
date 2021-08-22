@@ -2,6 +2,10 @@ import * as PIXI from "pixi.js"
 import React from "react"
 import ReactDOM from "react-dom"
 
+import day from "dayjs"
+import relativeTime from "dayjs/plugin/relativeTime"
+day.extend(relativeTime)
+
 import App from "./App"
 
 import "./style/base.scss"
