@@ -23,7 +23,7 @@ const FlatTextButtonElement = styled(TextButtonElement)`
 	color: black;
 
 	&:hover {
-		background: rgba(0, 0, 0, 0.1),
+		background: rgba(0, 0, 0, 0.1);
 	}
 `
 
