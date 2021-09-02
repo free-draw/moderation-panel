@@ -128,3 +128,13 @@ function Dropdown({ options, currentOptionId, placeholder, index, onSelection })
 }
 
 export default Dropdown
+
+export {
+	DropdownItemElement,
+	DropdownItemNameElement,
+
+	DropdownContainerElement,
+	DropdownElement,
+	DropdownArrowElement,
+	DropdownOptionsElement,
+}

@@ -109,3 +109,12 @@ function Dialog({ title, description, buttons, onCancel, children }) {
 }
 
 export default Dialog
+
+export {
+	DialogContainerElement,
+	DialogElement,
+	DialogTitleElement,
+	DialogDescriptionElement,
+	DialogEmbedElement,
+	DialogButtonsElement,
+}

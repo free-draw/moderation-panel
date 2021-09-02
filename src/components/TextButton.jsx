@@ -69,3 +69,11 @@ function TextButton({ text, style, onClick }) {
 }
 
 export default TextButton
+
+export {
+	TextButtonElement,
+
+	FlatTextButtonElement,
+	BorderedTextButtonElement,
+	FilledTextButtonElement,
+}

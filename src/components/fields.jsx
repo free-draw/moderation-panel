@@ -46,3 +46,11 @@ export function FieldGroup(props) {
 		</FieldGroupElement>
 	)
 }
+
+export {
+	FieldElement,
+	FieldNameElement,
+	FieldValueElement,
+
+	FieldGroupElement,
+}

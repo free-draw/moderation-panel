@@ -34,3 +34,7 @@ function IconButton(props) {
 }
 
 export default IconButton
+
+export {
+	IconButtonElement,
+}

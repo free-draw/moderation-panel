@@ -44,3 +44,10 @@ export default function Spinner() {
 		</SpinnerElement>
 	)
 }
+
+export {
+	SpinnerElement,
+
+	SpinnerBackgroundElement,
+	SpinnerForegroundElement,
+}

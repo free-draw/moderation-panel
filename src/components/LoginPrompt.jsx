@@ -65,7 +65,7 @@ const LoginPromptContainerElement = styled.div`
 	height: 100%;
 `
 
-const LogoElement = styled(Logo)`
+const LoginPromptLogoElement = styled(Logo)`
 	max-width: 200px;
 	margin-bottom: 20px;
 `
@@ -94,7 +94,7 @@ const LoginProvidersElement = styled.div`
 function LoginPrompt() {
 	return (
 		<LoginPromptContainerElement>
-			<LogoElement />
+			<LoginPromptLogoElement />
 			<LoginPromptElement>
 				<LoginPromptHeaderElement>You aren't logged in.</LoginPromptHeaderElement>
 				<LoginProvidersElement>
@@ -110,3 +110,14 @@ function LoginPrompt() {
 }
 
 export default LoginPrompt
+
+export {
+	LoginProviderElement,
+	LoginProviderTextElement,
+
+	LoginPromptContainerElement,
+	LoginPromptLogoElement,
+	LoginPromptElement,
+	LoginPromptHeaderElement,
+	LoginProvidersElement,
+}
