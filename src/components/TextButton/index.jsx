@@ -11,7 +11,10 @@ function TextButton(props) {
 		<span
 			className={makeClassName("text-button", [ props.style, props.variant ])}
 			role="button"
-			onClick={props.onClick}
+			onClick={(event) => {
+				event.stopPropagation()
+				props.onClick(event)
+			}}
 		>
 			{props.text}
 		</span>
