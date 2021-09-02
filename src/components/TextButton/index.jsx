@@ -5,6 +5,8 @@ import makeClassName from "/src/util/makeClassName"
 import "./style.scss"
 
 function TextButton(props) {
+	// TODO: Add disabled state
+
 	return (
 		<span
 			className={makeClassName("text-button", [ props.style, props.variant ])}
