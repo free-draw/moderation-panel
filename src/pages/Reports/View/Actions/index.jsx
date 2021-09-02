@@ -72,21 +72,21 @@ function ReportAcceptDialog(props) {
 			<Dropdown
 				index={1}
 				placeholder="Reason"
-				currentOption={reason}
+				currentOptionId={reason}
 				options={reasons}
 				onSelection={setReason}
 			/>
 			<Dropdown
 				index={2}
 				placeholder="Type"
-				currentOption={type}
+				currentOptionId={type}
 				options={types}
 				onSelection={setType}
 			/>
 			<Dropdown
 				index={3}
 				placeholder="Duration"
-				currentOption={duration}
+				currentOptionId={duration}
 				options={durations}
 				onSelection={setDuration}
 			/>

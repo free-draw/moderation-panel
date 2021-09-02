@@ -60,7 +60,7 @@ function LogsPage() {
 								{ id: "timeDescending", name: "Newest" },
 								{ id: "timeAscending", name: "Oldest" },
 							]}
-							currentOption={sortMethod}
+							currentOptionId={sortMethod}
 							onSelection={setSortMethod}
 						/>
 					</OptionsGroup>
@@ -82,7 +82,7 @@ function LogsPage() {
 								{ id: "ACCEPT_REPORT", name: "Accept Report" },
 								{ id: "DELETE_REPORT", name: "Delete Report" },
 							]}
-							currentOption={filterType}
+							currentOptionId={filterType}
 							onSelection={setFilterType}
 						/>
 					</OptionsGroup>
