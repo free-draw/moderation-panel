@@ -94,7 +94,6 @@ function Dropdown({ options, currentOptionId, placeholder, index, onSelection })
 						<DropdownOptionsElement>
 							{
 								options.map((option) => {
-									console.log(option)
 									return (
 										<DropdownItem
 											isCurrent={option === currentOption}
