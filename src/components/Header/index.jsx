@@ -1,30 +1,53 @@
 import React from "react"
-import { Link, useRouteMatch } from "react-router-dom"
-import Icon from "@mdi/react"
-import { mdiCog } from "@mdi/js"
-import { useSpring, animated } from "react-spring"
-
-import makeClassName from "/src/util/makeClassName"
+import styled from "styled-components"
 
 import { getCurrentUser } from "/src/api/auth"
 
 import Logo from "/src/assets/logo.svg"
 
-import "./style.scss"
+import Settings from "./Settings"
+import Navigation from "./Navigation"
 
-function HeaderNavigationButton(props) {
-	const match = useRouteMatch({ path: props.to, exact: props.exact })
+const HeaderElement = styled.div`
+	position: relative;
+	width: 100%;
+	height: 58px;
+	padding: 0 26px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-bottom: 1px;
+`
 
-	return (
-		<Link className={makeClassName("header-navigation-button", { active: !!match })} to={props.to}>
-			<span className="header-navigation-button-text">{props.text}</span>
-		</Link>
-	)
-}
+const HeaderLogoElement = styled(Logo)`
+	height: 34px;
+	user-select: none;
+`
+
+
+const HeaderSpacerElement = styled.div`
+	flex-grow: 1;
+`
+
+const HeaderContextElement = styled.div`
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+`
+
+const HeaderUserElement = styled.span`
+	font-size: 16px;
+	font-weight: 400;
+	margin-right: 18px;
+
+	em {
+		font-style: normal;
+		font-weight: 700;
+	}
+`
 
 function Header() {
 	const [ loaded, setLoaded ] = React.useState(false)
-	const [ settingsOpen, setSettingsOpen ] = React.useState(false)
 	const [ username, setUsername ] = React.useState("")
 
 	React.useEffect(async () => {
@@ -33,52 +56,22 @@ function Header() {
 		setLoaded(true)
 	}, [])
 
-	const settingsSpring = useSpring({
-		to: { active: settingsOpen ? 1 : 0 },
-		config: {
-			frequency: 1/6,
-			damping: 0.7,
-		},
-	})
-
 	return (
-		<div className="header">
-			<Logo className="header-logo" />
-			<div className="header-navigation">
-				<HeaderNavigationButton text="Home" to="/" exact />
-				<HeaderNavigationButton text="Reports" to="/reports" />
-				<HeaderNavigationButton text="Users" to="/users" />
-				<HeaderNavigationButton text="Logs" to="/logs" />
-			</div>
-			<div className="header-spacer" />
-			<div className="header-context">
+		<HeaderElement>
+			<HeaderLogoElement />
+			<Navigation />
+			<HeaderSpacerElement />
+			<HeaderContextElement>
 				{
 					loaded ? (
-						<span className="current-user">
+						<HeaderUserElement>
 							Logged in as <em>{username}</em>
-						</span>
+						</HeaderUserElement>
 					) : null
 				}
-				<div className="settings-container">
-					<Icon
-						className="settings-icon"
-						path={mdiCog}
-						size={1}
-						onClick={() => setSettingsOpen(!settingsOpen)}
-					/>
-					<animated.div
-						className={makeClassName("settings", { open: settingsOpen })}
-						style={{
-							transform: settingsSpring.active.to(value => `translate(0px, ${-(1 - value) * 10}px)`),
-							opacity: settingsSpring.active,
-							display: settingsSpring.active.to(value => value > 0.025 ? "block" : "none"),
-						}}
-					>
-						<span className="settings-notice">There's nothing here yet!</span>
-					</animated.div>
-				</div>
-			</div>
-		</div>
+				<Settings />
+			</HeaderContextElement>
+		</HeaderElement>
 	)
 }
 
