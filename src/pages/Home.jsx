@@ -1,14 +1,15 @@
 import React from "react"
+import styled from "styled-components"
 
 import Page from "/src/components/Page"
 
-import "./style.scss"
+const HomePageElement = styled(Page)``
 
 function HomePage() {
 	return (
-		<Page name="home">
+		<HomePageElement>
 
-		</Page>
+		</HomePageElement>
 	)
 }
 
