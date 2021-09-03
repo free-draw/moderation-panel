@@ -1,136 +1,61 @@
 import React from "react"
-import { useHistory } from "react-router-dom"
-import { mdiMagnify, mdiTrashCanOutline } from "@mdi/js"
+import styled from "styled-components"
 
 import useAsync from "/src/util/useAsync"
-import makeClassName from "/src/util/makeClassName"
 
 import Maid from "/src/class/Maid"
 
-import { getRobloxUser, getRobloxThumbnail } from "/src/api/roblox"
-import { getModerator } from "/src/api/moderators"
 import { getUser } from "/src/api/users"
 
 import Page from "/src/components/Page"
 import Spinner from "/src/components/Spinner"
-import IconButton from "/src/components/IconButton"
-import Dialog from "/src/components/Dialog"
-import { Field, FieldGroup } from "/src/components/fields"
 
-import "./style.scss"
+import Action from "./Action"
+import Details from "./Details"
 
-function ActionDeleteDialog(props) {
+const ContentSectionElement = styled.div`
+	display: flex;
+	flex-direction: column;
+`
+
+const ContentSectionHeaderElement = styled.span`
+	font-size: 24px;
+	font-weight: 600;
+`
+
+const ContentSectionContainerElement = styled.div`
+	margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+`
+
+function ContentSection({ name, loading, children }) {
 	return (
-		<Dialog
-			title="Delete action?"
-			description={`You're about to delete this ${props.action.type}. This is permanent.`}
-			buttons={[
-				{
-					id: "cancel",
-					text: "Cancel",
-					onClick: props.onClose,
-				},
-				{
-					id: "confirm",
-					text: "Delete",
-					style: "filled",
-					onClick: props.onDelete,
-				},
-			]}
-			onCancel={props.onClose}
-		/>
+		<ContentSectionElement>
+			<ContentSectionHeaderElement>{name}</ContentSectionHeaderElement>
+			<ContentSectionContainerElement>
+				{loading ? <Spinner /> : children}
+			</ContentSectionContainerElement>
+		</ContentSectionElement>
 	)
 }
 
-function Action(props) {
-	const { action } = props
-	const history = useHistory()
+const UserPageElement = styled(Page)`
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	padding: 50px 0;
+`
 
-	const [ expanded, setExpanded ] = React.useState(false)
-	const [ prompt, setPrompt ] = React.useState(false)
+const ContentElement = styled.div`
+	width: 550px;
+	display: flex;
+	flex-direction: column;
+`
 
-	const moderator = useAsync(getModerator, !action.moderator || !expanded)(action.moderator)
-	const moderatorName = action.moderator ? (moderator ? moderator.name : "Loading...") : "Unknown"
-	const moderatorNameLoaded = action.moderator && moderator
+function UserPage({ match }) {
+	const { userId } = match.params
 
-	return (
-		<div className={makeClassName("action", { inactive: !action.active, expanded })} onClick={() => setExpanded(!expanded)}>
-			<div className="primary-details">
-				<div className="primary-text">
-					<span className="action-reason">{action.reason}</span>
-					<span className="action-type">{action.type}</span>
-				</div>
-				<div className="buttons">
-					{
-						action.report ? (
-							<IconButton
-								icon={mdiMagnify}
-								onClick={() => history.push(`/reports/${action.report}`)}
-							/>
-						) : null
-					}
-					<>
-						{
-							action.active ? (
-								<IconButton
-									icon={mdiTrashCanOutline}
-									onClick={() => setPrompt(true)}
-								/>
-							) : null
-						}
-						{
-							prompt ? (
-								<ActionDeleteDialog
-									action={action}
-									onDelete={async () => {
-										setPrompt(false)
-										await action.delete()
-									}}
-									onClose={() => setPrompt(false)}
-								/>
-							) : null
-						}
-					</>
-				</div>
-			</div>
-			<div className="secondary-details">
-				<FieldGroup>
-					<Field
-						name="Notes"
-						value={action.notes ?? "No notes specified"}
-						empty={!action.notes}
-					/>
-					<Field
-						name="Moderator"
-						value={moderatorName}
-						empty={!moderatorNameLoaded}
-						inline
-					/>
-					<Field
-						name="Time"
-						value={action.timestamp.toLocaleString()}
-						inline
-					/>
-					{
-						action.expiry ? (
-							<Field
-								name="Expiry"
-								value={action.expiry.toLocaleString()}
-								inline
-							/>
-						) : null
-					}
-				</FieldGroup>
-			</div>
-		</div>
-	)
-}
-
-function UserPage(props) {
-	const { userId } = props.match.params
-
-	const details = useAsync(getRobloxUser)(userId)
-	const avatar = useAsync(getRobloxThumbnail)("AvatarHeadShot", userId, "420x420")
 	const user = useAsync(getUser)(userId)
 
 	const [ actions, setActions ] = React.useState(null)
@@ -160,34 +85,24 @@ function UserPage(props) {
 	}
 
 	return (
-		<Page name="user">
-			<div className={makeClassName("details", { loading: !details })}>
-				{
-					details ? (
-						<>
-							<div className="avatar-container">
-								{
-									avatar ? (
-										<img className="avatar" src={avatar} />
-									) : <Spinner />
-								}
-							</div>
-							<span className="username">{details.name}</span>
-							<a className="profile-url" target="_blank" href={`https://www.roblox.com/users/${userId}/profile`}>Go to Roblox profile</a>
-						</>
-					) : <Spinner />
-				}
-			</div>
-			<div className="content">
-				<div className="content-section">
-					<span className="content-header">Actions</span>
-					<div className={makeClassName("content-container actions", { loading: !user })}>
-						{actionElements ?? <Spinner />}
-					</div>
-				</div>
-			</div>
-		</Page>
+		<UserPageElement>
+			<Details userId={userId} />
+			<ContentElement>
+				<ContentSection name="Actions" loading={!actionElements}>
+					{actionElements}
+				</ContentSection>
+			</ContentElement>
+		</UserPageElement>
 	)
 }
 
 export default UserPage
+
+export {
+	ContentSectionElement,
+	ContentSectionHeaderElement,
+	ContentSectionContainerElement,
+
+	UserPageElement,
+	ContentElement,
+}
