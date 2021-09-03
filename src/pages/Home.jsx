@@ -14,3 +14,7 @@ function HomePage() {
 }
 
 export default HomePage
+
+export {
+	HomePageElement,
+}
