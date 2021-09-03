@@ -1,18 +1,17 @@
 import React from "react"
+import styled from "styled-components"
 import { Link, useHistory } from "react-router-dom"
 import Icon from "@mdi/react"
 import { mdiSend } from "@mdi/js"
 
-import makeClassName from "/src/util/makeClassName"
-
 import { getRobloxUsername } from "/src/api/roblox"
+
+import colors from "/src/presets/colors"
 
 import Page from "/src/components/Page"
 import Dialog from "/src/components/Dialog"
 import Spinner from "/src/components/Spinner"
 import TextBox from "/src/components/TextBox"
-
-import "./style.scss"
 
 const PARTIAL_USERNAME_REGEX = /^[a-zA-Z0-9]?[a-zA-Z0-9_]?$/
 const USERNAME_REGEX = /^[a-zA-Z0-9][a-zA-Z0-9_]{1,18}[a-zA-Z0-9]$/
@@ -34,6 +33,67 @@ function UsersFailureDialog(props) {
 		/>
 	)
 }
+
+const UsersPageElement = styled(Page).attrs({
+	fixed: true,
+})`
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+`
+
+const SearchFormContainerElement = styled.div`
+	width: 450px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+`
+
+const SearchFormElement = styled.form`
+	position: relative;
+	width: 100%;
+	height: 48px;
+	margin: 0;
+`
+
+const SearchFormEntryElement = styled(TextBox)`
+	width: 100%;
+	height: 100%;
+	padding: 0 14px;
+`
+
+const SearchFormSubmitElement = styled(Icon).attrs({
+	path: mdiSend,
+	size: 1,
+})`
+	visibility: ${props => props.active ? "visible" : "hidden"};
+	position: absolute;
+	right: 14px;
+	top: calc(50% - (24px / 2));
+	cursor: pointer;
+	color: ${colors.brand[600]};
+`
+
+const SearchFormSpinnerElement = styled(Spinner)`
+	position: absolute;
+	right: 14px;
+	top: calc(50% - (24px / 2));
+`
+
+const SearchFormHintElement = styled.span`
+	margin-top: 14px;
+	font-size: 14px;
+	font-weight: 300;
+
+	${props => props.error ? "color: #d81b60" : ""};
+
+	a {
+		font-weight: 700;
+		color: ${colors.brand[600]};
+	}
+`
 
 function UsersPage() {
 	const history = useHistory()
@@ -57,35 +117,31 @@ function UsersPage() {
 	}
 
 	return (
-		<Page name="users" fixed>
-			<div className="search-container">
-				<form
-					className="search-bar-form"
+		<UsersPageElement>
+			<SearchFormContainerElement>
+				<SearchFormElement
 					onSubmit={(event) => {
 						search()
 						event.preventDefault()
 					}}
 				>
-					<TextBox
-						className={makeClassName("search-bar", { error: !isContentValid })}
+					<SearchFormEntryElement
 						type="text"
 						placeholder="Username"
 						onChange={event => setContent(event.target.value)}
 					/>
 
-					<Icon
-						className={makeClassName("search-submit", { active: content.length > 0 && !loading })}
-						path={mdiSend}
-						size={1}
+					<SearchFormSubmitElement
+						active={content.length > 0 && !loading}
 						onClick={search}
 					/>
 
 					{
-						loading ? <Spinner /> : null
+						loading ? <SearchFormSpinnerElement /> : null
 					}
-				</form>
+				</SearchFormElement>
 
-				<span className={makeClassName("search-hint", { error: !isContentValid })}>
+				<SearchFormHintElement error={!isContentValid}>
 					{
 						isContentValid ? (
 							<>
@@ -93,14 +149,25 @@ function UsersPage() {
 							</>
 						) : "Invalid username"
 					}
-				</span>
-			</div>
+				</SearchFormHintElement>
+			</SearchFormContainerElement>
 
 			{
 				failure ? <UsersFailureDialog username={content} close={() => setFailure(false)} /> : null
 			}
-		</Page>
+		</UsersPageElement>
 	)
 }
 
 export default UsersPage
+
+export {
+	UsersPageElement,
+
+	SearchFormContainerElement,
+	SearchFormElement,
+	SearchFormEntryElement,
+	SearchFormSubmitElement,
+	SearchFormSpinnerElement,
+	SearchFormHintElement,
+}
