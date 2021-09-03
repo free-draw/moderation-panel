@@ -80,7 +80,7 @@ function LogsPage() {
 								{ id: "UPDATE_MODERATOR", name: "Update Moderator" },
 
 								{ id: "ACCEPT_REPORT", name: "Accept Report" },
-								{ id: "DELETE_REPORT", name: "Delete Report" },
+								{ id: "DECLINE_REPORT", name: "Decline Report" },
 							]}
 							currentOptionId={filterType}
 							onSelection={setFilterType}
