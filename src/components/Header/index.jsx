@@ -24,7 +24,6 @@ const HeaderLogoElement = styled(Logo)`
 	user-select: none;
 `
 
-
 const HeaderSpacerElement = styled.div`
 	flex-grow: 1;
 `
@@ -76,3 +75,11 @@ function Header() {
 }
 
 export default Header
+
+export {
+	HeaderElement,
+	HeaderLogoElement,
+	HeaderSpacerElement,
+	HeaderContextElement,
+	HeaderUserElement,
+}
