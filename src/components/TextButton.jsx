@@ -51,7 +51,7 @@ function getButtonElement(style) {
 			return FilledTextButtonElement
 	}
 
-	throw new Error(`Unknown button style ${style}`)
+	return FlatTextButtonElement
 }
 
 function TextButton({ text, style, onClick }) {
