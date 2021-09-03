@@ -1,11 +1,19 @@
 import React from "react"
+import styled from "styled-components"
 
-function Page(props) {
+const PageElement = styled.div``
+
+function Page({ name, children }) {
 	return (
-		<div className={`page page-${props.name}`}>
-			{props.children}
-		</div>
+		// TODO: Remove compatibility once refactored
+		<PageElement className={`page-${name}`}>
+			{children}
+		</PageElement>
 	)
 }
 
 export default Page
+
+export {
+	PageElement,
+}
