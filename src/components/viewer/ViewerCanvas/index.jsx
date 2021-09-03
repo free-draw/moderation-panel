@@ -1,4 +1,5 @@
 import React from "react"
+import styled from "styled-components"
 
 import Canvas from "./core/Canvas"
 import Camera from "./core/Camera"
@@ -6,7 +7,11 @@ import Input from "./core/Input"
 
 import ViewerContext from "../ViewerContext"
 
-import "./style.scss"
+const ViewerCanvasElement = styled.div`
+	position: relative;
+	overflow: hidden;
+	height: 100%;
+`
 
 class ViewerCanvas extends React.Component {
 	constructor(props) {
@@ -53,12 +58,16 @@ class ViewerCanvas extends React.Component {
 
 		return (
 			<ViewerContext.Provider value={context}>
-				<div className="viewer-canvas" ref={this.ref}>
+				<ViewerCanvasElement ref={this.ref}>
 					{this.props.children}
-				</div>
+				</ViewerCanvasElement>
 			</ViewerContext.Provider>
 		)
 	}
 }
 
 export default ViewerCanvas
+
+export {
+	ViewerCanvasElement,
+}

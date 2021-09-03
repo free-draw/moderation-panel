@@ -1,8 +1,20 @@
 import React from "react"
+import styled from "styled-components"
 
-import ViewerContext from "../ViewerContext"
+import ViewerContext from "./ViewerContext"
 
-import "./style.scss"
+const ViewerPositionalOverlayElement = styled.div`
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform-origin: top left;
+	z-index: 5;
+	pointer-events: none;
+
+	> * {
+		pointer-events: all;
+	}
+`
 
 function ViewerPositionalOverlay(props) {
 	const { camera } = React.useContext(ViewerContext)
@@ -16,16 +28,20 @@ function ViewerPositionalOverlay(props) {
 		}
 
 		updatePosition()
-		
+
 		const listener = camera.on("update", updatePosition, { objectify: true })
 		return () => listener.off()
 	}, [ props.position, props.ignoreScale ])
 
 	return (
-		<div className="viewer-positional-overlay" ref={ref}>
+		<ViewerPositionalOverlayElement ref={ref}>
 			{props.children}
-		</div>
+		</ViewerPositionalOverlayElement>
 	)
 }
 
 export default ViewerPositionalOverlay
+
+export {
+	ViewerPositionalOverlayElement,
+}

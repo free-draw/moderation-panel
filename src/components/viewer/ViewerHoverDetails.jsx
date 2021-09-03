@@ -1,10 +1,25 @@
 import React from "react"
+import styled from "styled-components"
 
-import makeClassName from "/src/util/makeClassName"
+import ViewerContext from "./ViewerContext"
 
-import ViewerContext from "../ViewerContext"
+const ViewerHoverDetailsElement = styled.div`
+	position: absolute;
+	top: 0;
+	left: 0;
+	pointer-events: none;
+	user-select: none;
+	visibility: ${props => props.active ? "visible" : "hidden"};
 
-import "./style.scss"
+	background: rgba(0, 0, 0, 50%);
+	padding: 8px 12px;
+	border-radius: 8px;
+`
+
+const ViewerHoverDetailsNameElement = styled.span`
+	color: white;
+	font-size: 16px;
+`
 
 function ViewerHoverDetails() {
 	const [ active, setActive ] = React.useState(false)
@@ -39,10 +54,15 @@ function ViewerHoverDetails() {
 	}, [ active, name ])
 
 	return (
-		<div className={makeClassName("hover-details", { active })} ref={ref}>
-			<span className="username">{name}</span>
-		</div>
+		<ViewerHoverDetailsElement active={active} ref={ref}>
+			<ViewerHoverDetailsNameElement>{name}</ViewerHoverDetailsNameElement>
+		</ViewerHoverDetailsElement>
 	)
 }
 
 export default ViewerHoverDetails
+
+export {
+	ViewerHoverDetailsElement,
+	ViewerHoverDetailsNameElement,
+}
