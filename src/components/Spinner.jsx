@@ -36,9 +36,9 @@ const SpinnerForegroundElement = styled(SpinnerForeground)`
 	color: ${colors.brand[600]};
 `
 
-export default function Spinner() {
+export default function Spinner(props) {
 	return (
-		<SpinnerElement>
+		<SpinnerElement {...props}>
 			<SpinnerBackgroundElement />
 			<SpinnerForegroundElement />
 		</SpinnerElement>
