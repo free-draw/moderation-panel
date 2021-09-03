@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@parcel/config-default": "^2.0.0-rc.0",
+    "@parcel/transformer-image": "2.0.0-rc.0",
     "@parcel/transformer-sass": "^2.0.0-rc.0",
     "@parcel/transformer-svg-react": "^2.0.0-rc.0",
     "babel-plugin-styled-components": "^1.13.2",

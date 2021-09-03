@@ -3,10 +3,10 @@ import styled from "styled-components"
 
 const PageElement = styled.div``
 
-function Page({ name, children }) {
+function Page({ name, className, children, ...props }) {
 	return (
 		// TODO: Remove compatibility once refactored
-		<PageElement className={`page-${name}`}>
+		<PageElement className={`page-${name} ${className}`} {...props}>
 			{children}
 		</PageElement>
 	)
