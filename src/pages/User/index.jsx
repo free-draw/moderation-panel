@@ -104,7 +104,7 @@ const UserPageElement = styled(Page)`
 `
 
 const ContentElement = styled.div`
-	width: 550px;
+	width: 650px;
 	display: flex;
 	flex-direction: column;
 `
