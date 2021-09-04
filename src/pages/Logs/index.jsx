@@ -1,129 +1,106 @@
 import React from "react"
+import styled from "styled-components"
 
 import { getLogs } from "/src/api/logs"
 
 import Page from "/src/components/Page"
-import TextBox from "/src/components/TextBox"
 import TextButton from "/src/components/TextButton"
-import Dropdown from "/src/components/Dropdown"
 import Spinner from "/src/components/Spinner"
 
-import logTypes from "./logTypes"
-
-import "./style.scss"
+import Options from "./Options"
+import Log from "./Log"
 
 const sortMethods = {
 	timeDescending: { direction: "DESCENDING" },
 	timeAscending: { direction: "ASCENDING" },
 }
 
-function OptionsGroup(props) {
-	return (
-		<div className="options-group">
-			<span className="options-label">{props.label}</span>
-			<div className="options-container">
-				{props.children}
-			</div>
-		</div>
-	)
-}
+const LogsPageElement = styled(Page)`
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	padding-top: 50px;
+`
+
+const OptionsContainerElement = styled.div``
+
+const ContentContainerElement = styled.div`
+	width: 750px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+`
+
+const ContentFooterElement = styled.div`
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	height: 100px;
+`
 
 function LogsPage() {
-	const [ loading, setLoading ] = React.useState(true)
+	const [ loaded, setLoaded ] = React.useState(false)
 	const [ pages, setPages ] = React.useState([])
-	const [ sortMethod, setSortMethod ] = React.useState("timeDescending")
-	const [ filterType, setFilterType ] = React.useState(null)
+
+	const [ sort, setSort ] = React.useState("timeDescending")
+	const [ filter, setFilter ] = React.useState(null)
 
 	React.useEffect(async () => {
-		setLoading(true)
+		setLoaded(false)
 
-		const options = { ...sortMethods[sortMethod], }
-
-		if (filterType) {
-			options.type = filterType
+		const options = { ...sortMethods[sort], }
+		if (filter) {
+			options.type = filter
 		}
+		setPages([ await getLogs(options) ])
 
-		setPages([
-			await getLogs(options),
-		])
-
-		setLoading(false)
-	}, [ sortMethod, filterType ])
+		setLoaded(true)
+	}, [ sort, filter ])
 
 	return (
-		<Page name="logs">
-			<div className="options-container">
-				<div className="options">
-					<OptionsGroup label="Sort">
-						<Dropdown
-							options={[
-								{ id: "timeDescending", name: "Newest" },
-								{ id: "timeAscending", name: "Oldest" },
-							]}
-							currentOptionId={sortMethod}
-							onSelection={setSortMethod}
-						/>
-					</OptionsGroup>
-					<OptionsGroup label="Filter">
-						<Dropdown
-							options={[
-								{ id: null, name: "All" },
-
-								{ id: "CREATE_ACTION", name: "Create Action" },
-								{ id: "DISCARD_ACTION_BY_ID", name: "Discard Action (by ID)" },
-								{ id: "DISCARD_ACTION_BY_TYPE", name: "Discard Action (by type)" },
-
-								{ id: "CREATE_MODERATOR", name: "Create Moderator" },
-								{ id: "DELETE_MODERATOR", name: "Delete Moderator" },
-								{ id: "CREATE_MODERATOR_ACCOUNT", name: "Create Moderator Account" },
-								{ id: "DELETE_MODERATOR_ACCOUNT", name: "Delete Moderator Account" },
-								{ id: "UPDATE_MODERATOR", name: "Update Moderator" },
-
-								{ id: "ACCEPT_REPORT", name: "Accept Report" },
-								{ id: "DECLINE_REPORT", name: "Decline Report" },
-							]}
-							currentOptionId={filterType}
-							onSelection={setFilterType}
-						/>
-					</OptionsGroup>
-				</div>
-			</div>
-			<div className="content">
+		<LogsPageElement>
+			<OptionsContainerElement>
+				<Options
+					sort={sort}
+					setSort={setSort}
+					filter={filter}
+					setFilter={setFilter}
+				/>
+			</OptionsContainerElement>
+			<ContentContainerElement>
 				{
-					[
-						...pages.flatMap(page => page.logs).map((log, index) => {
-							const LogComponent = logTypes[log.type]
-							return <LogComponent key={index} log={log} />
-						}),
-						(
-							<div key="view-more" className="view-more-container">
-								{
-									loading ? <Spinner /> : (
-										<TextButton
-											text="View More"
-											style="filled"
-											onClick={async () => {
-												setLoading(true)
-
-												const currentPage = pages[pages.length - 1]
-												const newPage = await currentPage.next()
-
-												if (newPage.logs.length > 0) {
-													setPages([ ...pages, newPage ])
-												}
-
-												setLoading(false)
-											}}
-										/>
-									)
-								}
-							</div>
-						),
-					]
+					pages.flatMap((page) => {
+						return page.logs.map((logData, index) => <Log key={index} log={logData} />)
+					})
 				}
-			</div>
-		</Page>
+				<ContentFooterElement>
+					{
+						loaded ? (
+							<TextButton
+								text="View More"
+								style="filled"
+								onClick={async () => {
+									setLoaded(false)
+
+									const page = await pages[pages.length - 1].next()
+									if (page.logs.length > 0) {
+										setPages([ ...pages, page ])
+									}
+
+									setLoaded(true)
+								}}
+							/>
+						) : <Spinner />
+					}
+				</ContentFooterElement>
+			</ContentContainerElement>
+		</LogsPageElement>
 	)
 }
 
 export default LogsPage
+
+export {
+	LogsPageElement,
+}

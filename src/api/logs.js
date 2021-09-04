@@ -10,6 +10,13 @@ const genericFetchLogDataTypes = {
 		})
 	},
 
+	async report(data) {
+		return Object.assign({}, data, {
+			from: await getRobloxUser(data.report.fromUserId),
+			target: await getRobloxUser(data.report.targetUserId),
+		})
+	},
+
 	async noop(data) {
 		return data
 	},
@@ -26,8 +33,8 @@ const fetchLogDataTypes = {
 	DELETE_MODERATOR_ACCOUNT: genericFetchLogDataTypes.noop,
 	UPDATE_MODERATOR: genericFetchLogDataTypes.noop,
 
-	ACCEPT_REPORT: genericFetchLogDataTypes.noop,
-	DECLINE_REPORT: genericFetchLogDataTypes.noop,
+	ACCEPT_REPORT: genericFetchLogDataTypes.report,
+	DECLINE_REPORT: genericFetchLogDataTypes.report,
 }
 
 function parseLog(logData) {
