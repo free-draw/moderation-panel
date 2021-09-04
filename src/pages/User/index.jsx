@@ -8,6 +8,7 @@ import Maid from "/src/class/Maid"
 import { getUser } from "/src/api/users"
 
 import Page from "/src/components/Page"
+import TextButton from "/src/components/TextButton"
 import Spinner from "/src/components/Spinner"
 
 import Action from "./Action"
@@ -29,6 +30,14 @@ const ContentSectionContainerElement = styled.div`
 	flex-direction: column;
 `
 
+const ContentSectionFooterElement = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 80px;
+`
+
 function ContentSection({ name, loading, children }) {
 	return (
 		<ContentSectionElement>
@@ -37,6 +46,53 @@ function ContentSection({ name, loading, children }) {
 				{loading ? <Spinner /> : children}
 			</ContentSectionContainerElement>
 		</ContentSectionElement>
+	)
+}
+
+function Actions({ user }) {
+	const [ actions, setActions ] = React.useState(null)
+	const [ expanded, setExpanded ] = React.useState(false)
+
+	React.useEffect(() => {
+		setActions(null)
+
+		if (user) {
+			function update() {
+				setActions([].concat(user.actions, user.history))
+			}
+
+			const maid = new Maid()
+			maid.listen(user, "actionCreate", update)
+			maid.listen(user, "actionDelete", update)
+
+			update()
+
+			return () => maid.clean()
+		}
+	}, [ user ])
+
+	return (
+		<ContentSection name="Actions" loading={!actions}>
+			{
+				actions ? (
+					[ ...actions ]
+						.sort((B, A) => A.timestamp.getTime() - B.timestamp.getTime())
+						.map(action => <Action key={action.id} action={action} />)
+						.slice(0, expanded ? actions.length - 1 : 3)
+				) : null
+			}
+			{
+				actions && actions.length > 3 ? (
+					<ContentSectionFooterElement>
+						<TextButton
+							text={expanded ? "Show Less" : "Show More"}
+							style="flat"
+							onClick={() => setExpanded(!expanded)}
+						/>
+					</ContentSectionFooterElement>
+				) : null
+			}
+		</ContentSection>
 	)
 }
 
@@ -58,39 +114,11 @@ function UserPage({ match }) {
 
 	const user = useAsync(getUser)(userId)
 
-	const [ actions, setActions ] = React.useState(null)
-	React.useEffect(() => {
-		setActions(null)
-
-		if (user) {
-			function update() {
-				setActions([].concat(user.actions, user.history))
-			}
-
-			const maid = new Maid()
-			maid.listen(user, "actionCreate", update)
-			maid.listen(user, "actionDelete", update)
-
-			update()
-
-			return () => maid.clean()
-		}
-	}, [ user ])
-
-	let actionElements
-	if (actions) {
-		actionElements = [ ...actions ]
-			.sort((B, A) => A.timestamp.getTime() - B.timestamp.getTime())
-			.map(action => <Action key={action.id} action={action} />)
-	}
-
 	return (
 		<UserPageElement>
 			<Details userId={userId} />
 			<ContentElement>
-				<ContentSection name="Actions" loading={!actionElements}>
-					{actionElements}
-				</ContentSection>
+				<Actions user={user} />
 			</ContentElement>
 		</UserPageElement>
 	)
