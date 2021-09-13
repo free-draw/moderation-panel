@@ -10,7 +10,6 @@ import ViewerContext from "../ViewerContext"
 const ViewerCanvasElement = styled.div`
 	position: relative;
 	overflow: hidden;
-	height: 100%;
 `
 
 class ViewerCanvas extends React.Component {
@@ -58,7 +57,7 @@ class ViewerCanvas extends React.Component {
 
 		return (
 			<ViewerContext.Provider value={context}>
-				<ViewerCanvasElement ref={this.ref}>
+				<ViewerCanvasElement ref={this.ref} className={this.props.className}>
 					{this.props.children}
 				</ViewerCanvasElement>
 			</ViewerContext.Provider>

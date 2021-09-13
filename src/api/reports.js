@@ -8,6 +8,7 @@ class Report extends EventEmitter {
 		super()
 
 		this.id = data.id
+		this.result = data.result
 		this.reason = data.reason
 		this.notes = data.notes
 		this.from = data.fromUserId

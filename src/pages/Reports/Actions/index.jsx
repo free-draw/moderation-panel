@@ -1,4 +1,5 @@
 import React from "react"
+import styled from "styled-components"
 import ms from "ms"
 
 import Dialog from "/src/components/Dialog"
@@ -6,6 +7,8 @@ import Dropdown from "/src/components/Dropdown"
 
 import AcceptIcon from "./accept-icon.svg"
 import DeclineIcon from "./decline-icon.svg"
+
+import colors from "/src/presets/colors"
 
 const reasons = [
 	{ id: "Griefing", name: "Griefing" },
@@ -36,11 +39,7 @@ const durations = [
 	{ id: "forever", name: "Forever" },
 ]
 
-import "./style.scss"
-
-function ReportAcceptDialog(props) {
-	const report = props.report
-
+function ReportAcceptDialog({ report, close }) {
 	const [ reason, setReason ] = React.useState(report.reason)
 	const [ type, setType ] = React.useState(null)
 	const [ duration, setDuration ] = React.useState(null)
@@ -53,7 +52,7 @@ function ReportAcceptDialog(props) {
 					id: "cancel",
 					text: "Cancel",
 					style: "flat",
-					onClick: props.close,
+					onClick: close,
 				},
 				{
 					id: "confirm",
@@ -62,12 +61,12 @@ function ReportAcceptDialog(props) {
 					onClick: () => {
 						if (reason && type && duration) {
 							report.accept(type, reason, duration !== "forever" ? duration / 1000 : null)
-							props.close()
+							close()
 						}
 					},
 				},
 			]}
-			onCancel={props.close}
+			onCancel={close}
 		>
 			<Dropdown
 				index={1}
@@ -94,15 +93,76 @@ function ReportAcceptDialog(props) {
 	)
 }
 
-function Actions(props) {
-	const report = props.report
+const ActionsElement = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	pointer-events: none;
+	position: absolute;
+	bottom: 60px;
+	width: 100%;
+	z-index: 10;
+`
 
+const ActionElement = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	width: 64px;
+	height: 64px;
+	cursor: pointer;
+	pointer-events: all;
+	background: white;
+	box-sizing: border-box;
+	background: white;
+
+	border: 4px solid ${props => props.color};
+
+	& + & {
+		margin-left: 25px;
+	}
+
+	svg path {
+		stroke: ${props => props.color};
+		stroke-width: 4px;
+	}
+
+	:hover {
+		border: none;
+		background: ${props => props.color};
+
+		svg path {
+			stroke: white;
+		}
+	}
+`
+
+const AcceptActionElement = styled(ActionElement).attrs({
+	color: colors.brand[600],
+})``
+
+const AcceptIconElement = styled(AcceptIcon)`
+	width: 35px;
+	height: 26px;
+`
+
+const DeclineActionElement = styled(ActionElement).attrs({
+	color: "#d81b60",
+})``
+
+const DeclineIconElement = styled(DeclineIcon)`
+	width: 30px;
+	height: 30px;
+`
+
+function Actions({ report }) {
 	const [ dialogOpen, setDialogOpen ] = React.useState(false)
 
 	return (
-		<div className="actions">
-			<div className="action action-accept" onClick={() => setDialogOpen(true)}>
-				<AcceptIcon />
+		<ActionsElement>
+			<AcceptActionElement onClick={() => setDialogOpen(true)}>
+				<AcceptIconElement />
 				{
 					dialogOpen ? (
 						<ReportAcceptDialog
@@ -111,13 +171,21 @@ function Actions(props) {
 						/>
 					) : null
 				}
-			</div>
+			</AcceptActionElement>
 
-			<div className="action action-decline" onClick={() => report.decline()}>
-				<DeclineIcon />
-			</div>
-		</div>
+			<DeclineActionElement onClick={() => report.decline()}>
+				<DeclineIconElement />
+			</DeclineActionElement>
+		</ActionsElement>
 	)
 }
 
 export default Actions
+
+export {
+	ActionsElement,
+
+	ActionElement,
+	AcceptActionElement,
+	DeclineActionElement,
+}

@@ -1,97 +1,124 @@
 import React from "react"
+import styled from "styled-components"
 import { Link, useRouteMatch } from "react-router-dom"
-import Icon from "@mdi/react"
-import { mdiBroom } from "@mdi/js"
 
-import Maid from "/src/class/Maid"
 import useAsync from "/src/util/useAsync"
+
+import { reportList } from "/src/api/reports"
+import { getRobloxUser, getRobloxThumbnail } from "/src/api/roblox"
+
+import colors from "/src/presets/colors"
 
 import Spinner from "/src/components/Spinner"
 
-import { getRobloxUser, getRobloxThumbnail } from "/src/api/roblox"
-import { reportList } from "/src/api/reports"
+const ReportElement = styled(Link)`
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	box-sizing: border-box;
+	justify-content: ${props => props.loading ? "center" : "initial"};
+	padding: ${props => props.active ? 10 - 1 : 10}px;
+	width: 320px;
+	background: white;
+	border: ${props => props.active ? `2px solid ${colors.brand[600]}` : `1px solid ${colors.border}`};
+	border-radius: 8px;
+	cursor: pointer;
+	user-select: none;
 
-function Report(props) {
-	const report = props.report
+	& + & {
+		margin-top: 10px;
+	}
+`
 
-	const path = `/reports/${report.id}`
-	const match = useRouteMatch({ path, sensitive: true })
+const ReportAvatarElement = styled.div`
+	width: 64px;
+	height: 64px;
+	border-radius: 50%;
+`
 
-	const targetUser = useAsync(getRobloxUser)(report.target)
-	const targetAvatar = useAsync(getRobloxThumbnail)("AvatarHeadShot", report.target, "150x150")
+const ReportTextElement = styled.div`
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	margin-left: 20px;
+`
+
+const ReportUsernameText = styled.span`
+	font-size: 18px;
+	font-weight: 700;
+`
+
+const ReportReasonText = styled.span`
+	font-size: 16px;
+	font-weight: 400;
+	margin-top: 4px;
+`
+
+function Report({ report }) {
+	const match = useRouteMatch("/reports/:id")
+
+	const user = useAsync(getRobloxUser)(report.target)
+	const avatar = useAsync(getRobloxThumbnail)("AvatarHeadShot", report.target, "150x150")
+
+	if (user) {
+		return (
+			<ReportElement to={`/reports/${report.id}`} active={match && match.params.id === report.id}>
+				<ReportAvatarElement src={avatar} />
+				<ReportTextElement>
+					<ReportUsernameText>{user.name}</ReportUsernameText>
+					<ReportReasonText>{report.reason}</ReportReasonText>
+				</ReportTextElement>
+			</ReportElement>
+		)
+	} else {
+		return (
+			<ReportElement loading>
+				<Spinner />
+			</ReportElement>
+		)
+	}
+}
+
+const ListElement = styled.div`
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+	overflow: auto hidden;
+
+	pointer-events: none;
+	> * {
+		pointer-events: all;
+	}
+`
+
+function List() {
+	const [ reports, setReports ] = React.useState(reportList.current)
+
+	React.useEffect(() => {
+		reportList.connect()
+		reportList.on("update", setReports)
+
+		return () => {
+			reportList.disconnect()
+			reportList.off("update", setReports)
+		}
+	})
 
 	return (
-		<Link to={path} className={`report ${match ? "selected" : ""} ${targetUser ? "" : "loading"}`}>
+		<ListElement>
 			{
-				targetUser ? (
-					<>
-						<img className="report-avatar" src={targetAvatar ?? ""} />
-						<div className="report-text">
-							<span className="report-username">{targetUser.name}</span>
-							<span className="report-reason">{report.reason}</span>
-						</div>
-					</>
-				) : (
-					<Spinner />
-				)
+				reports.map(report => <Report key={report.id} report={report} />)
 			}
-		</Link>
+		</ListElement>
 	)
 }
 
-class ReportList extends React.Component {
-	constructor() {
-		super()
+export default List
 
-		this.maid = new Maid()
-
-		this.state = {
-			reports: reportList.current,
-		}
-	}
-
-	componentDidMount() {
-		reportList.connect()
-		this.maid.listen(reportList, "update", reports => this.setState({ reports }))
-	}
-
-	componentWillUnmount() {
-		reportList.disconnect()
-		this.maid.clean()
-	}
-
-	render() {
-		if (!this.state.reports) {
-			return null
-		}
-
-		if (this.state.reports.length > 0) {
-			const reports = this.state.reports.map((report) => {
-				return <Report key={report.id} report={report} />
-			})
-		
-			return (
-				<div className="reports-list">
-					{reports}
-				</div>
-			)
-		} else {
-			return (
-				<div className="reports-list empty">
-					<div className="empty-container">
-						<Icon
-							path={mdiBroom}
-							size={3}
-							color="black"
-							className="empty-icon"
-						/>
-						<span className="empty-primary-text">All done!</span>
-						<span className="empty-secondary-text">It looks like you've cleared out all the reports — hooray!</span>
-					</div>
-				</div>
-			)
-		}
-	}
+export {
+	ListElement,
 }
-
-export default ReportList
