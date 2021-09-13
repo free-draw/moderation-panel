@@ -16,7 +16,7 @@ const ViewerPlayerBubbleElement = styled.a.attrs({
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	transform: translate(-${size / 2}, -${size / 2});
+	transform: translate(-${size / 2}px, -${size / 2}px);
 	user-select: none;
 	pointer-events: none;
 `
