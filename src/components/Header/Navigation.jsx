@@ -9,16 +9,16 @@ const NavigationButtonElement = styled(Link)`
 	padding: 8px 16px;
 	border-radius: 8px;
 	box-sizing: border-box;
-	color: ${props => props.active ? "white" : "black"};
+	color: ${props => props.selected ? "white" : "black"};
 
 	${
-		props => props.active
+		props => props.selected
 			? `background: ${colors.brand[600]}`
 			: `border: 1px solid ${colors.border}`
 	};
 
 	&:hover {
-		background: ${props => props.active ? colors.brand[700] : "rgba(0, 0, 0, 10%)"}
+		background: ${props => props.selected ? colors.brand[700] : "rgba(0, 0, 0, 10%)"}
 	}
 
 	& + & {
@@ -35,7 +35,7 @@ function NavigationButton({ text, path, exact }) {
 	const match = useRouteMatch({ path, exact })
 
 	return (
-		<NavigationButtonElement active={!!match} to={path}>
+		<NavigationButtonElement selected={!!match} to={path}>
 			<NavigationButtonTextElement>{text}</NavigationButtonTextElement>
 		</NavigationButtonElement>
 	)
