@@ -13,6 +13,7 @@ import Reports from "./pages/Reports"
 import Users from "./pages/Users"
 import User from "./pages/User"
 import Logs from "./pages/Logs"
+import Snapshots from "./pages/Snapshots"
 
 function App() {
 	const reducedMotion = useReduceMotion()
@@ -43,6 +44,7 @@ function App() {
 						<Route component={Users} path="/users" exact />
 						<Route component={User} path="/users/:userId" />
 						<Route component={Logs} path="/logs" />
+						<Route component={Snapshots} path="/snapshots" />
 					</Switch>
 				</div>
 			</BrowserRouter>
