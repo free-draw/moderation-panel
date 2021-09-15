@@ -106,7 +106,7 @@ function List() {
 			reportList.disconnect()
 			reportList.off("update", setReports)
 		}
-	})
+	}, [])
 
 	return (
 		<ListElement>
