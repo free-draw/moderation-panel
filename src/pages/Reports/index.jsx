@@ -7,8 +7,9 @@ import { getReport } from "/src/api/reports"
 import Page from "/src/components/Page"
 import Snapshot from "/src/components/Snapshot"
 
-import Actions from "./Actions"
 import List from "./List"
+import Details from "./Details"
+import Actions from "./Actions"
 
 const ReportsPageElement = styled(Page)`
 	height: 100%;
@@ -47,7 +48,8 @@ function ReportsPage() {
 				}}
 			/>
 			<List />
-			{ report ? <Actions report={report} /> : null }
+			{report ? <Details report={report} /> : null}
+			{report ? <Actions report={report} /> : null}
 		</ReportsPageElement>
 	)
 }
