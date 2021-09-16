@@ -100,6 +100,7 @@ function List() {
 	const [ reports, setReports ] = React.useState(reportList.current)
 
 	React.useEffect(() => {
+		reportList.refresh()
 		reportList.connect()
 		reportList.on("update", setReports)
 
