@@ -19,6 +19,7 @@ const ReportElement = styled(Link)`
 	box-sizing: border-box;
 	padding: ${props => props.selected ? 10 - 1 : 10}px;
 	width: 320px;
+	height: 86px;
 	background: white;
 	border: ${props => props.selected ? `2px solid ${colors.brand[600]}` : `1px solid ${colors.border}`};
 	border-radius: 8px;
