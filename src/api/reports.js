@@ -36,11 +36,11 @@ class ReportList extends EventEmitter {
 		super()
 
 		this.active = false
-		this.current = []
+		this.reports = []
 	}
 
 	getReportById(reportId) {
-		return this.current.find(report => report.id === reportId)
+		return this.reports.find(report => report.id === reportId)
 	}
 
 	// Rest API
@@ -53,10 +53,10 @@ class ReportList extends EventEmitter {
 			.map(reportData => new Report(reportData))
 		newReports.forEach(report => this.emit("add", report))
 
-		this.current = [ ...this.current, newReports ]
-		this.emit("update", this.current)
+		this.reports = [ ...this.reports, newReports ]
+		this.emit("update", this.reports)
 
-		return this.current
+		return this.reports
 	}
 
 	connect() {
@@ -70,12 +70,12 @@ class ReportList extends EventEmitter {
 					const report = new Report(reportData)
 
 					report.on(["accept", "decline"], () => {
-						this.current = lodash.without(this.current, report)
+						this.reports = lodash.without(this.reports, report)
 					})
 
-					this.current = [ ...this.current, report ]
+					this.reports = [ ...this.reports, report ]
 					this.emit("add", report)
-					this.emit("update", this.current)
+					this.emit("update", this.reports)
 				}
 			})
 
@@ -90,9 +90,9 @@ class ReportList extends EventEmitter {
 						report.emit("decline")
 					}
 
-					this.current = lodash.without(this.current, report)
+					this.reports = lodash.without(this.reports, report)
 					this.emit("remove", report)
-					this.emit("update", this.current)
+					this.emit("update", this.reports)
 				}
 			})
 

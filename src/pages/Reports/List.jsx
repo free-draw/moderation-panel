@@ -97,7 +97,7 @@ const ListElement = styled.div`
 `
 
 function List() {
-	const [ reports, setReports ] = React.useState(reportList.current)
+	const [ reports, setReports ] = React.useState(reportList.reports)
 
 	React.useEffect(() => {
 		reportList.refresh().then(setReports)
