@@ -8,8 +8,6 @@ day.extend(relativeTime)
 
 import App from "./App"
 
-import "./style/base.scss"
-
 ReactDOM.render(<App />, document.getElementById("app"))
 
 if (window.__PIXI_INSPECTOR_GLOBAL_HOOK__) {

@@ -1,4 +1,5 @@
 import React from "react"
+import styled, { createGlobalStyle } from "styled-components"
 import { BrowserRouter, Route, Switch } from "react-router-dom"
 import { useReduceMotion } from "react-reduce-motion"
 import { Globals } from "react-spring"
@@ -14,6 +15,44 @@ import Users from "./pages/Users"
 import User from "./pages/User"
 import Logs from "./pages/Logs"
 import Snapshots from "./pages/Snapshots"
+
+const GlobalStyle = createGlobalStyle`
+	html, body, #app {
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		padding: 0;
+		margin: 0;
+		overflow: hidden;
+		font-family: "Inter", "system-ui";
+		font-weight: 400;
+
+		@supports (font-variation-settings: normal) {
+			font-family: "Inter var", "system-ui";
+		}
+	}
+
+	* {
+		box-sizing: border-box;
+	}
+
+	a {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	#app {
+		display: flex;
+		flex-direction: column;
+	}
+`
+
+const PageContainerElement = styled.div`
+	flex-grow: 1;
+	position: relative;
+	overflow: hidden auto;
+`
 
 function App() {
 	const reducedMotion = useReduceMotion()
@@ -36,8 +75,9 @@ function App() {
 	if (loginStatus === "SUCCESS" || loginStatus === "UNKNOWN") {
 		return (
 			<BrowserRouter>
+				<GlobalStyle />
 				<Header />
-				<div className="page-container">
+				<PageContainerElement>
 					<Switch>
 						<Route component={Home} path="/" exact />
 						<Route component={Reports} path="/reports" />
@@ -46,7 +86,7 @@ function App() {
 						<Route component={Logs} path="/logs" />
 						<Route component={Snapshots} path="/snapshots" />
 					</Switch>
-				</div>
+				</PageContainerElement>
 			</BrowserRouter>
 		)
 	} else {
