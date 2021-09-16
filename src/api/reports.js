@@ -53,7 +53,7 @@ class ReportList extends EventEmitter {
 			.map(reportData => new Report(reportData))
 		newReports.forEach(report => this.emit("add", report))
 
-		this.reports = [ ...this.reports, newReports ]
+		this.reports = [ ...this.reports, ...newReports ]
 		this.emit("update", this.reports)
 
 		return this.reports
