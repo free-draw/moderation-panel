@@ -57,6 +57,8 @@ class ReportList extends EventEmitter {
 		})
 
 		this.emit("update", this.current)
+
+		return this.current
 	}
 
 	connect() {
