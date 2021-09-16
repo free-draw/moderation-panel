@@ -48,14 +48,12 @@ class ReportList extends EventEmitter {
 	async refresh() {
 		const response = await axios.get("/api/reports")
 
-		response.data.reports.forEach((reportData) => {
-			if (!this.getReportById(reportData.id)) {
-				const report = new Report(reportData)
-				this.current.push(report) // TTODO: Make this immutable
-				this.emit("add", report)
-			}
-		})
+		const newReports = response.data.reports
+			.filter(reportData => !this.getReportById(reportData.id))
+			.map(reportData => new Report(reportData))
+		newReports.forEach(report => this.emit("add", report))
 
+		this.current = [ ...this.current, newReports ]
 		this.emit("update", this.current)
 
 		return this.current
@@ -75,7 +73,7 @@ class ReportList extends EventEmitter {
 						this.current = lodash.without(this.current, report)
 					})
 
-					this.current.push(report)
+					this.current = [ ...this.current, report ]
 					this.emit("add", report)
 					this.emit("update", this.current)
 				}
