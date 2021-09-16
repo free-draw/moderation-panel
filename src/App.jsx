@@ -16,6 +16,9 @@ import User from "./pages/User"
 import Logs from "./pages/Logs"
 import Snapshots from "./pages/Snapshots"
 
+import "@fontsource/inter"
+import "@fontsource/inter/variable"
+
 const GlobalStyle = createGlobalStyle`
 	html, body, #app {
 		top: 0;
@@ -25,11 +28,11 @@ const GlobalStyle = createGlobalStyle`
 		padding: 0;
 		margin: 0;
 		overflow: hidden;
-		font-family: "Inter", "system-ui";
+		font-family: "Inter", "system-ui", sans-serif;
 		font-weight: 400;
 
 		@supports (font-variation-settings: normal) {
-			font-family: "Inter var", "system-ui";
+			font-family: "InterVariable", "system-ui", sans-serif;
 		}
 	}
 
