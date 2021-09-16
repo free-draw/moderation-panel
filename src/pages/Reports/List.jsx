@@ -15,12 +15,12 @@ const ReportElement = styled(Link)`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	justify-content: center;
 	box-sizing: border-box;
-	justify-content: ${props => props.loading ? "center" : "initial"};
-	padding: ${props => props.active ? 10 - 1 : 10}px;
+	padding: ${props => props.selected ? 10 - 1 : 10}px;
 	width: 320px;
 	background: white;
-	border: ${props => props.active ? `2px solid ${colors.brand[600]}` : `1px solid ${colors.border}`};
+	border: ${props => props.selected ? `2px solid ${colors.brand[600]}` : `1px solid ${colors.border}`};
 	border-radius: 8px;
 	cursor: pointer;
 	user-select: none;
@@ -62,7 +62,7 @@ function Report({ report }) {
 
 	if (user) {
 		return (
-			<ReportElement to={`/reports/${report.id}`} active={match && match.params.id === report.id}>
+			<ReportElement to={`/reports/${report.id}`} selected={match && match.params.id === report.id}>
 				<ReportAvatarElement src={avatar} />
 				<ReportTextElement>
 					<ReportUsernameText>{user.name}</ReportUsernameText>
@@ -72,7 +72,7 @@ function Report({ report }) {
 		)
 	} else {
 		return (
-			<ReportElement loading>
+			<ReportElement>
 				<Spinner />
 			</ReportElement>
 		)

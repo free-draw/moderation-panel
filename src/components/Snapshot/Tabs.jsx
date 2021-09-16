@@ -43,18 +43,18 @@ const TabElement = styled.div`
 	cursor: pointer;
 	pointer-events: all;
 
-	border: ${props => props.active ? "none" : `1px solid ${colors.border}`};
-	background: ${props => props.active ? colors.brand[600] : "white"};
-	color: ${props => props.active ? "white" : "black"};
+	border: ${props => props.selected ? "none" : `1px solid ${colors.border}`};
+	background: ${props => props.selected ? colors.brand[600] : "white"};
+	color: ${props => props.selected ? "white" : "black"};
 
 	& + & {
 		margin-top: 8px;
 	}
 `
 
-function Tab({ icon, active, onClick }) {
+function Tab({ icon, selected, onClick }) {
 	return (
-		<TabElement active={active} onClick={onClick}>
+		<TabElement selected={selected} onClick={onClick}>
 			<Icon
 				path={icon}
 				size={28/24}
@@ -107,7 +107,7 @@ function Tabs({ snapshot, report }) {
 						return (
 							<Tab
 								key={tab.id}
-								active={tab === currentTab}
+								selected={tab === currentTab}
 								onClick={() => setCurrentTabId(tab.id)}
 								{...tab}
 							/>

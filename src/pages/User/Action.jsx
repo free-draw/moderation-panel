@@ -43,9 +43,9 @@ const ActionElement = styled.div`
 	flex-direction: column;
 	user-select: none;
 	cursor: pointer;
-	opacity: ${props => props.active || props.expanded ? "100%" : "50%"};
+	opacity: ${props => props.enabled || props.expanded ? "100%" : "50%"};
 
-	${props => props.active ? "" : "filter: grayscale(100%)"};
+	${props => props.enabled ? "" : "filter: grayscale(100%)"};
 
 	& + & {
 		margin-top: 8px;
@@ -76,7 +76,7 @@ const ActionTypeElement = styled.span`
 `
 
 const ActionExtendedDetailsElement = styled.div`
-	display: ${props => props.active ? "flex" : "none"};
+	display: ${props => props.expanded ? "flex" : "none"};
 	margin-top: 16px;
 `
 
@@ -111,7 +111,7 @@ function Action({ action }) {
 
 	return (
 		<ActionElement
-			active={action.active}
+			enabled={action.active}
 			expanded={expanded}
 			onClick={() => setExpanded(!expanded)}
 		>
@@ -153,7 +153,7 @@ function Action({ action }) {
 					</>
 				</ActionButtonsElement>
 			</ActionDetailsElement>
-			<ActionExtendedDetailsElement active={expanded}>
+			<ActionExtendedDetailsElement expanded={expanded}>
 				<FieldGroup>
 					<Field
 						name="Notes"

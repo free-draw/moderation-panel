@@ -68,7 +68,6 @@ const SearchFormSubmitElement = styled(Icon).attrs({
 	path: mdiSend,
 	size: 1,
 })`
-	visibility: ${props => props.active ? "visible" : "hidden"};
 	position: absolute;
 	right: 14px;
 	top: calc(50% - (24px / 2));
@@ -131,14 +130,8 @@ function UsersPage() {
 						onChange={event => setContent(event.target.value)}
 					/>
 
-					<SearchFormSubmitElement
-						active={content.length > 0 && !loading}
-						onClick={search}
-					/>
-
-					{
-						loading ? <SearchFormSpinnerElement /> : null
-					}
+					{content.length > 0 && !loading ? <SearchFormSubmitElement onClick={search} /> : null}
+					{loading ? <SearchFormSpinnerElement /> : null}
 				</SearchFormElement>
 
 				<SearchFormHintElement error={!isContentValid}>

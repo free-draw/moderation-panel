@@ -9,7 +9,7 @@ const ViewerHoverDetailsElement = styled.div`
 	left: 0;
 	pointer-events: none;
 	user-select: none;
-	visibility: ${props => props.active ? "visible" : "hidden"};
+	visibility: ${props => props.enabled ? "visible" : "hidden"};
 
 	background: rgba(0, 0, 0, 50%);
 	padding: 8px 12px;
@@ -22,7 +22,7 @@ const ViewerHoverDetailsNameElement = styled.span`
 `
 
 function ViewerHoverDetails() {
-	const [ active, setActive ] = React.useState(false)
+	const [ enabled, setEnabled ] = React.useState(false)
 	const [ name, setName ] = React.useState(null)
 
 	const ref = React.useRef()
@@ -33,9 +33,9 @@ function ViewerHoverDetails() {
 			const position = canvas.camera.getRelativePosition(screenPosition)
 			const line = canvas.getLineAt(position)
 
-			const shouldBeActive = !!line
-			if (active !== shouldBeActive) {
-				setActive(shouldBeActive)
+			const shouldBeEnabled = !!line
+			if (enabled !== shouldBeEnabled) {
+				setEnabled(shouldBeEnabled)
 			}
 
 			if (line) {
@@ -51,10 +51,10 @@ function ViewerHoverDetails() {
 		}, { objectify: true })
 
 		return () => listener.off()
-	}, [ active, name ])
+	}, [ enabled, name ])
 
 	return (
-		<ViewerHoverDetailsElement active={active} ref={ref}>
+		<ViewerHoverDetailsElement enabled={enabled} ref={ref}>
 			<ViewerHoverDetailsNameElement>{name}</ViewerHoverDetailsNameElement>
 		</ViewerHoverDetailsElement>
 	)
