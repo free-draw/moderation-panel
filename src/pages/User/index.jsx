@@ -43,7 +43,7 @@ function ContentSection({ name, loading, children }) {
 		<ContentSectionElement>
 			<ContentSectionHeaderElement>{name}</ContentSectionHeaderElement>
 			<ContentSectionContainerElement>
-				{loading ? <Spinner /> : children}
+				{children}
 			</ContentSectionContainerElement>
 		</ContentSectionElement>
 	)
