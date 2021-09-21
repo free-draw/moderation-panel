@@ -49,6 +49,38 @@ function ContentSection({ name, loading, children }) {
 	)
 }
 
+const ContentSectionStatusElement = styled.div`
+	height: 80px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+`
+
+const ContentSectionStatusEmptyElement = styled.span`
+	color: rgba(0, 0, 0, 0.5);
+	font-size: 16px;
+	font-weight: 400;
+`
+
+function ContentSectionStatus({ status }) {
+	switch (status) {
+		case "EMPTY":
+			return (
+				<ContentSectionStatusElement>
+					<ContentSectionStatusEmptyElement>There's nothing here.</ContentSectionStatusEmptyElement>
+				</ContentSectionStatusElement>
+			)
+
+		case "LOADING":
+			return (
+				<ContentSectionStatusElement>
+					<Spinner />
+				</ContentSectionStatusElement>
+			)
+	}
+}
+
 function Actions({ user }) {
 	const [ actions, setActions ] = React.useState(null)
 	const [ expanded, setExpanded ] = React.useState(false)
@@ -74,12 +106,16 @@ function Actions({ user }) {
 	return (
 		<ContentSection name="Actions" loading={!actions}>
 			{
-				actions ? (
+				actions && actions.length > 0 ? (
 					[ ...actions ]
 						.sort((B, A) => A.timestamp.getTime() - B.timestamp.getTime())
 						.map(action => <Action key={action.id} action={action} />)
 						.slice(0, expanded ? actions.length - 1 : 3)
-				) : null
+				) : (
+					actions
+						? <ContentSectionStatus status="EMPTY" />
+						: <ContentSectionStatus status="LOADING" />
+				)
 			}
 			{
 				actions && actions.length > 3 ? (
@@ -130,6 +166,9 @@ export {
 	ContentSectionElement,
 	ContentSectionHeaderElement,
 	ContentSectionContainerElement,
+
+	ContentSectionStatusElement,
+	ContentSectionStatusEmptyElement,
 
 	UserPageElement,
 	ContentElement,
