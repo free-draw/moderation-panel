@@ -1,136 +1,13 @@
 import React from "react"
 import styled from "styled-components"
-
 import useAsync from "/src/util/useAsync"
-
-import Maid from "/src/class/Maid"
 
 import { getUser } from "/src/api/users"
 
 import Page from "/src/components/Page"
-import TextButton from "/src/components/TextButton"
-import Spinner from "/src/components/Spinner"
 
-import Action from "./Action"
 import Details from "./Details"
-
-const ContentSectionElement = styled.div`
-	display: flex;
-	flex-direction: column;
-`
-
-const ContentSectionHeaderElement = styled.span`
-	font-size: 24px;
-	font-weight: 600;
-`
-
-const ContentSectionContainerElement = styled.div`
-	margin-top: 20px;
-	display: flex;
-	flex-direction: column;
-`
-
-const ContentSectionFooterElement = styled.div`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	height: 80px;
-`
-
-function ContentSection({ name, loading, children }) {
-	return (
-		<ContentSectionElement>
-			<ContentSectionHeaderElement>{name}</ContentSectionHeaderElement>
-			<ContentSectionContainerElement>
-				{children}
-			</ContentSectionContainerElement>
-		</ContentSectionElement>
-	)
-}
-
-const ContentSectionStatusElement = styled.div`
-	height: 80px;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-`
-
-const ContentSectionStatusEmptyElement = styled.span`
-	color: rgba(0, 0, 0, 0.5);
-	font-size: 16px;
-	font-weight: 400;
-`
-
-function ContentSectionStatus({ status }) {
-	switch (status) {
-		case "EMPTY":
-			return (
-				<ContentSectionStatusElement>
-					<ContentSectionStatusEmptyElement>There's nothing here.</ContentSectionStatusEmptyElement>
-				</ContentSectionStatusElement>
-			)
-
-		case "LOADING":
-			return (
-				<ContentSectionStatusElement>
-					<Spinner />
-				</ContentSectionStatusElement>
-			)
-	}
-}
-
-function Actions({ user }) {
-	const [ actions, setActions ] = React.useState(null)
-	const [ expanded, setExpanded ] = React.useState(false)
-
-	React.useEffect(() => {
-		setActions(null)
-
-		if (user) {
-			function update() {
-				setActions([].concat(user.actions, user.history))
-			}
-
-			const maid = new Maid()
-			maid.listen(user, "actionCreate", update)
-			maid.listen(user, "actionDelete", update)
-
-			update()
-
-			return () => maid.clean()
-		}
-	}, [ user ])
-
-	return (
-		<ContentSection name="Actions" loading={!actions}>
-			{
-				actions && actions.length > 0 ? (
-					[ ...actions ]
-						.sort((B, A) => A.timestamp.getTime() - B.timestamp.getTime())
-						.map(action => <Action key={action.id} action={action} />)
-						.slice(0, expanded ? actions.length - 1 : 3)
-				) : (
-					actions
-						? <ContentSectionStatus status="EMPTY" />
-						: <ContentSectionStatus status="LOADING" />
-				)
-			}
-			{
-				actions && actions.length > 3 ? (
-					<ContentSectionFooterElement>
-						<TextButton
-							text={expanded ? "Show Less" : "Show More"}
-							style="flat"
-							onClick={() => setExpanded(!expanded)}
-						/>
-					</ContentSectionFooterElement>
-				) : null
-			}
-		</ContentSection>
-	)
-}
+import Actions from "./Actions"
 
 const UserPageElement = styled(Page)`
 	display: flex;
@@ -163,13 +40,6 @@ function UserPage({ match }) {
 export default UserPage
 
 export {
-	ContentSectionElement,
-	ContentSectionHeaderElement,
-	ContentSectionContainerElement,
-
-	ContentSectionStatusElement,
-	ContentSectionStatusEmptyElement,
-
 	UserPageElement,
 	ContentElement,
 }

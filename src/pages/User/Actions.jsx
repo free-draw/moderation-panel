@@ -1,9 +1,10 @@
 import React from "react"
 import styled from "styled-components"
 import { useHistory } from "react-router-dom"
-import { mdiMagnify, mdiTrashCanOutline } from "@mdi/js"
-
+import { mdiMagnify, mdiTrashCanOutline, mdiPlus } from "@mdi/js"
 import useAsync from "/src/util/useAsync"
+import Maid from "/src/class/Maid"
+
 import { getModerator } from "/src/api/moderators"
 
 import colors from "/src/presets/colors"
@@ -11,6 +12,8 @@ import colors from "/src/presets/colors"
 import IconButton from "/src/components/IconButton"
 import Dialog from "/src/components/Dialog"
 import { Field, FieldGroup } from "/src/components/fields"
+
+import ContentSection from "./ContentSection"
 
 function DeleteDialog(props) {
 	return (
@@ -186,7 +189,63 @@ function Action({ action }) {
 	)
 }
 
-export default Action
+function Actions({ user }) {
+	const [ actions, setActions ] = React.useState(null)
+
+	React.useEffect(() => {
+		setActions(null)
+
+		if (user) {
+			function update() {
+				setActions([].concat(user.actions, user.history))
+			}
+
+			const maid = new Maid()
+			maid.listen(user, "actionCreate", update)
+			maid.listen(user, "actionDelete", update)
+
+			update()
+
+			return () => maid.clean()
+		}
+	}, [ user ])
+
+	let status
+	if (actions && actions.length > 0) {
+		status = "LOADED"
+	} else if (actions) {
+		status = "EMPTY"
+	} else {
+		status = "LOADING"
+	}
+
+	return (
+		<ContentSection
+			name="Actions"
+			loading={!actions}
+			status={status}
+			buttons={[
+				{
+					id: "create",
+					icon: mdiPlus,
+					onClick() {
+
+					},
+				},
+			]}
+		>
+			{
+				actions && actions.length > 0 ? (
+					[ ...actions ]
+						.sort((B, A) => A.timestamp.getTime() - B.timestamp.getTime())
+						.map(action => <Action key={action.id} action={action} />)
+				) : null
+			}
+		</ContentSection>
+	)
+}
+
+export default Actions
 
 export {
 	ActionElement,
