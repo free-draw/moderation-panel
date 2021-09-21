@@ -11,7 +11,8 @@ import Navigation from "./Navigation"
 const HeaderElement = styled.div`
 	position: relative;
 	width: 100%;
-	height: 58px;
+	min-height: 58px;
+	max-height: 58px;
 	padding: 0 26px;
 	display: flex;
 	flex-direction: row;
