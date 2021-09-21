@@ -21,8 +21,8 @@ const SlartElement = styled.img.attrs({
 
 const SlartTextElement = styled.span`
 	margin-top: 14px;
-	font-size: 24px;
-	font-weight: 900;
+	font-size: 48px;
+	font-weight: 400;
 `
 
 function HomePage() {
