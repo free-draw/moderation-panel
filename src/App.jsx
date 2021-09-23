@@ -28,6 +28,9 @@ const GlobalStyle = createGlobalStyle`
 		padding: 0;
 		margin: 0;
 		overflow: hidden;
+	}
+
+	body, textarea {
 		font-family: "Inter", "system-ui", sans-serif;
 		font-weight: 400;
 
