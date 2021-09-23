@@ -7,33 +7,100 @@ import Maid from "/src/class/Maid"
 
 import { getModerator } from "/src/api/moderators"
 
+import ModerationType from "/src/enum/ModerationType"
+import ModerationPresetReason from "/src/enum/ModerationPresetReason"
+import ModerationPresetDuration from "/src/enum/ModerationPresetDuration"
+
 import colors from "/src/presets/colors"
 
 import IconButton from "/src/components/IconButton"
 import Dialog from "/src/components/Dialog"
+import Dropdown from "/src/components/Dropdown"
+import TextArea from "/src/components/TextArea"
 import { Field, FieldGroup } from "/src/components/fields"
 
 import ContentSection from "./ContentSection"
 
-function DeleteDialog(props) {
+const NotesTextAreaElement = styled(TextArea)`
+	height: 150px;
+	z-index: -10;
+`
+
+function CreateDialog({ onCreate, onClose }) {
+	const [ type, setType ] = React.useState(null)
+	const [ reason, setReason ] = React.useState(null)
+	const [ duration, setDuration ] = React.useState(ModerationPresetDuration.FOREVER)
+	const [ notes, setNotes ] = React.useState("")
+
 	return (
 		<Dialog
-			title="Delete action?"
-			description={`You're about to delete this ${props.action.type}. This is permanent.`}
+			title="Create action"
 			buttons={[
 				{
 					id: "cancel",
 					text: "Cancel",
-					onClick: props.onClose,
+					onClick: onClose,
+				},
+				{
+					id: "create",
+					text: "Create",
+					style: "filled",
+					onClick() {
+						onCreate(type, reason, duration, notes)
+						onClose()
+					},
+				},
+			]}
+			onCancel={onClose}
+		>
+			<Dropdown
+				placeholder="Type"
+				enumerable={ModerationType}
+				currentOptionId={type}
+				onSelection={setType}
+				index={1}
+			/>
+			<Dropdown
+				placeholder="Reason"
+				enumerable={ModerationPresetReason}
+				currentOptionId={reason}
+				onSelection={setReason}
+				index={2}
+			/>
+			<Dropdown
+				placeholder="Duration"
+				enumerable={ModerationPresetDuration}
+				currentOptionId={duration}
+				onSelection={setDuration}
+				index={3}
+			/>
+			<NotesTextAreaElement
+				placeholder="Notes"
+				onChange={event => setNotes(event.target.value)}
+			/>
+		</Dialog>
+	)
+}
+
+function DeleteDialog({ action, onDelete, onClose }) {
+	return (
+		<Dialog
+			title="Delete action?"
+			description={`You're about to delete this ${action.type}. This is permanent.`}
+			buttons={[
+				{
+					id: "cancel",
+					text: "Cancel",
+					onClick: onClose,
 				},
 				{
 					id: "confirm",
 					text: "Delete",
 					style: "filled",
-					onClick: props.onDelete,
+					onClick: onDelete,
 				},
 			]}
-			onCancel={props.onClose}
+			onCancel={onClose}
 		/>
 	)
 }
@@ -191,6 +258,7 @@ function Action({ action }) {
 
 function Actions({ user }) {
 	const [ actions, setActions ] = React.useState(null)
+	const [ dialogOpen, setDialogOpen ] = React.useState(false)
 
 	React.useEffect(() => {
 		setActions(null)
@@ -228,9 +296,7 @@ function Actions({ user }) {
 				{
 					id: "create",
 					icon: mdiPlus,
-					onClick() {
-
-					},
+					onClick: () => setDialogOpen(true),
 				},
 			]}
 		>
@@ -239,6 +305,21 @@ function Actions({ user }) {
 					[ ...actions ]
 						.sort((B, A) => A.timestamp.getTime() - B.timestamp.getTime())
 						.map(action => <Action key={action.id} action={action} />)
+				) : null
+			}
+			{
+				dialogOpen ? (
+					<CreateDialog
+						onClose={() => setDialogOpen(false)}
+						onCreate={async (type, reason, duration, notes) => {
+							await user.createAction({
+								type: type.name,
+								reason: reason.value,
+								duration: duration.value.duration,
+								notes,
+							})
+						}}
+					/>
 				) : null
 			}
 		</ContentSection>

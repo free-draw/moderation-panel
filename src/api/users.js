@@ -28,7 +28,7 @@ class Action extends EventEmitter {
 		await axios.delete(`/api/users/${this.user.id}/action/${this.id}`)
 
 		this.user.actions = this.user.actions.filter(action => action !== this)
-		this.user.history.push(this)
+		this.user.history = [ ...this.user.history, this ]
 
 		this.active = false
 		this.emit("delete")
@@ -45,18 +45,22 @@ class User extends EventEmitter {
 		this.history = data.history.map(actionData => new Action(this, actionData, false))
 	}
 
-	async issueAction(data) {
-		const response = await axios.post()
-		const action = new Action(this, Object.assign({}, data, {
+	async createAction(data) {
+		const response = await axios.post(`/api/users/${this.id}/actions`, data)
+
+		const action = new Action(this, {
+			...data,
 			id: response.data.actionId,
-		}), true)
-		this.actions.push(action)
+			expiry: data.duration ? new Date(Date.now() + data.duration * 1000) : data.expiry,
+		}, true)
+		this.actions = [ ...this.actions, action ]
 		this.emit("actionCreate", action)
+
 		return action
 	}
 
 	async deleteActionsByType(type) {
-		await axios.delete(`/api/users/${this.userId}/type/${type}`)
+		await axios.delete(`/api/users/${this.id}/type/${type}`)
 
 		const deletedActions = this.actions.filter(action => action.type === type)
 		deletedActions.forEach(action => action.delete())
