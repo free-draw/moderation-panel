@@ -6,7 +6,7 @@ import colors from "/src/presets/colors"
 
 const actionTypes = {
 	BAN: "ban",
-	DRAW_BAN: "drawban",
+	DRAWBAN: "drawban",
 	MUTE: "mute",
 }
 
