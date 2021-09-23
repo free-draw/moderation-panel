@@ -1,6 +1,5 @@
 import React from "react"
 import styled from "styled-components"
-import ms from "ms"
 
 import ModerationType from "/src/enum/ModerationType"
 import ModerationPresetReason from "/src/enum/ModerationPresetReason"
