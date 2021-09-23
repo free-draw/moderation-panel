@@ -214,8 +214,8 @@ export const DECLINE_REPORT = ({ log, source }) => {
 	const { report, from, target } = log.data
 
 	return {
-		color: indicatorColors.accept,
-		text: <> {source} accepted report of user <em>{target.name}</em> from <em>{from.name}</em> </>,
+		color: indicatorColors.decline,
+		text: <> {source} declined report of user <em>{target.name}</em> from <em>{from.name}</em> </>,
 		fields: [
 			useUserField("From", from),
 			useUserField("Target", target),
