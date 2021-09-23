@@ -2,6 +2,10 @@ import React from "react"
 import styled from "styled-components"
 import ms from "ms"
 
+import ModerationType from "/src/enum/ModerationType"
+import ModerationPresetReason from "/src/enum/ModerationPresetReason"
+import ModerationPresetDuration from "/src/enum/ModerationPresetDuration"
+
 import Dialog from "/src/components/Dialog"
 import Dropdown from "/src/components/Dropdown"
 
@@ -9,35 +13,6 @@ import AcceptIcon from "./accept-icon.svg"
 import DeclineIcon from "./decline-icon.svg"
 
 import colors from "/src/presets/colors"
-
-const reasons = [
-	{ id: "Griefing", name: "Griefing" },
-	{ id: "NSFW", name: "NSFW" },
-	{ id: "Scribbling", name: "Scribbling" },
-	{ id: "Harassment", name: "Harassment" },
-	{ id: "Exploits", name: "Exploits" },
-	{ id: "FalseVotekicking", name: "False vote-kicking" },
-	{ id: "Profanity", name: "Profanity/swearing" },
-	{ id: "HateSpeech", name: "Hate speech" },
-	{ id: "Other", name: "Other" },
-]
-
-const types = [
-	{ id: "BAN", name: "Ban" },
-	{ id: "DRAWBAN", name: "Draw-ban" },
-	{ id: "MUTE", name: "Mute" },
-]
-
-const durations = [
-	{ id: ms("3d"), name: "3 days" },
-	{ id: ms("1w"), name: "1 week" },
-	{ id: ms("2w"), name: "2 weeks" },
-	{ id: ms("4w"), name: "1 month" },
-	{ id: ms("12w"), name: "3 months" },
-	{ id: ms("24w"), name: "6 months" },
-	{ id: ms("1y"), name: "1 year" },
-	{ id: "forever", name: "Forever" },
-]
 
 function ReportAcceptDialog({ report, close }) {
 	const [ reason, setReason ] = React.useState(report.reason)
@@ -60,7 +35,12 @@ function ReportAcceptDialog({ report, close }) {
 					style: "bordered",
 					onClick: () => {
 						if (reason && type && duration) {
-							report.accept(type, reason, duration !== "forever" ? duration / 1000 : null)
+							report.accept(
+								type.name,
+								reason.value,
+								duration.value.duration ? duration.value.duration / 1000 : null
+							)
+
 							close()
 						}
 					},
@@ -70,23 +50,23 @@ function ReportAcceptDialog({ report, close }) {
 		>
 			<Dropdown
 				index={1}
-				placeholder="Reason"
-				currentOptionId={reason}
-				options={reasons}
-				onSelection={setReason}
+				placeholder="Type"
+				enumerable={ModerationType}
+				currentOptionId={type}
+				onSelection={setType}
 			/>
 			<Dropdown
 				index={2}
-				placeholder="Type"
-				currentOptionId={type}
-				options={types}
-				onSelection={setType}
+				placeholder="Reason"
+				enumerable={ModerationPresetReason}
+				currentOptionId={reason}
+				onSelection={setReason}
 			/>
 			<Dropdown
 				index={3}
 				placeholder="Duration"
+				enumerable={ModerationPresetDuration}
 				currentOptionId={duration}
-				options={durations}
 				onSelection={setDuration}
 			/>
 		</Dialog>
