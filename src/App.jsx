@@ -17,7 +17,7 @@ import Logs from "./pages/Logs"
 import Snapshots from "./pages/Snapshots"
 
 import "@fontsource/inter"
-import "@fontsource/inter/variable"
+import "@fontsource/inter/variable.css"
 
 const GlobalStyle = createGlobalStyle`
 	html, body, #app {
