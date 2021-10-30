@@ -9,6 +9,7 @@ specifiers:
   '@parcel/transformer-image': 2.0.0-rc.0
   '@parcel/transformer-sass': ^2.0.0
   '@parcel/transformer-svg-react': ^2.0.0
+  '@types/lodash': ^4.14.176
   axios: ^0.21.4
   babel-plugin-styled-components: ^1.13.3
   binary-parser: ^1.9.2
@@ -31,6 +32,7 @@ specifiers:
   sass: ^1.43.4
   socket.io-client: ^4.3.2
   styled-components: ^5.3.3
+  url-join: ^4.0.1
 
 dependencies:
   '@fontsource/inter': 4.5.0
@@ -40,6 +42,7 @@ dependencies:
   '@parcel/transformer-image': 2.0.0-rc.0
   '@parcel/transformer-sass': 2.0.0
   '@parcel/transformer-svg-react': 2.0.0
+  '@types/lodash': 4.14.176
   axios: 0.21.4
   babel-plugin-styled-components: 1.13.3_styled-components@5.3.3
   binary-parser: 1.9.2
@@ -59,6 +62,7 @@ dependencies:
   sass: 1.43.4
   socket.io-client: 4.3.2
   styled-components: 5.3.3_react-dom@17.0.2+react@17.0.2
+  url-join: 4.0.1
 
 devDependencies:
   '@babel/core': 7.16.0
@@ -2512,6 +2516,10 @@ packages:
     resolution: {integrity: sha512-9hdj6iXH64tHSLTY+Vt2eYOGzSogC+JQ2H7bdPWkuh7KXP5qLllWx++t+K9Wk556c3dkDdPws/SpMRi0sdCT1w==}
     dependencies:
       '@types/node': 16.11.6
+
+  /@types/lodash/4.14.176:
+    resolution: {integrity: sha512-xZmuPTa3rlZoIbtDUyJKZQimJV3bxCmzMIO2c9Pz9afyDro6kr7R79GwcB6mRhuoPmV2p1Vb66WOJH7F886WKQ==}
+    dev: false
 
   /@types/node/16.11.6:
     resolution: {integrity: sha512-ua7PgUoeQFjmWPcoo9khiPum3Pd60k4/2ZGXt18sm2Slk0W0xZTqt5Y0Ny1NyBiN1EVQ/+FaF9NcY4Qe6rwk5w==}
@@ -7394,6 +7402,10 @@ packages:
   /url-join/2.0.5:
     resolution: {integrity: sha1-WvIvGMBSoACkjXuCxenC4v7tpyg=}
     dev: true
+
+  /url-join/4.0.1:
+    resolution: {integrity: sha512-jk1+QP6ZJqyOiuEI9AEWQfju/nB2Pw466kbA0LEZljHwKeMgd9WrAEgEGxjPDD2+TNbbb37rTyhEfrCXfuKXnA==}
+    dev: false
 
   /url/0.11.0:
     resolution: {integrity: sha1-ODjpfPxgUh63PFJajlW/3Z4uKPE=}

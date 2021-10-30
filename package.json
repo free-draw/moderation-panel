@@ -13,6 +13,7 @@
     "@parcel/transformer-image": "2.0.0-rc.0",
     "@parcel/transformer-sass": "^2.0.0",
     "@parcel/transformer-svg-react": "^2.0.0",
+    "@types/lodash": "^4.14.176",
     "axios": "^0.21.4",
     "babel-plugin-styled-components": "^1.13.3",
     "binary-parser": "^1.9.2",
@@ -31,7 +32,8 @@
     "react-spring": "^9.3.0",
     "sass": "^1.43.4",
     "socket.io-client": "^4.3.2",
-    "styled-components": "^5.3.3"
+    "styled-components": "^5.3.3",
+    "url-join": "^4.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.0",
