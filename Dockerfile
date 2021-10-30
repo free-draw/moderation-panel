@@ -14,7 +14,7 @@ RUN apk add python3 gcc make g++
 RUN npm install --global pnpm
 
 # Install packages
-RUN pnpm install
+RUN pnpm install --prod
 
 # Run build
 RUN pnpm run build
