@@ -5,10 +5,10 @@ import urljoin from "url-join"
 
 class API {
 	public url: string
-	public token: string
+	public token?: string
 	public identity?: ModeratorAccountData
 
-	constructor(url: string, token: string, identity?: ModeratorAccountData) {
+	constructor(url: string, token?: string, identity?: ModeratorAccountData) {
 		this.url = url
 		this.token = token
 		this.identity = identity
@@ -27,7 +27,7 @@ class API {
 			url: url.toString(),
 			headers: {
 				...(config.headers ?? {}),
-				authorization: `Bearer ${this.token}`,
+				authorization: this.token ? `Bearer ${this.token}` : config.headers?.authorization,
 			},
 		})
 	}
