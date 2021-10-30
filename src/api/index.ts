@@ -13,6 +13,14 @@ import getSnapshot from "./method/snapshots/getSnapshot"
 import getUser from "./method/users/getUser"
 import getUsersBulk from "./method/users/getUsersBulk"
 
+import AccountPlatform from "./enum/AccountPlatform"
+import ActionType from "./enum/ActionType"
+import ReportStatus from "./enum/ReportStatus"
+import RobloxThumbnailType from "./enum/RobloxThumbnailType"
+import SnapshotLogType from "./enum/SnapshotLogType"
+import SortDirection from "./enum/SortDirection"
+import TokenType from "./enum/TokenType"
+
 export {
 	// auth
 	getToken,
@@ -34,4 +42,13 @@ export {
 	// users
 	getUser,
 	getUsersBulk,
+
+	// enums
+	AccountPlatform,
+	ActionType,
+	ReportStatus,
+	RobloxThumbnailType,
+	SnapshotLogType,
+	SortDirection,
+	TokenType,
 }
