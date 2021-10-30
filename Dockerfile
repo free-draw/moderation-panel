@@ -1,4 +1,5 @@
-## BUILD ##
+# BUILD
+# Builds the panel
 
 FROM node:16-alpine as builder
 
@@ -9,10 +10,17 @@ COPY . .
 # Install node-gyp dependencies
 RUN apk add python3 gcc make g++
 
-# Install packages and run build
-RUN yarn install --development && yarn run build
+# Install pnpm
+RUN npm install --global pnpm
 
-## HOST ##
+# Install packages
+RUN pnpm install
+
+# Run build
+RUN pnpm run build
+
+# HOST
+# nginx image to host the panel
 
 FROM nginx:1.21.1-alpine
 
