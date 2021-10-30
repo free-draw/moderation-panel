@@ -3,7 +3,7 @@
 		"target": "https://moderation.freedraw.app",
 		"changeOrigin": true,
 		"headers": {
-			host: "moderation.freedraw.app"
+			"host": "moderation.freedraw.app"
 		}
 	},
 
@@ -11,7 +11,7 @@
 		"target": "https://moderation.freedraw.app",
 		"changeOrigin": true,
 		"headers": {
-			host: "moderation.freedraw.app"
+			"host": "moderation.freedraw.app"
 		}
 	}
 }
