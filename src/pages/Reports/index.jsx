@@ -1,15 +1,13 @@
 import React from "react"
 import { useRouteMatch } from "react-router"
 import styled from "styled-components"
-
-import { getReport } from "/src/api/reports"
-
+import { getReport } from "@free-draw/moderation-client"
 import Page from "/src/components/Page"
 import Snapshot from "/src/components/Snapshot"
-
 import List from "./List"
 import Details from "./Details"
 import Actions from "./Actions"
+import API from "/src/API"
 
 const ReportsPageElement = styled(Page)`
 	height: 100%;
@@ -30,7 +28,7 @@ function ReportsPage() {
 	const [ report, setReport ] = React.useState(null)
 	React.useEffect(async () => {
 		if (id) {
-			const fetchedReport = await getReport(id)
+			const fetchedReport = await getReport(API, id)
 			setReport(fetchedReport)
 		} else {
 			setReport(null)
@@ -40,7 +38,7 @@ function ReportsPage() {
 	return (
 		<ReportsPageElement>
 			<SnapshotElement
-				id={report ? report.snapshot : null}
+				snapshot={report ? report.snapshot : null}
 				report={report}
 				placeholder={{
 					text: "No report selected",

@@ -1,10 +1,8 @@
 import React from "react"
 import styled from "styled-components"
-
-import { getRobloxThumbnail } from "/src/api/roblox"
-
+import { getRobloxThumbnail, RobloxThumbnailType } from "@free-draw/moderation-client"
+import API from "/src/api"
 import useAsync from "/src/util/useAsync"
-
 import ViewerPositionalOverlay from "./ViewerPositionalOverlay"
 
 const size = 64
@@ -39,7 +37,11 @@ const ViewerPlayerBubbleNameElement = styled.span`
 
 function ViewerPlayerBubble(props) {
 	const { player, position } = props
-	const avatar = useAsync(getRobloxThumbnail)("AvatarHeadShot", player.id, "100x100")
+	const avatar = useAsync(getRobloxThumbnail, [ player.id ])(API, {
+		id: player.id,
+		type: RobloxThumbnailType.AVATAR_HEADSHOT,
+		size: "100x100",
+	})
 
 	return (
 		<ViewerPositionalOverlay position={position} ignoreScale>

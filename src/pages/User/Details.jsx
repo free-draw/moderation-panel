@@ -1,12 +1,9 @@
 import React from "react"
 import styled from "styled-components"
-
 import useAsync from "/src/util/useAsync"
-
-import { getRobloxUser, getRobloxThumbnail } from "/src/api/roblox"
-
+import { getRobloxUser, getRobloxThumbnail, RobloxThumbnailType } from "@free-draw/moderation-client"
+import API from "/src/API"
 import colors from "/src/presets/colors"
-
 import Spinner from "/src/components/Spinner"
 
 const DetailsElement = styled.div`
@@ -48,8 +45,12 @@ const DetailsProfileLinkElement = styled.a.attrs({
 `
 
 function Details({ userId }) {
-	const details = useAsync(getRobloxUser)(userId)
-	const avatar = useAsync(getRobloxThumbnail)("AvatarHeadShot", userId, "420x420")
+	const details = useAsync(getRobloxUser)(API, userId)
+	const avatar = useAsync(getRobloxThumbnail, [ userId ])(API, {
+		id: userId,
+		type: RobloxThumbnailType.AVATAR_HEADSHOT,
+		size: "420x420",
+	})
 
 	return (
 		<DetailsElement loading={!details}>

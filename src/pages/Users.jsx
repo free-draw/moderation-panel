@@ -3,11 +3,9 @@ import styled from "styled-components"
 import { Link, useHistory } from "react-router-dom"
 import Icon from "@mdi/react"
 import { mdiSend } from "@mdi/js"
-
-import { getRobloxUsername } from "/src/api/roblox"
-
+import { getRobloxUsername } from "@free-draw/moderation-client"
+import API from "/src/API"
 import colors from "/src/presets/colors"
-
 import Page from "/src/components/Page"
 import Dialog from "/src/components/Dialog"
 import Spinner from "/src/components/Spinner"
@@ -105,11 +103,11 @@ function UsersPage() {
 
 	const search = async () => {
 		setLoading(true)
-		const userId = await getRobloxUsername(content)
+		const user = await getRobloxUsername(API, content)
 		setLoading(false)
 
-		if (userId) {
-			history.push(`/users/${userId}`)
+		if (user) {
+			history.push(`/users/${user.id}`)
 		} else {
 			setFailure(true)
 		}

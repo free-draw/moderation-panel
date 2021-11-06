@@ -1,15 +1,12 @@
 import React from "react"
 import styled from "styled-components"
 import { Link, useRouteMatch } from "react-router-dom"
-
 import useAsync from "/src/util/useAsync"
-
-import { reportList } from "/src/api/reports"
-import { getRobloxUser, getRobloxThumbnail } from "/src/api/roblox"
-
+import { getPendingReports, getRobloxUser, getRobloxThumbnail, RobloxThumbnailType } from "@free-draw/moderation-client"
 import colors from "/src/presets/colors"
-
 import Spinner from "/src/components/Spinner"
+import API from "/src/API"
+import Realtime from "/src/Realtime"
 
 const ReportElement = styled(Link)`
 	display: flex;
@@ -58,8 +55,12 @@ const ReportReasonText = styled.span`
 function Report({ report }) {
 	const match = useRouteMatch("/reports/:id")
 
-	const user = useAsync(getRobloxUser)(report.target)
-	const avatar = useAsync(getRobloxThumbnail)("AvatarHeadShot", report.target, "150x150")
+	const user = useAsync(getRobloxUser)(API, report.target.id)
+	const avatar = useAsync(getRobloxThumbnail, [ report.target.id ])(API, {
+		id: report.target.id,
+		type: RobloxThumbnailType.AVATAR_HEADSHOT,
+		size: "150x150",
+	})
 
 	if (user) {
 		return (
@@ -97,16 +98,25 @@ const ListElement = styled.div`
 `
 
 function List() {
-	const [ reports, setReports ] = React.useState(reportList.reports)
+	const [ reports, setReports ] = React.useState([])
 
 	React.useEffect(() => {
-		reportList.refresh().then(setReports)
-		reportList.connect()
-		reportList.on("update", setReports)
+		const onReportCreate = (newReport) => {
+			setReports([ ...reports, newReport ])
+		}
+		const onReportDelete = (report) => {
+			setReports(reports.filter(filterReport => filterReport.id !== report.id))
+		}
+		Realtime.on("reportCreate", onReportCreate)
+		Realtime.on("reportDelete", onReportDelete)
+
+		getPendingReports(API).then((newReports) => {
+			setReports(newReports)
+		})
 
 		return () => {
-			reportList.disconnect()
-			reportList.off("update", setReports)
+			Realtime.off("reportCreate", onReportCreate)
+			Realtime.off("reportDelete", onReportDelete)
 		}
 	}, [])
 

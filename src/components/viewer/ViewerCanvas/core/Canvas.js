@@ -16,7 +16,7 @@ function getCornerOffset(points, index) {
 		let angleB = nextPoint.subtract(point).angle()
 
 		let angleDelta = Math.abs(getAngleDelta(angleA, angleB))
-		
+
 		if (angleDelta < Math.PI / 2) {
 			return Math.tan(angleDelta / 2)
 		} else {
@@ -30,7 +30,7 @@ function getCornerOffset(points, index) {
 class Line {
 	constructor(layer, data) {
 		this.layer = layer
-		
+
 		this.points = data.points
 		this.options = data.options
 
@@ -290,7 +290,7 @@ class Canvas extends EventEmitter {
 
 	getLineAt(point) {
 		const sortedLayers = this.getSortedLayers()
-		
+
 		for (let index = 0; index < sortedLayers.length; index++) {
 			const layer = sortedLayers[index]
 			const line = layer.getLineAt(point)
@@ -311,12 +311,14 @@ class Canvas extends EventEmitter {
 	load(data) {
 		this.clear()
 
-		data.forEach((collectorData) => {
-			const collector = new Collector(collectorData)
+		Object.values(data).forEach((canvas) => {
+			canvas.parse() // TODO: Move this to where it can be caught
+
+			const collector = new Collector(canvas.data)
 			this.addCollector(collector)
 		})
 	}
-	
+
 	mount(parent) {
 		if (this.parent) {
 			this.parent.removeChild(this.app.view)

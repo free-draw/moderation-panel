@@ -10,7 +10,7 @@ const actionTypes = {
 	MUTE: "mute",
 }
 
-const accountTypes = {
+const accountPlatforms = {
 	ROBLOX: "Roblox",
 	DISCORD: "Discord",
 }
@@ -92,9 +92,7 @@ function useViewReportButton(reportId) {
 
 /* LOG TYPES */
 
-export const CREATE_ACTION = ({ log, source }) => {
-	const { action, user } = log.data
-
+export const CREATE_ACTION = ({ data: { action, user }, source }) => {
 	return {
 		color: indicatorColors.create,
 		text: <> {source} created a <em>{actionTypes[action.type]}</em> on <em>{user.name}</em> </>,
@@ -110,9 +108,7 @@ export const CREATE_ACTION = ({ log, source }) => {
 		],
 	}
 }
-export const DISCARD_ACTION_BY_ID = ({ log, source }) => {
-	const { action, user } = log.data
-
+export const DELETE_ACTION = ({ data: { action, user }, source }) => {
 	return {
 		color: indicatorColors.delete,
 		text: <> {source} removed a <em>{actionTypes[action.type]}</em> on <em>{user.name}</em> </>,
@@ -124,11 +120,18 @@ export const DISCARD_ACTION_BY_ID = ({ log, source }) => {
 		buttons: [],
 	}
 }
-export const DISCARD_ACTION_BY_TYPE = DISCARD_ACTION_BY_ID
+export const DELETE_ACTIONS_BULK = ({ data: { actions, user }, source }) => {
+	return {
+		color: indicatorColors.delete,
+		text: <> {source} removed <em>{actions.length} actions</em> on <em>{user.name}</em> </>,
+		fields: [
+			useUserField("User", user),
+		],
+		buttons: [],
+	}
+}
 
-export const CREATE_MODERATOR = ({ log, source }) => {
-	const { moderator } = log.data
-
+export const CREATE_MODERATOR = ({ data: { moderator }, source }) => {
 	return {
 		color: indicatorColors.create,
 		text: <> {source} created moderator <em>{moderator.name}</em> </>,
@@ -139,9 +142,7 @@ export const CREATE_MODERATOR = ({ log, source }) => {
 		buttons: [],
 	}
 }
-export const DELETE_MODERATOR = ({ log, source }) => {
-	const { moderator } = log.data
-
+export const DELETE_MODERATOR = ({ data: { moderator }, source }) => {
 	return {
 		color: indicatorColors.delete,
 		text: <> {source} deleted moderator <em>{moderator.name}</em> </>,
@@ -151,68 +152,58 @@ export const DELETE_MODERATOR = ({ log, source }) => {
 		buttons: [],
 	}
 }
-export const CREATE_MODERATOR_ACCOUNT = ({ log, source }) => {
-	const { moderator, account } = log.data
-
+export const LINK_MODERATOR_ACCOUNT = ({ data: { moderator, account }, source }) => {
 	return {
 		color: indicatorColors.create,
-		text: <> {source} linked a <em>{accountTypes[account.type]}</em> account to <em>{moderator.name}</em> </>,
+		text: <> {source} linked a <em>{accountPlatforms[account.platform]}</em> account to <em>{moderator.name}</em> </>,
 		fields: [
-			useField("Type", account.type),
+			useField("Platform", account.platform),
 			useField("ID", account.id),
 		],
 		buttons: [],
 	}
 }
-export const DELETE_MODERATOR_ACCOUNT = ({ log, source }) => {
-	const { moderator, account } = log.data
-
+export const UNLINK_MODERATOR_ACCOUNT = ({ data: { moderator, account }, source }) => {
 	return {
 		color: indicatorColors.delete,
-		text: <> {source} unlinked a <em>{accountTypes[account.type]}</em> account from <em>{moderator.name}</em> </>,
+		text: <> {source} unlinked a <em>{accountPlatforms[account.platform]}</em> account from <em>{moderator.name}</em> </>,
 		fields: [
-			useField("Type", account.type),
+			useField("Platform", account.platform),
 			useField("ID", account.id),
 		],
 		buttons: [],
 	}
 }
-export const UPDATE_MODERATOR = ({ log, source }) => {
-	const { moderator, changed } = log.data
-
+export const UPDATE_MODERATOR = ({ data: { moderator, options }, source }) => {
 	return {
 		color: indicatorColors.modify,
 		text: <> {source} updated moderator {moderator.name} </>,
 		fields: [
-			changed.name !== undefined ? useFIeld("Name", changed.name) : null,
-			changed.permissions !== undefined ? useFIeld("Permissions", changed.permissions) : null,
-			changed.enabled !== undefined ? useFIeld("Enabled", changed.enabled ? "Yes" : "No") : null,
+			options.name !== undefined ? useField("Name", options.name) : null,
+			options.permissions !== undefined ? useField("Permissions", options.permissions) : null,
+			options.active !== undefined ? useField("Active", options.active ? "Yes" : "No") : null,
 		],
 		buttons: [],
 	}
 }
 
-export const ACCEPT_REPORT = ({ log, source }) => {
-	const { report, action, from, target } = log.data
-
+export const ACCEPT_REPORT = ({ data: { report, action }, source }) => {
 	return {
 		color: indicatorColors.accept,
 		text: <> {source} accepted report of user <em>{target.name}</em> from <em>{from.name}</em> </>,
 		fields: [
-			useUserField("From", from),
-			useUserField("Target", target),
+			useUserField("From", "TODO"),
+			useUserField("Target", "TODO"),
 			useField("Type", action.type),
 			useField("Reason", action.reason),
-			useField("Expires at", action.expiry ? action.expiry.toLocaleString() : null),
+			useField("Expires at", action.expiry ? action.action.toLocaleString() : null),
 		],
 		buttons: [
 			useViewReportButton(report.id),
 		],
 	}
 }
-export const DECLINE_REPORT = ({ log, source }) => {
-	const { report, from, target } = log.data
-
+export const DECLINE_REPORT = ({ data: { report }, source }) => {
 	return {
 		color: indicatorColors.decline,
 		text: <> {source} declined report of user <em>{target.name}</em> from <em>{from.name}</em> </>,

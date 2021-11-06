@@ -1,10 +1,8 @@
 import React from "react"
 import styled from "styled-components"
-
-import { getCurrentUser } from "/src/api/auth"
-
+import { getModerator, getToken, TokenType } from "@free-draw/moderation-client"
+import API from "/src/API"
 import Logo from "/src/assets/logo.svg"
-
 import Settings from "./Settings"
 import Navigation from "./Navigation"
 
@@ -48,11 +46,22 @@ const HeaderUserElement = styled.span`
 
 function Header() {
 	const [ loaded, setLoaded ] = React.useState(false)
-	const [ username, setUsername ] = React.useState("")
+	const [ name, setName ] = React.useState("")
 
 	React.useEffect(async () => {
-		const { type, moderator } = await getCurrentUser()
-		setUsername(type === "SERVER" ? "[SERVER]" : moderator.name)
+		const token = await getToken(API)
+
+		switch (token.type) {
+			case TokenType.USER:
+				const moderator = await getModerator(API, token.id)
+				setName(moderator.name)
+				break
+
+			case TokenType.SERVER:
+				setName("[SERVER]")
+				break
+		}
+
 		setLoaded(true)
 	}, [])
 
@@ -65,7 +74,7 @@ function Header() {
 				{
 					loaded ? (
 						<HeaderUserElement>
-							Logged in as <em>{username}</em>
+							Logged in as <em>{name}</em>
 						</HeaderUserElement>
 					) : null
 				}

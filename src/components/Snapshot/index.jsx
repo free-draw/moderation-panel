@@ -1,8 +1,7 @@
 import React from "react"
 import styled from "styled-components"
-
-import { getSnapshot } from "/src/api/snapshots"
-
+import { getSnapshot } from "@free-draw/moderation-client"
+import API from "/src/API"
 import Spinner from "/src/components/Spinner"
 import {
 	ViewerCanvas,
@@ -39,40 +38,43 @@ const SnapshotCanvasElement = styled(ViewerCanvas)`
 	height: 100%;
 `
 
-function Snapshot({ id, placeholder, report, ...props }) {
-	const [ snapshot, setSnapshot ] = React.useState(null)
+function Snapshot({ snapshot, placeholder, report, ...props }) {
+	return (
+		<SnapshotElement state="LOADED" {...props}>
+			<Tabs snapshot={snapshot} report={report} />
+			<SnapshotCanvasElement data={snapshot.canvas}>
+				<ViewerHoverDetails />
+				<ViewerPlayerBubbles players={snapshot.players} />
+			</SnapshotCanvasElement>
+		</SnapshotElement>
+	)
+}
+
+function SnapshotResolver({ snapshot, report, placeholder, ...props }) {
+	const [ resolvedSnapshot, setResolvedSnapshot ] = React.useState(null)
 	const [ state, setState ] = React.useState("NONE")
 
-	React.useEffect(async () => {
-		if (id) {
+	React.useEffect(() => {
+		if (snapshot) {
 			setState("LOADING")
-
-			try {
-				const snapshot = await getSnapshot(id)
-				await snapshot.initialize()
-
-				setSnapshot(snapshot)
-				setState("LOADED")
-			} catch(error) {
+			snapshot.resolve(API).then((newResolvedSnapshot) => {
+				return newResolvedSnapshot.fetchPlayerNames(API).then(() => {
+					setResolvedSnapshot(newResolvedSnapshot)
+					setState("LOADED")
+				})
+			}, (error) => {
 				setState("ERROR")
 				throw error
-			}
+			})
 		} else {
 			setState("NONE")
+			setResolvedSnapshot(null)
 		}
-	}, [ id ])
+	}, [ snapshot ])
 
 	switch (state) {
 		case "LOADED":
-			return (
-				<SnapshotElement state="LOADED" {...props}>
-					<Tabs snapshot={snapshot} report={report} />
-					<SnapshotCanvasElement data={snapshot.canvas}>
-						<ViewerHoverDetails />
-						<ViewerPlayerBubbles players={snapshot.players} />
-					</SnapshotCanvasElement>
-				</SnapshotElement>
-			)
+			return <Snapshot snapshot={resolvedSnapshot} report={report} />
 
 		case "LOADING":
 			return (
@@ -99,7 +101,7 @@ function Snapshot({ id, placeholder, report, ...props }) {
 	}
 }
 
-export default Snapshot
+export default SnapshotResolver
 
 export {
 	SnapshotElement,

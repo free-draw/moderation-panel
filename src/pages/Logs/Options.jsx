@@ -1,8 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-
 import Dropdown from "/src/components/Dropdown"
-import TextBox from "/src/components/TextBox"
 
 const OptionsGroupElement = styled.div`
 	display: flex;

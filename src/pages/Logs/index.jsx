@@ -1,12 +1,10 @@
 import React from "react"
 import styled from "styled-components"
-
-import { getLogs } from "/src/api/logs"
-
+import { getLogs } from "@free-draw/moderation-client"
+import API from "/src/API"
 import Page from "/src/components/Page"
 import TextButton from "/src/components/TextButton"
 import Spinner from "/src/components/Spinner"
-
 import Options from "./Options"
 import Log from "./Log"
 
@@ -41,7 +39,9 @@ const ContentFooterElement = styled.div`
 
 function LogsPage() {
 	const [ loaded, setLoaded ] = React.useState(false)
-	const [ pages, setPages ] = React.useState([])
+
+	const [ content, setContent ] = React.useState([])
+	const [ page, setPage ] = React.useState(null)
 
 	const [ sort, setSort ] = React.useState("timeDescending")
 	const [ filter, setFilter ] = React.useState(null)
@@ -53,8 +53,12 @@ function LogsPage() {
 		if (filter) {
 			options.type = filter
 		}
-		setPages([ await getLogs(options) ])
 
+		const initialPage = await getLogs(API, options)
+		const initialPageResolved = await initialPage.resolveAll(API)
+
+		setContent([ initialPageResolved ])
+		setPage(initialPage)
 		setLoaded(true)
 	}, [ sort, filter ])
 
@@ -70,8 +74,17 @@ function LogsPage() {
 			</OptionsContainerElement>
 			<ContentContainerElement>
 				{
-					pages.flatMap((page) => {
-						return page.logs.map((logData, index) => <Log key={index} log={logData} />)
+					content.flatMap((pageResolved) => {
+						return pageResolved.map((logResolved, index) => {
+							return (
+								<Log
+									key={index}
+									log={logResolved.log}
+									data={logResolved.data}
+									moderator={logResolved.moderator}
+								/>
+							)
+						})
 					})
 				}
 				<ContentFooterElement>
@@ -83,9 +96,12 @@ function LogsPage() {
 								onClick={async () => {
 									setLoaded(false)
 
-									const page = await pages[pages.length - 1].next()
-									if (page.logs.length > 0) {
-										setPages([ ...pages, page ])
+									const newPage = await page.next(API)
+									const newPageResolved = await newPage.resolveAll()
+
+									if (newPage.length > 0) {
+										setPage(newPage)
+										setContent([ ...content, newPageResolved ])
 									}
 
 									setLoaded(true)

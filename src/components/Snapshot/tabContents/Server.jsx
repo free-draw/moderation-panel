@@ -123,9 +123,9 @@ function ServerTab({ snapshot, report }) {
 						let breadcrumb
 
 						if (report) {
-							if (player.id === report.target) {
+							if (player.id === report.target.id) {
 								breadcrumb = "Target"
-							} else if (player.id === report.from) {
+							} else if (player.id === report.from.id) {
 								breadcrumb = "Source"
 							}
 						}
@@ -133,7 +133,7 @@ function ServerTab({ snapshot, report }) {
 						return <Player
 							key={player.id}
 							player={player}
-							emphasized={report ? report.target == player.id : false}
+							emphasized={report ? report.target.id == player.id : false}
 							breadcrumb={breadcrumb}
 						/>
 					})

@@ -118,12 +118,13 @@ const LogArrowElement = styled(Arrow)`
 	${props => props.open ? "transform: rotate(90deg)" : ""};
 `
 
-function Log({ log }) {
+function Log({ log, data, moderator }) {
 	const logType = logTypes[log.type]
 
 	const { color, text, fields, buttons } = logType({
-		log,
-		source: <LogTextSourceElement>{log.source.name}</LogTextSourceElement>,
+		data,
+		moderator,
+		source: <LogTextSourceElement>{moderator.name}</LogTextSourceElement>,
 	})
 
 	const [ open, setOpen ] = React.useState(false)

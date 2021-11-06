@@ -3,12 +3,10 @@ import styled, { createGlobalStyle } from "styled-components"
 import { BrowserRouter, Route, Switch } from "react-router-dom"
 import { useReduceMotion } from "react-reduce-motion"
 import { Globals } from "react-spring"
-
-import { getCurrentUser } from "/src/api/auth"
-
+import API from "/src/API"
+import { getModerator, getToken, TokenType } from "@free-draw/moderation-client"
 import Header from "./components/Header"
 import LoginPrompt from "./components/LoginPrompt"
-
 import Home from "./pages/Home"
 import Reports from "./pages/Reports"
 import Users from "./pages/Users"
@@ -71,8 +69,17 @@ function App() {
 	const [ loginStatus, setLoginStatus ] = React.useState("UNKNOWN")
 	React.useEffect(async () => {
 		try {
-			await getCurrentUser()
-			setLoginStatus("SUCCESS")
+			const token = await getToken(API)
+			if (token.type === TokenType.USER) {
+				const moderator = await getModerator(API, token.id)
+				if (moderator.active) {
+					setLoginStatus("SUCCESS")
+				} else {
+					setLoginStatus("DEACTIVATED_ACCOUNT")
+				}
+			} else {
+				setLoginStatus("SUCCESS")
+			}
 		} catch {
 			setLoginStatus("INVALID_USER")
 		}

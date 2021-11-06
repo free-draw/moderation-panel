@@ -1,8 +1,8 @@
 import React from "react"
 import styled from "styled-components"
 import useAsync from "/src/util/useAsync"
-
-import { getRobloxUser, getRobloxThumbnail } from "/src/api/roblox"
+import { getRobloxUser, getRobloxThumbnail, RobloxThumbnailType } from "@free-draw/moderation-client"
+import API from "/src/API"
 
 const DetailsUserElement = styled.a.attrs({
 	target: "_blank",
@@ -37,8 +37,12 @@ const DetailsUserNameElement = styled.span`
 `
 
 function DetailsUser({ id }) {
-	const user = useAsync(getRobloxUser)(id)
-	const avatar = useAsync(getRobloxThumbnail)("AvatarHeadShot", id, "100x100")
+	const user = useAsync(getRobloxUser)(API, id)
+	const avatar = useAsync(getRobloxThumbnail, [ id ])(API, {
+		id,
+		type: RobloxThumbnailType.AVATAR_HEADSHOT,
+		size: "100x100",
+	})
 
 	return (
 		<DetailsUserElement href={`https://www.roblox.com/users/${id}/profile`}>
@@ -77,7 +81,7 @@ function Details({ report }) {
 	return (
 		<DetailsElement>
 			<NotesElement>{`"${report.notes}"`}</NotesElement>
-			<DetailsUser id={report.from} />
+			<DetailsUser id={report.from.id} />
 		</DetailsElement>
 	)
 }

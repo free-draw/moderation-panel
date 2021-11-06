@@ -1,13 +1,11 @@
 import React from "react"
 import styled from "styled-components"
 import useAsync from "/src/util/useAsync"
-
-import { getUser } from "/src/api/users"
-
+import { getUser } from "@free-draw/moderation-client"
 import Page from "/src/components/Page"
-
 import Details from "./Details"
 import Actions from "./Actions"
+import API from "/src/API"
 
 const UserPageElement = styled(Page)`
 	display: flex;
@@ -25,13 +23,13 @@ const ContentElement = styled.div`
 function UserPage({ match }) {
 	const { userId } = match.params
 
-	const user = useAsync(getUser)(userId)
+	const user = useAsync(getUser)(API, userId)
 
 	return (
 		<UserPageElement>
 			<Details userId={userId} />
 			<ContentElement>
-				<Actions user={user} />
+				{user ? <Actions user={user} /> : null}
 			</ContentElement>
 		</UserPageElement>
 	)

@@ -2,22 +2,18 @@ import React from "react"
 import styled from "styled-components"
 import { useHistory } from "react-router-dom"
 import { mdiMagnify, mdiTrashCanOutline, mdiPlus } from "@mdi/js"
-import useAsync from "/src/util/useAsync"
 import Maid from "/src/class/Maid"
-
-import { getModerator } from "/src/api/moderators"
-
+import API from "/src/API"
 import ModerationType from "/src/enum/ModerationType"
 import ModerationPresetReason from "/src/enum/ModerationPresetReason"
 import ModerationPresetDuration from "/src/enum/ModerationPresetDuration"
-
 import colors from "/src/presets/colors"
-
 import IconButton from "/src/components/IconButton"
 import Dialog from "/src/components/Dialog"
 import Dropdown from "/src/components/Dropdown"
 import TextArea from "/src/components/TextArea"
 import { Field, FieldGroup } from "/src/components/fields"
+import Realtime from "/src/Realtime"
 
 import ContentSection from "./ContentSection"
 
@@ -175,9 +171,19 @@ function Action({ action }) {
 	const [ expanded, setExpanded ] = React.useState(false)
 	const [ prompt, setPrompt ] = React.useState(false)
 
-	const moderator = useAsync(getModerator, !action.moderator || !expanded)(action.moderator)
-	const moderatorName = action.moderator ? (moderator ? moderator.name : "Loading...") : "Unknown"
-	const moderatorNameLoaded = action.moderator && moderator
+	const [ moderatorName, setModeratorName ] = React.useState(null)
+	const [ moderatorState, setModeratorState ] = React.useState(action.moderator ? "LOADING" : "UNKNOWN")
+
+	React.useEffect(() => {
+		if (action.moderator) {
+			action.moderator.resolve().then((moderator) => {
+				setModeratorName(moderator.name)
+				setModeratorState("LOADED")
+			})
+		} else {
+			setModeratorState("UNKNOWN")
+		}
+	}, [ action.moderator ])
 
 	return (
 		<ActionElement
@@ -214,7 +220,7 @@ function Action({ action }) {
 									action={action}
 									onDelete={async () => {
 										setPrompt(false)
-										await action.delete()
+										await action.delete(API)
 									}}
 									onClose={() => setPrompt(false)}
 								/>
@@ -232,13 +238,13 @@ function Action({ action }) {
 					/>
 					<Field
 						name="Moderator"
-						value={moderatorName}
-						empty={!moderatorNameLoaded}
+						value={moderatorName ?? "Unknown"}
+						empty={moderatorState === "UNKNOWN"}
 						inline
 					/>
 					<Field
-						name="Time"
-						value={action.timestamp.toLocaleString()}
+						name="Created"
+						value={action.created.toLocaleString()}
 						inline
 					/>
 					{
@@ -257,26 +263,27 @@ function Action({ action }) {
 }
 
 function Actions({ user }) {
-	const [ actions, setActions ] = React.useState(null)
+	const [ actions, setActions ] = React.useState(user.actions)
 	const [ dialogOpen, setDialogOpen ] = React.useState(false)
 
 	React.useEffect(() => {
-		setActions(null)
-
-		if (user) {
-			function update() {
-				setActions([].concat(user.actions, user.history))
+		const maid = new Maid()
+		maid.listen(Realtime, "actionCreate", (actionUser, action) => {
+			if (actionUser.id === user.id) {
+				setActions([ ...actions, action ])
 			}
+		})
+		maid.listen(Realtime, "actionDelete", (actionUser, action) => {
+			if (actionUser.id === user.id) {
+				setActions([
+					...actions.filter(filterAction => filterAction.id !== action.id),
+					action,
+				])
+			}
+		})
 
-			const maid = new Maid()
-			maid.listen(user, "actionCreate", update)
-			maid.listen(user, "actionDelete", update)
-
-			update()
-
-			return () => maid.clean()
-		}
-	}, [ user ])
+		return () => maid.clean()
+	}, [ user, actions ])
 
 	let status
 	if (actions && actions.length > 0) {
@@ -288,31 +295,33 @@ function Actions({ user }) {
 	}
 
 	return (
-		<ContentSection
-			name="Actions"
-			loading={!actions}
-			status={status}
-			buttons={[
+		<>
+			<ContentSection
+				name="Actions"
+				loading={!actions}
+				status={status}
+				buttons={[
+					{
+						id: "create",
+						icon: mdiPlus,
+						onClick: () => setDialogOpen(true),
+					},
+				]}
+			>
 				{
-					id: "create",
-					icon: mdiPlus,
-					onClick: () => setDialogOpen(true),
-				},
-			]}
-		>
-			{
-				actions && actions.length > 0 ? (
-					[ ...actions ]
-						.sort((B, A) => A.timestamp.getTime() - B.timestamp.getTime())
-						.map(action => <Action key={action.id} action={action} />)
-				) : null
-			}
+					actions && actions.length > 0 ? (
+						[ ...actions ]
+							.sort((B, A) => A.created.getTime() - B.created.getTime())
+							.map(action => <Action key={action.id} action={action} />)
+					) : null
+				}
+			</ContentSection>
 			{
 				dialogOpen ? (
 					<CreateDialog
 						onClose={() => setDialogOpen(false)}
 						onCreate={async (type, reason, duration, notes) => {
-							await user.createAction({
+							await user.createAction(API, {
 								type: type.name,
 								reason: reason.value,
 								duration: duration.value.duration,
@@ -322,7 +331,7 @@ function Actions({ user }) {
 					/>
 				) : null
 			}
-		</ContentSection>
+		</>
 	)
 }
 

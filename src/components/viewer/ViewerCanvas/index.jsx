@@ -1,10 +1,9 @@
 import React from "react"
 import styled from "styled-components"
-
 import Canvas from "./core/Canvas"
 import Camera from "./core/Camera"
 import Input from "./core/Input"
-
+import useStaticValue from "/src/util/useStaticValue"
 import ViewerContext from "../ViewerContext"
 
 const ViewerCanvasElement = styled.div`
@@ -12,57 +11,49 @@ const ViewerCanvasElement = styled.div`
 	overflow: hidden;
 `
 
-class ViewerCanvas extends React.Component {
-	constructor(props) {
-		super()
+function ViewerCanvas({ data, className, children }) {
+	const ref = React.useRef()
 
-		this.ref = React.createRef()
+	const canvas = useStaticValue(() => new Canvas())
+	const input = useStaticValue(() => new Input(canvas.element))
+	const camera = useStaticValue(() => new Camera(input, canvas.element))
 
-		this.canvas = new Canvas()
-		this.input = new Input(this.canvas.element)
-		this.camera = new Camera(this.input, this.canvas.element)
-
-		this.canvas.setCamera(this.camera)
-
-		if (props.data) {
-			this.canvas.load(props.data)
-		}
-	}
-
-	componentDidMount() {
-		this.canvas.mount(this.ref.current)
-	}
-
-	componentDidUpdate(lastProps) {
-		if (this.props.data !== lastProps.data) {
-			this.camera.reset()
-			this.canvas.clear()
-
-			if (this.props.data) {
-				this.canvas.load(this.props.data)
-			}
-		}
-	}
-
-	componentWillUnmount() {
-		this.canvas.destroy()
-	}
-
-	render() {
-		const context = {
-			canvas: this.canvas,
-			input: this.input,
-			camera: this.camera,
+	React.useEffect(() => {
+		canvas.setCamera(camera)
+		canvas.mount(ref.current)
+		if (data) {
+			canvas.load(data)
 		}
 
-		return (
-			<ViewerContext.Provider value={context}>
-				<ViewerCanvasElement ref={this.ref} className={this.props.className}>
-					{this.props.children}
-				</ViewerCanvasElement>
-			</ViewerContext.Provider>
-		)
-	}
+		return () => {
+			canvas.destroy()
+		}
+	}, [])
+
+	React.useEffect(() => {
+		camera.reset()
+		canvas.clear()
+
+		if (data) {
+			canvas.load(data)
+		}
+	}, [ data ])
+
+	const context = React.useMemo(() => {
+		return {
+			canvas,
+			camera,
+			input,
+		}
+	}, [ canvas, camera, input ])
+
+	return (
+		<ViewerContext.Provider value={context}>
+			<ViewerCanvasElement ref={ref} className={className}>
+				{children}
+			</ViewerCanvasElement>
+		</ViewerContext.Provider>
+	)
 }
 
 export default ViewerCanvas
