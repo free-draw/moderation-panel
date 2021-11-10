@@ -22,7 +22,7 @@ function ViewerPositionalOverlay(props) {
 
 	React.useEffect(() => {
 		const updatePosition = () => {
-			const position = camera.position.invert().add(props.position).multiplyScalar(camera.scale)
+			const position = camera.position.inverse().add(props.position).multiplyScalar(camera.scale)
 			const scale = props.ignoreScale ? 1 : camera.scale
 			ref.current.style.transform = `translate(${position.x}px, ${position.y}px) scale(${scale})`
 		}
