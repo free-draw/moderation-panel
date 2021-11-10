@@ -101,24 +101,27 @@ function List() {
 	const [ reports, setReports ] = React.useState([])
 
 	React.useEffect(() => {
+		getPendingReports(API).then((newReports) => {
+			setReports(newReports)
+		})
+	}, [])
+
+	React.useEffect(() => {
 		const onReportCreate = (newReport) => {
 			setReports([ ...reports, newReport ])
 		}
 		const onReportDelete = (report) => {
 			setReports(reports.filter(filterReport => filterReport.id !== report.id))
 		}
+
 		Realtime.on("reportCreate", onReportCreate)
 		Realtime.on("reportDelete", onReportDelete)
-
-		getPendingReports(API).then((newReports) => {
-			setReports(newReports)
-		})
 
 		return () => {
 			Realtime.off("reportCreate", onReportCreate)
 			Realtime.off("reportDelete", onReportDelete)
 		}
-	}, [])
+	}, [ reports ])
 
 	return (
 		<ListElement>
