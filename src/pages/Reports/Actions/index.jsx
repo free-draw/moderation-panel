@@ -1,16 +1,13 @@
 import React from "react"
 import styled from "styled-components"
-
-import ModerationType from "/src/enum/ModerationType"
-import ModerationPresetReason from "/src/enum/ModerationPresetReason"
-import ModerationPresetDuration from "/src/enum/ModerationPresetDuration"
-
+import API from "/src/API"
+import ModerationType, { ModerationTypeStrings } from "/src/enum/ModerationType"
+import ModerationPresetReason, { ModerationPresetReasonStrings } from "/src/enum/ModerationPresetReason"
+import ModerationPresetDuration, { ModerationPresetDurationStrings, ModerationPresetDurationLengths } from "/src/enum/ModerationPresetDuration"
 import Dialog from "/src/components/Dialog"
 import Dropdown from "/src/components/Dropdown"
-
 import AcceptIcon from "./accept-icon.svg"
 import DeclineIcon from "./decline-icon.svg"
-
 import colors from "/src/presets/colors"
 
 function ReportAcceptDialog({ report, close }) {
@@ -34,11 +31,11 @@ function ReportAcceptDialog({ report, close }) {
 					style: "bordered",
 					onClick: () => {
 						if (reason && type && duration) {
-							report.accept(
-								type.name,
-								reason.value,
-								duration.value.duration ? duration.value.duration / 1000 : null
-							)
+							report.accept(API, {
+								type,
+								reason: ModerationPresetReasonStrings[reason],
+								duration: ModerationPresetDurationLengths[duration] ? duration / 1000 : null,
+							})
 
 							close()
 						}
@@ -50,21 +47,21 @@ function ReportAcceptDialog({ report, close }) {
 			<Dropdown
 				index={1}
 				placeholder="Type"
-				enumerable={ModerationType}
+				options={Object.keys(ModerationType).map(key => ({ id: key, name: ModerationTypeStrings[key] }))}
 				currentOptionId={type}
 				onSelection={setType}
 			/>
 			<Dropdown
 				index={2}
 				placeholder="Reason"
-				enumerable={ModerationPresetReason}
+				options={Object.keys(ModerationPresetReason).map(key => ({ id: key, name: ModerationPresetReasonStrings[key] }))}
 				currentOptionId={reason}
 				onSelection={setReason}
 			/>
 			<Dropdown
 				index={3}
 				placeholder="Duration"
-				enumerable={ModerationPresetDuration}
+				options={Object.keys(ModerationPresetDuration).map(key => ({ id: key, name: ModerationPresetDurationStrings[key] }))}
 				currentOptionId={duration}
 				onSelection={setDuration}
 			/>

@@ -11,6 +11,7 @@ specifiers:
   '@parcel/transformer-sass': ^2.0.1
   '@parcel/transformer-svg-react': ^2.0.1
   '@types/lodash': ^4.14.176
+  '@types/ms': ^0.7.31
   '@types/react': ^17.0.34
   axios: ^0.21.4
   babel-plugin-styled-components: ^1.13.3
@@ -46,6 +47,7 @@ dependencies:
   '@parcel/transformer-sass': 2.0.1
   '@parcel/transformer-svg-react': 2.0.1
   '@types/lodash': 4.14.176
+  '@types/ms': 0.7.31
   '@types/react': 17.0.34
   axios: 0.21.4
   babel-plugin-styled-components: 1.13.3_styled-components@5.3.3
@@ -2545,6 +2547,10 @@ packages:
 
   /@types/lodash/4.14.176:
     resolution: {integrity: sha512-xZmuPTa3rlZoIbtDUyJKZQimJV3bxCmzMIO2c9Pz9afyDro6kr7R79GwcB6mRhuoPmV2p1Vb66WOJH7F886WKQ==}
+    dev: false
+
+  /@types/ms/0.7.31:
+    resolution: {integrity: sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA==}
     dev: false
 
   /@types/node/16.11.7:

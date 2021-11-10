@@ -81,17 +81,8 @@ const DropdownArrowElement = styled(Arrow)`
 
 const DropdownOptionsElement = styled.div``
 
-function Dropdown({ options, enumerable, currentOptionId, placeholder, index, onSelection }) {
+function Dropdown({ options, currentOptionId, placeholder, index, onSelection }) {
 	const [ open, setOpen ] = React.useState(false)
-
-	if (enumerable) {
-		options = enumerable.items().map((item) => {
-			return {
-				id: item,
-				name: typeof item.value === "object" ? item.value.name : item.value,
-			}
-		})
-	}
 
 	const currentOption = options.find(option => option.id === currentOptionId)
 

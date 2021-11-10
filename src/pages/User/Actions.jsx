@@ -4,9 +4,9 @@ import { useHistory } from "react-router-dom"
 import { mdiMagnify, mdiTrashCanOutline, mdiPlus } from "@mdi/js"
 import Maid from "/src/class/Maid"
 import API from "/src/API"
-import ModerationType from "/src/enum/ModerationType"
-import ModerationPresetReason from "/src/enum/ModerationPresetReason"
-import ModerationPresetDuration from "/src/enum/ModerationPresetDuration"
+import ModerationType, { ModerationTypeStrings } from "/src/enum/ModerationType"
+import ModerationPresetReason, { ModerationPresetReasonStrings } from "/src/enum/ModerationPresetReason"
+import ModerationPresetDuration , { ModerationPresetDurationStrings, ModerationPresetDurationLengths } from "/src/enum/ModerationPresetDuration"
 import colors from "/src/presets/colors"
 import IconButton from "/src/components/IconButton"
 import Dialog from "/src/components/Dialog"
@@ -42,7 +42,13 @@ function CreateDialog({ onCreate, onClose }) {
 					text: "Create",
 					style: "filled",
 					onClick() {
-						onCreate(type, reason, duration, notes)
+						onCreate({
+							type,
+							reason: ModerationPresetReasonStrings[reason],
+							duration: ModerationPresetDurationLengths[duration],
+							notes,
+						})
+
 						onClose()
 					},
 				},
@@ -51,21 +57,21 @@ function CreateDialog({ onCreate, onClose }) {
 		>
 			<Dropdown
 				placeholder="Type"
-				enumerable={ModerationType}
+				options={Object.keys(ModerationType).map(key => ({ id: key, name: ModerationTypeStrings[key] }))}
 				currentOptionId={type}
 				onSelection={setType}
 				index={1}
 			/>
 			<Dropdown
 				placeholder="Reason"
-				enumerable={ModerationPresetReason}
+				options={Object.keys(ModerationPresetReason).map(key => ({ id: key, name: ModerationPresetReasonStrings[key] }))}
 				currentOptionId={reason}
 				onSelection={setReason}
 				index={2}
 			/>
 			<Dropdown
 				placeholder="Duration"
-				enumerable={ModerationPresetDuration}
+				options={Object.keys(ModerationPresetDuration).map(key => ({ id: key, name: ModerationPresetDurationStrings[key] }))}
 				currentOptionId={duration}
 				onSelection={setDuration}
 				index={3}
@@ -320,13 +326,8 @@ function Actions({ user }) {
 				dialogOpen ? (
 					<CreateDialog
 						onClose={() => setDialogOpen(false)}
-						onCreate={async (type, reason, duration, notes) => {
-							await user.createAction(API, {
-								type: type.name,
-								reason: reason.value,
-								duration: duration.value.duration,
-								notes,
-							})
+						onCreate={(options) => {
+							return user.createAction(API, options)
 						}}
 					/>
 				) : null
