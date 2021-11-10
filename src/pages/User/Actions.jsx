@@ -182,7 +182,7 @@ function Action({ action }) {
 
 	React.useEffect(() => {
 		if (action.moderator) {
-			action.moderator.resolve().then((moderator) => {
+			action.moderator.resolve(API).then((moderator) => {
 				setModeratorName(moderator.name)
 				setModeratorState("LOADED")
 			})
