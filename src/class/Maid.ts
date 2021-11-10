@@ -2,7 +2,7 @@ import { EventEmitter2 } from "eventemitter2"
 
 type EmitterCallbackLike = () => void
 
-type DOMEmitterLike = {
+type EventTargetLike = {
 	addEventListener(eventName: string, callback: EmitterCallbackLike): any,
 	removeEventListener(eventName: string, callback: EmitterCallbackLike): any,
 }
@@ -14,21 +14,21 @@ type EventEmitterLike = {
 	removeListener(event: string, callback: EmitterCallbackLike): any,
 }
 
-type EmitterLike = DOMEmitterLike | EventEmitterLike
+type EmitterLike = EventTargetLike | EventEmitterLike
 
 function connect(target: EmitterLike, event: string, callback: EmitterCallbackLike) {
 	if (target instanceof EventTarget) {
-		target.addEventListener(event, callback)
-	} else if (target instanceof EventEmitter2) {
-		target.addListener(event, callback)
+		(target as EventTargetLike).addEventListener(event, callback)
+	} else {
+		(target as EventEmitterLike).addListener(event, callback)
 	}
 }
 
 function disconnect(target: EmitterLike, event: string, callback: EmitterCallbackLike) {
 	if (target instanceof EventTarget) {
-		target.removeEventListener(event, callback)
-	} else if (target instanceof EventEmitter2) {
-		target.removeListener(event, callback)
+		(target as EventTargetLike).removeEventListener(event, callback)
+	} else {
+		(target as EventEmitterLike).removeListener(event, callback)
 	}
 }
 
@@ -47,7 +47,7 @@ class Maid {
 	}
 
 	public listen<E extends EventEmitterLike>(target: E, ...args: Parameters<E["on"]>): void
-	public listen<E extends DOMEmitterLike>(target: E, ...args: Parameters<E["addEventListener"]>): void
+	public listen<E extends EventTargetLike>(target: E, ...args: Parameters<E["addEventListener"]>): void
 	public listen(target: EmitterLike, event: string, callback: EmitterCallbackLike): void {
 		connect(target, event, callback)
 		this.addCallback(disconnect.bind(null, target, event, callback))
