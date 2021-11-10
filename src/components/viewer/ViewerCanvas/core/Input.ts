@@ -1,44 +1,51 @@
-import EventEmitter from "eventemitter2"
+import { Vector2 } from "@free-draw/moderation-client"
+import { EventEmitter2 } from "eventemitter2"
 
-import Vector2 from "/src/class/Vector2"
-import Maid from "/src/class/Maid"
+import Maid from "../../../../class/Maid"
 
-function getEventPosition(event) {
+function getEventPosition(event: MouseEvent) {
 	return new Vector2(event.offsetX, event.offsetY)
 }
 
-class Pointer extends EventEmitter {
-	constructor(initialEvent) {
+type PointerMethod = "onPointerDown" | "onPointerMove" | "onPointerUp"
+
+class Pointer extends EventEmitter2 {
+	public active: boolean
+	public position: Vector2
+
+	constructor(initialEvent: PointerEvent) {
 		super()
-		
+
 		this.active = false
 		this.position = getEventPosition(initialEvent)
 	}
 
-	onPointerDown(event) {
+	protected onPointerDown(event: PointerEvent): void {
 		this.active = true
 		this.emit("down", getEventPosition(event))
 	}
 
-	onPointerMove(event) {
+	protected onPointerMove(event: PointerEvent): void {
 		const position = getEventPosition(event)
 		const delta = position.subtract(this.position)
 		this.position = position
 		this.emit("move", position, delta)
 	}
 
-	onPointerUp(event) {
+	protected onPointerUp(event: PointerEvent): void {
 		this.active = false
 		this.emit("up", getEventPosition(event))
 	}
 }
 
-class Input extends EventEmitter {
-	constructor(element) {
-		super()
+type EventListener = (event: Event) => void
 
-		this.pointers = {}
-		this.maid = new Maid()
+class Input extends EventEmitter2 {
+	public pointers: Record<string, Pointer> = {}
+	public maid: Maid = new Maid()
+
+	constructor(element: HTMLElement) {
+		super()
 
 		this.maid.listen(element, "pointerenter", this.createPointer.bind(this))
 		this.maid.listen(element, "pointerout", this.destroyPointer.bind(this))
@@ -47,19 +54,20 @@ class Input extends EventEmitter {
 		this.maid.listen(element, "pointermove", this.createEventHandler("onPointerMove"))
 		this.maid.listen(element, "pointerup", this.createEventHandler("onPointerUp"))
 
-		this.maid.listen(element, "wheel", (event) => {
+		this.maid.listen(element, "wheel", ((event: WheelEvent) => {
 			const scroll = -event.deltaY / 100
 			const position = getEventPosition(event)
 			this.emit("scroll", scroll, position)
-		})
+		}) as EventListener)
 
-		this.maid.listen(element, "contextmenu", (event) => {
+		this.maid.listen(element, "contextmenu", (event: Event) => {
 			event.preventDefault()
 		})
 	}
 
-	createEventHandler(eventName) {
-		return (event) => {
+	public createEventHandler(eventName: PointerMethod): (event: Event) => void
+	public createEventHandler(eventName: PointerMethod): (event: PointerEvent) => void {
+		return (event: PointerEvent) => {
 			const pointer = this.pointers[event.pointerId]
 			if (pointer && pointer[eventName]) {
 				pointer[eventName].call(pointer, event)
@@ -67,7 +75,8 @@ class Input extends EventEmitter {
 		}
 	}
 
-	createPointer(event) {
+	private createPointer(event: Event): void
+	private createPointer(event: PointerEvent): void {
 		const pointer = new Pointer(event)
 
 		pointer.onAny((event, ...values) => {
@@ -77,13 +86,15 @@ class Input extends EventEmitter {
 		this.pointers[event.pointerId] = pointer
 	}
 
-	destroyPointer(event) {
+	private destroyPointer(event: Event): void
+	private destroyPointer(event: PointerEvent): void {
 		delete this.pointers[event.pointerId]
 	}
 
-	destroy() {
+	public destroy(): void {
 		this.maid.clean()
 	}
 }
 
 export default Input
+export { Pointer }

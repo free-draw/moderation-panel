@@ -1,12 +1,27 @@
-import EventEmitter from "eventemitter2"
-
-import Maid from "/src/class/Maid"
-import Vector2 from "/src/class/Vector2"
+import { EventEmitter2 } from "eventemitter2"
+import { Vector2 } from "@free-draw/moderation-client"
+import Maid from "../../../../class/Maid"
+import Input, { Pointer } from "./Input"
 
 const SCROLL_SCALE_RATE = 0.2
 
-class Camera extends EventEmitter {
-	constructor(input, screen) {
+type CameraState = {
+	position: Vector2,
+	rotation: number,
+	scale: number,
+}
+
+type CameraInputFrame = Partial<CameraState>
+
+class Camera extends EventEmitter2 {
+	public input: Input
+	public screen: HTMLElement
+
+	public position: Vector2 = new Vector2(0, 0)
+	public rotation: number = 0
+	public scale: number = 30
+
+	constructor(input: Input, screen: HTMLElement) {
 		super()
 
 		this.input = input
@@ -29,9 +44,9 @@ class Camera extends EventEmitter {
 		input.on("down", (pointer) => {
 			const maid = new Maid()
 
-			maid.listen(pointer, "move", (_, delta) => {
+			maid.listen(pointer, "move", (_pointer: Pointer, delta: Vector2) => {
 				this.processInputFrame({
-					position: delta.invert(),
+					position: delta.inverse(),
 				})
 			})
 
@@ -41,12 +56,12 @@ class Camera extends EventEmitter {
 		})
 	}
 
-	getRelativePosition(screenPosition) {
+	public getRelativePosition(screenPosition: Vector2): Vector2 {
 		const center = new Vector2(this.screen.offsetWidth, this.screen.offsetHeight).divideScalar(2)
 		return screenPosition.subtract(center).divideScalar(this.scale).add(this.position)
 	}
 
-	getState() {
+	public getState(): CameraState {
 		return {
 			position: this.position,
 			rotation: this.rotation,
@@ -54,7 +69,7 @@ class Camera extends EventEmitter {
 		}
 	}
 
-	processInputFrame(inputFrame) {
+	public processInputFrame(inputFrame: CameraInputFrame): void {
 		let { position, rotation, scale } = inputFrame
 
 		if (scale) {
@@ -72,7 +87,7 @@ class Camera extends EventEmitter {
 		this.emit("update", this.getState())
 	}
 
-	reset() {
+	public reset(): void {
 		this.position = new Vector2(0, 0)
 		this.rotation = 0
 		this.scale = 30

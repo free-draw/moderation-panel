@@ -1,12 +1,14 @@
-import EventEmitter from "eventemitter2"
+import { EventEmitter2 } from "eventemitter2"
 import * as PIXI from "pixi.js"
 
-import Maid from "/src/class/Maid"
-import AABB from "/src/class/AABB"
+import Maid from "../../../../class/Maid"
+import AABB, { AABBResult } from "../../../../class/AABB"
 
-import { clamp, getAngleDelta } from "/src/util/number"
+import { clamp, getAngleDelta } from "../../../../util/number"
+import { Vector2, SnapshotPlayer, ParsedLine, ParsedLayer, ParsedFile, Snapshot } from "@free-draw/moderation-client"
+import Camera from "./Camera"
 
-function getCornerOffset(points, index) {
+function getCornerOffset(points: Vector2[], index: number) {
 	const lastPoint = points[index - 1]
 	const point = points[index]
 	const nextPoint = points[index + 1]
@@ -27,8 +29,22 @@ function getCornerOffset(points, index) {
 	}
 }
 
+type CollisionDetails = {
+	aabb: AABBResult,
+	center: Vector2,
+	radius: number,
+}
+
 class Line {
-	constructor(layer, data) {
+	public layer: Layer
+
+	public points: Vector2[]
+	public options: any
+
+	public mesh: PIXI.Mesh
+	public collisionDetails: CollisionDetails
+
+	constructor(layer: Layer, data: ParsedLine) {
 		this.layer = layer
 
 		this.points = data.points
@@ -38,8 +54,8 @@ class Line {
 		this.collisionDetails = this.getCollisionDetails()
 	}
 
-	isTouching(point) {
-		const distanceFromLineCenter = point.subtract(this.collisionDetails.center).magnitude
+	public isTouching(point: Vector2): boolean {
+		const distanceFromLineCenter = point.subtract(this.collisionDetails.center).magnitude()
 		if (distanceFromLineCenter > this.collisionDetails.radius) {
 			return false
 		}
@@ -76,7 +92,7 @@ class Line {
 		return false
 	}
 
-	getCollisionDetails() {
+	public getCollisionDetails(): CollisionDetails {
 		const aabb = new AABB()
 		this.points.forEach(point => aabb.add(point))
 
@@ -92,7 +108,7 @@ class Line {
 		}
 	}
 
-	getMesh() {
+	public getMesh(): PIXI.Mesh {
 		const { color, thickness, transparency } = this.options
 
 		const vertices = []
@@ -148,24 +164,33 @@ class Line {
 			tint: color.toDecimal(),
 		})
 
-		const mesh = new PIXI.Mesh(geometry, shader, null, PIXI.DRAW_MODES.TRIANGLES)
+		const mesh = new PIXI.Mesh(geometry, shader, undefined, PIXI.DRAW_MODES.TRIANGLES)
 		mesh.alpha = 1 - transparency
 
 		return mesh
 	}
 }
 
-class Layer extends EventEmitter {
-	constructor(collector, data) {
+class Layer extends EventEmitter2 {
+	public collector: Collector
+
+	public index: number
+	public name: string
+	public visible: boolean
+	public lines: Line[]
+
+	public container: PIXI.Container = new PIXI.Container()
+
+	constructor(collector: Collector, data: ParsedLayer) {
 		super()
 
 		this.collector = collector
 
+		this.index = data.index
 		this.name = data.name
 		this.visible = data.visible
 		this.lines = []
 
-		this.container = new PIXI.Container()
 		this.container.zIndex = data.index
 		this.container.name = data.name
 
@@ -175,13 +200,13 @@ class Layer extends EventEmitter {
 		})
 	}
 
-	addLine(line) {
+	public addLine(line: Line): void {
 		this.lines.push(line)
 		this.container.addChild(line.mesh)
 		this.emit("lineAdded", line)
 	}
 
-	removeLine(line) {
+	public removeLine(line: Line): void {
 		this.lines = this.lines.filter(filterLine => filterLine !== line)
 		this.container.removeChild(line.mesh)
 		this.emit("lineRemoved", line)
@@ -189,20 +214,23 @@ class Layer extends EventEmitter {
 
 	// Casting
 
-	getLineAt(point) {
+	public getLineAt(point: Vector2): Line | undefined {
 		return this.lines.find(line => line.isTouching(point))
 	}
 }
 
-class Collector extends EventEmitter {
-	constructor(data) {
+class Collector extends EventEmitter2 {
+	public owner: SnapshotPlayer
+	public layers: Layer[]
+
+	public container: PIXI.Container = new PIXI.Container()
+
+	constructor(player: SnapshotPlayer, data: ParsedFile) {
 		super()
 
-		this.owner = data.player
+		this.owner = player
 		this.layers = []
-
-		this.container = new PIXI.Container()
-		this.container.name = data.player.name
+		this.container.name = player.name as string
 
 		data.layers.forEach((layerData) => {
 			const layer = new Layer(this, layerData)
@@ -210,34 +238,40 @@ class Collector extends EventEmitter {
 		})
 	}
 
-	addLayer(layer) {
+	public addLayer(layer: Layer): void {
 		this.layers.push(layer)
 		this.container.addChild(layer.container)
 		this.emit("layerAdded", layer)
 	}
 
-	removeLayer(layer) {
+	public removeLayer(layer: Layer): void {
 		this.layers = this.layers.filter(filterLayer => filterLayer !== layer)
 		this.container.removeChild(layer.container)
 		this.emit("layerRemoved", layer)
 	}
 }
 
-class Canvas extends EventEmitter {
-	constructor(camera) {
+class Canvas extends EventEmitter2 {
+	public camera: Camera
+	public collectors: Collector[] = []
+
+	public readonly app: PIXI.Application = new PIXI.Application({
+		antialias: true,
+		autoDensity: true,
+		resolution: window.devicePixelRatio ?? 1,
+		backgroundAlpha: 0,
+	})
+
+	public parent?: HTMLElement | null = null
+	public element: HTMLElement
+
+	private maid: Maid = new Maid()
+
+	constructor(camera: Camera) {
 		super()
 
 		this.camera = camera
-		this.collectors = []
-		this.parent = null
-		this.app = new PIXI.Application({
-			antialias: true,
-			autoDensity: true,
-			resolution: window.devicePixelRatio ?? 1,
-			backgroundAlpha: 0,
-		})
 		this.element = this.app.view
-		this.maid = new Maid()
 
 		const updateSize = () => {
 			this.app.stage.position.set(
@@ -249,19 +283,19 @@ class Canvas extends EventEmitter {
 		this.maid.listen(this.app.renderer, "resize", updateSize)
 	}
 
-	addCollector(collector) {
+	public addCollector(collector: Collector): void {
 		this.collectors.push(collector)
 		this.app.stage.addChild(collector.container)
 		this.emit("collectorAdded", collector)
 	}
 
-	removeCollector(collector) {
+	public removeCollector(collector: Collector): void {
 		this.collectors = this.collectors.filter(filterCollector => filterCollector !== collector)
 		this.app.stage.removeChild(collector.container)
 		this.emit("collectorRemoved", collector)
 	}
 
-	setCamera(camera) {
+	public setCamera(camera: Camera): void {
 		const updateCamera = () => {
 			const stage = this.app.stage
 			const { position, rotation, scale } = camera.getState()
@@ -276,19 +310,27 @@ class Canvas extends EventEmitter {
 
 	// Casting
 
-	getSortedLayers() {
-		let layers = []
+	public getSortedLayers(): Layer[] {
+		let layers = [] as Layer[]
 
 		this.collectors.forEach((collector) => {
 			layers = layers.concat(collector.layers)
 		})
 
-		layers = layers.sort((A, B) => A.index > B.index)
+		layers = layers.sort((A, B) => {
+			if (A.index > B.index) {
+				return 1
+			} else if (A.index < B.index) {
+				return -1
+			} else {
+				return 0
+			}
+		})
 
 		return layers
 	}
 
-	getLineAt(point) {
+	public getLineAt(point: Vector2): Line | null {
 		const sortedLayers = this.getSortedLayers()
 
 		for (let index = 0; index < sortedLayers.length; index++) {
@@ -304,34 +346,33 @@ class Canvas extends EventEmitter {
 
 	// Lifecycle methods
 
-	clear() {
+	public clear(): void {
 		this.collectors.forEach(collector => this.removeCollector(collector))
 	}
 
-	load(data) {
+	public load(data: Snapshot["canvas"]): void {
 		this.clear()
 
 		Object.values(data).forEach((canvas) => {
 			canvas.parse() // TODO: Move this to where it can be caught
-
-			const collector = new Collector(canvas.data)
+			const collector = new Collector(canvas.player, canvas.data as ParsedFile)
 			this.addCollector(collector)
 		})
 	}
 
-	mount(parent) {
+	public mount(parent: HTMLElement | null): void {
 		if (this.parent) {
 			this.parent.removeChild(this.app.view)
 		}
 		if (parent) {
+			this.app.resizeTo = parent
 			parent.appendChild(this.app.view)
 		}
 
-		this.app.resizeTo = parent ?? null
 		this.parent = parent ?? null
 	}
 
-	destroy() {
+	public destroy(): void {
 		this.app.stop()
 		this.mount(null)
 	}
