@@ -7,6 +7,9 @@ WORKDIR /app
 
 COPY . .
 
+# Make sure we're building in the production environment
+ENV NODE_ENV=production
+
 # Install node-gyp dependencies
 RUN apk add python3 gcc make g++
 
