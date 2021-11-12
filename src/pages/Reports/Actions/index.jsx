@@ -149,7 +149,7 @@ function Actions({ report }) {
 				}
 			</AcceptActionElement>
 
-			<DeclineActionElement onClick={() => report.decline()}>
+			<DeclineActionElement onClick={() => report.decline(API)}>
 				<DeclineIconElement />
 			</DeclineActionElement>
 		</ActionsElement>
