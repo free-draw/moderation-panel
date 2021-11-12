@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { getRobloxThumbnail, RobloxThumbnailType } from "@free-draw/moderation-client"
-import API from "/src/api"
+import API from "/src/API"
 import useAsync from "/src/util/useAsync"
 import ViewerPositionalOverlay from "./ViewerPositionalOverlay"
 
