@@ -6,6 +6,7 @@
     "serve": "http-server dist"
   },
   "dependencies": {
+    "@babel/core": "^7.16.0",
     "@fontsource/inter": "^4.5.0",
     "@free-draw/moderation-client": "^0.4.11",
     "@mdi/js": "^5.9.55",
@@ -41,7 +42,6 @@
     "url-join": "^4.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.16.0",
     "cross-env": "^7.0.3",
     "http-proxy-middleware": "^2.0.1",
     "http-server": "^0.12.3"
