@@ -123,7 +123,7 @@ export const DELETE_ACTION = ({ data: { action, user }, source }) => {
 export const DELETE_ACTIONS_BULK = ({ data: { actions, user }, source }) => {
 	return {
 		color: indicatorColors.delete,
-		text: <> {source} removed <em>{actions.length} actions</em> on <em>{user.name}</em> </>,
+		text: <> {source} removed <em>{actions.length} action(s)</em> on <em>{user.name}</em> </>,
 		fields: [
 			useUserField("User", user),
 		],
@@ -187,7 +187,7 @@ export const UPDATE_MODERATOR = ({ data: { moderator, options }, source }) => {
 	}
 }
 
-export const ACCEPT_REPORT = ({ data: { report, action }, source }) => {
+export const ACCEPT_REPORT = ({ data: { action, report, target, from }, source }) => {
 	return {
 		color: indicatorColors.accept,
 		text: <> {source} accepted report of user <em>{target.name}</em> from <em>{from.name}</em> </>,
@@ -203,10 +203,10 @@ export const ACCEPT_REPORT = ({ data: { report, action }, source }) => {
 		],
 	}
 }
-export const DECLINE_REPORT = ({ data: { report }, source }) => {
+export const DECLINE_REPORT = ({ data: { report, target, from }, source }) => {
 	return {
 		color: indicatorColors.decline,
-		text: <> {source} declined report of user <em>{target.name}</em> from <em>{from.name}</em> </>,
+		text: <> {source} declined report of user <em>{target.name}</em> from <em>{target.name}</em> </>,
 		fields: [
 			useUserField("From", from),
 			useUserField("Target", target),
