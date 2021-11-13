@@ -97,7 +97,7 @@ function LogsPage() {
 									setLoaded(false)
 
 									const newPage = await page.next(API)
-									const newPageResolved = await newPage.resolveAll()
+									const newPageResolved = await newPage.resolveAll(API)
 
 									if (newPage.length > 0) {
 										setPage(newPage)
