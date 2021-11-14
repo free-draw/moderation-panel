@@ -103,7 +103,12 @@ function App() {
 			</BrowserRouter>
 		)
 	} else {
-		return <LoginPrompt status={loginStatus} />
+		return (
+			<>
+				<GlobalStyle />
+				<LoginPrompt status={loginStatus} />
+			</>
+		)
 	}
 }
 
