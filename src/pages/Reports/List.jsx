@@ -7,6 +7,9 @@ import colors from "/src/presets/colors"
 import Spinner from "/src/components/Spinner"
 import API from "/src/API"
 import Realtime from "/src/Realtime"
+import { FixedSizeList } from "react-window"
+
+const ReportContainerElement = styled.div``
 
 const ReportElement = styled(Link)`
 	display: flex;
@@ -22,10 +25,6 @@ const ReportElement = styled(Link)`
 	border-radius: 8px;
 	cursor: pointer;
 	user-select: none;
-
-	& + & {
-		margin-top: 10px;
-	}
 `
 
 const ReportAvatarElement = styled.img`
@@ -52,7 +51,9 @@ const ReportReasonText = styled.span`
 	margin-top: 4px;
 `
 
-function Report({ report }) {
+function Report({ data, index, style }) {
+	const report = data[index]
+
 	const match = useRouteMatch("/reports/:id")
 
 	const user = useAsync(getRobloxUser)(API, report.target.id)
@@ -64,27 +65,32 @@ function Report({ report }) {
 
 	if (user) {
 		return (
-			<ReportElement to={`/reports/${report.id}`} selected={match && match.params.id === report.id}>
-				<ReportAvatarElement src={avatar} />
-				<ReportTextElement>
-					<ReportUsernameText>{user.name}</ReportUsernameText>
-					<ReportReasonText>{report.reason}</ReportReasonText>
-				</ReportTextElement>
-			</ReportElement>
+			<ReportContainerElement style={style}>
+				<ReportElement to={`/reports/${report.id}`} selected={match && match.params.id === report.id}>
+					<ReportAvatarElement src={avatar} />
+					<ReportTextElement>
+						<ReportUsernameText>{user.name}</ReportUsernameText>
+						<ReportReasonText>{report.reason}</ReportReasonText>
+					</ReportTextElement>
+				</ReportElement>
+			</ReportContainerElement>
 		)
 	} else {
 		return (
-			<ReportElement>
-				<Spinner />
-			</ReportElement>
+			<ReportContainerElement style={style}>
+				<ReportElement>
+					<Spinner />
+				</ReportElement>
+			</ReportContainerElement>
 		)
 	}
 }
 
-const ListElement = styled.div`
+const ListContainerElement = styled.div`
 	position: absolute;
 	top: 0;
 	right: 0;
+	width: 360px;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
@@ -123,17 +129,33 @@ function List() {
 		}
 	}, [ reports ])
 
+	const listContainerRef = React.useRef()
+	const [ listSize, setListSize ] = React.useState(0)
+	React.useLayoutEffect(() => {
+		const newListSize = listContainerRef.current.offsetHeight
+		if (newListSize !== listSize) {
+			setListSize(newListSize)
+		}
+	}, [ listSize ])
+
 	return (
-		<ListElement>
-			{
-				reports.map(report => <Report key={report.id} report={report} />)
-			}
-		</ListElement>
+		<ListContainerElement ref={listContainerRef}>
+			<FixedSizeList
+				height={listSize}
+				width="100%"
+				itemSize={86 + 10}
+				itemCount={reports.length}
+				itemData={reports}
+				itemKey={report => report.id}
+			>
+				{Report}
+			</FixedSizeList>
+		</ListContainerElement>
 	)
 }
 
 export default List
 
 export {
-	ListElement,
+	ListContainerElement,
 }
