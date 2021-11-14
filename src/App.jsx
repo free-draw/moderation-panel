@@ -67,22 +67,22 @@ function App() {
 	}, [ reducedMotion ])
 
 	const [ loginStatus, setLoginStatus ] = React.useState("UNKNOWN")
-	React.useEffect(async () => {
-		try {
-			const token = await getToken(API)
+	React.useEffect(() => {
+		getToken(API).then((token) => {
 			if (token.type === TokenType.USER) {
-				const moderator = await getModerator(API, token.id)
-				if (moderator.active) {
-					setLoginStatus("SUCCESS")
-				} else {
-					setLoginStatus("DEACTIVATED_ACCOUNT")
-				}
+				getModerator(API, token.id).then((moderator) => {
+					if (moderator.active) {
+						setLoginStatus("SUCCESS")
+					} else {
+						setLoginStatus("DEACTIVATED_ACCOUNT")
+					}
+				})
 			} else {
 				setLoginStatus("SUCCESS")
 			}
-		} catch {
+		}).catch(() => {
 			setLoginStatus("INVALID_USER")
-		}
+		})
 	}, [])
 
 	if (loginStatus === "SUCCESS" || loginStatus === "UNKNOWN") {
