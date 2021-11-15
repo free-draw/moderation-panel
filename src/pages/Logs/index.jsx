@@ -49,7 +49,10 @@ function LogsPage() {
 	React.useEffect(async () => {
 		setLoaded(false)
 
-		const options = { ...sortMethods[sort], }
+		const options = {
+			...sortMethods[sort],
+			size: 30,
+		}
 		if (filter) {
 			options.type = filter
 		}
@@ -97,9 +100,9 @@ function LogsPage() {
 									setLoaded(false)
 
 									const newPage = await page.next(API)
-									const newPageResolved = await newPage.resolveAll(API)
+									if (newPage.logs.length > 0) {
+										const newPageResolved = await newPage.resolveAll(API)
 
-									if (newPage.length > 0) {
 										setPage(newPage)
 										setContent([ ...content, newPageResolved ])
 									}
