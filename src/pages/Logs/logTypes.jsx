@@ -196,7 +196,7 @@ export const ACCEPT_REPORT = ({ data: { action, report, target, from }, source }
 			useUserField("Target", target),
 			useField("Type", action.type),
 			useField("Reason", action.reason),
-			useField("Expires at", action.expiry ? action.toLocaleString() : null),
+			useField("Expires at", action.expiry ? action.expiry.toLocaleString() : null),
 		],
 		buttons: [
 			useViewReportButton(report.id),
