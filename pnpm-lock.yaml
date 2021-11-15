@@ -2,8 +2,8 @@ lockfileVersion: 5.3
 
 specifiers:
   '@babel/core': ^7.16.0
-  '@fontsource/inter': ^4.5.0
-  '@free-draw/moderation-client': ^0.4.13
+  '@fontsource/inter': ^4.5.1
+  '@free-draw/moderation-client': ^0.5.0
   '@mdi/js': ^5.9.55
   '@mdi/react': ^1.5.0
   '@parcel/config-default': ^2.0.1
@@ -41,8 +41,8 @@ specifiers:
 
 dependencies:
   '@babel/core': 7.16.0
-  '@fontsource/inter': 4.5.0
-  '@free-draw/moderation-client': 0.4.13
+  '@fontsource/inter': 4.5.1
+  '@free-draw/moderation-client': 0.5.0
   '@mdi/js': 5.9.55
   '@mdi/react': 1.5.0
   '@parcel/config-default': 2.0.1
@@ -142,7 +142,7 @@ packages:
       '@babel/compat-data': 7.16.0
       '@babel/core': 7.16.0
       '@babel/helper-validator-option': 7.14.5
-      browserslist: 4.17.6
+      browserslist: 4.18.0
       semver: 6.3.0
     dev: false
 
@@ -370,12 +370,12 @@ packages:
     resolution: {integrity: sha512-OWORNpfjMsSSUBVrRBVGECkhWcULOAJz9ZW8uK9qgxD+87M7jHRcvh/A96XXNhXTLmKcoYSQtBEX7lHMO7YRwg==}
     dev: false
 
-  /@fontsource/inter/4.5.0:
-    resolution: {integrity: sha512-2efK8Ru0LkuOYrEpiHPlV02YkTdIKGbezlxVNeA8/3c+tNt7P2aQPuiYYkVy7N4GA5LWSUVcLL/91MpCIjinOw==}
+  /@fontsource/inter/4.5.1:
+    resolution: {integrity: sha512-mvtOvXNNVLlF1p/UbLgLrmz2RCOl6Ow+TqyiK10SosoLKX7edsXYiHFHb7XIZdjII6F2sJVPPsJXWhBnbXT2DQ==}
     dev: false
 
-  /@free-draw/moderation-client/0.4.13:
-    resolution: {integrity: sha512-rNMtRt2vLoWWe0uyEIlBHtGKePgvCuHteptZfC3UsSyl71p0InVWz0YZnsrytuY+uc5ZnwDbbGsnWpO8eNis2A==}
+  /@free-draw/moderation-client/0.5.0:
+    resolution: {integrity: sha512-UyITIWW2SHaqAJtBdF1FvdNYixfOV1q+Z86SFfT231xkjx0QsZpMIP5Y3N8z/sRT00DHJ1PpOEDr/pUnxP31Cw==}
     dependencies:
       axios: 0.24.0
       binary-parser: 2.0.1
@@ -646,7 +646,7 @@ packages:
       '@parcel/workers': 2.0.1_@parcel+core@2.0.1
       abortcontroller-polyfill: 1.7.3
       base-x: 3.0.9
-      browserslist: 4.17.6
+      browserslist: 4.18.0
       clone: 2.1.2
       dotenv: 7.0.0
       dotenv-expand: 5.1.0
@@ -1418,7 +1418,7 @@ packages:
       '@parcel/plugin': 2.0.1
       '@parcel/source-map': 2.0.0
       '@parcel/utils': 2.0.1
-      browserslist: 4.17.6
+      browserslist: 4.18.0
       core-js: 3.19.1
       json5: 2.2.0
       nullthrows: 1.1.1
@@ -1442,7 +1442,7 @@ packages:
       '@parcel/plugin': 2.0.1_@parcel+core@2.0.1
       '@parcel/source-map': 2.0.0
       '@parcel/utils': 2.0.1
-      browserslist: 4.17.6
+      browserslist: 4.18.0
       core-js: 3.19.1
       json5: 2.2.0
       nullthrows: 1.1.1
@@ -1553,7 +1553,7 @@ packages:
       '@parcel/source-map': 2.0.0
       '@parcel/utils': 2.0.1
       '@swc/helpers': 0.2.14
-      browserslist: 4.17.6
+      browserslist: 4.18.0
       detect-libc: 1.0.3
       micromatch: 4.0.4
       nullthrows: 1.1.1
@@ -1572,7 +1572,7 @@ packages:
       '@parcel/source-map': 2.0.0
       '@parcel/utils': 2.0.1
       '@swc/helpers': 0.2.14
-      browserslist: 4.17.6
+      browserslist: 4.18.0
       detect-libc: 1.0.3
       micromatch: 4.0.4
       nullthrows: 1.1.1
@@ -2520,7 +2520,7 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       '@svgr/plugin-jsx': 5.5.0
-      camelcase: 6.2.0
+      camelcase: 6.2.1
       cosmiconfig: 7.0.1
     transitivePeerDependencies:
       - supports-color
@@ -3045,8 +3045,8 @@ packages:
       pako: 1.0.11
     dev: false
 
-  /browserslist/4.17.6:
-    resolution: {integrity: sha512-uPgz3vyRTlEiCv4ee9KlsKgo2V6qPk7Jsn0KAn2OBqbqKo3iNcPEC1Ti6J4dwnz+aIRfEEEuOzC9IBk8tXUomw==}
+  /browserslist/4.18.0:
+    resolution: {integrity: sha512-ER2M0g5iAR84fS/zjBDqEgU6iO5fS9JI2EkHr5zxDxYEFk3LjhU9Vpp/INb6RMQphxko7PDV1FH38H/qVP5yCA==}
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
@@ -3112,8 +3112,8 @@ packages:
     engines: {node: '>=6'}
     dev: false
 
-  /camelcase/6.2.0:
-    resolution: {integrity: sha512-c7wVvbw3f37nuobQNtgsgG9POC9qMbNuMQmTCqZv23b6MIz0fcYpBiOlv9gEN/hdLdnZTDQhg6e9Dq5M1vKvfg==}
+  /camelcase/6.2.1:
+    resolution: {integrity: sha512-tVI4q5jjFV5CavAU8DXfza/TJcZutVKo/5Foskmsqcm0MsL91moHvwiGNnqaa2o6PF/7yT5ikDRcVcl8Rj6LCA==}
     engines: {node: '>=10'}
     dev: false
 
@@ -3124,7 +3124,7 @@ packages:
   /caniuse-api/3.0.0:
     resolution: {integrity: sha512-bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==}
     dependencies:
-      browserslist: 4.17.6
+      browserslist: 4.18.0
       caniuse-lite: 1.0.30001280
       lodash.memoize: 4.1.2
       lodash.uniq: 4.5.0
@@ -3945,12 +3945,12 @@ packages:
       once: 1.4.0
     dev: false
 
-  /engine.io-client/6.0.2:
-    resolution: {integrity: sha512-cAep9lhZV6Q8jMXx3TNSU5cydMzMed8/O7Tz5uzyqZvpNPtQ3WQXrLYGADxlsuaFmOLN7wZLmT7ImiFhUOku8g==}
+  /engine.io-client/6.0.3:
+    resolution: {integrity: sha512-IH8ZhDIwiLv0d/wXVzmjfV9Y82hbJIDhCGSVUV8o1kcpDe2I6Y3bZA3ZbJy4Ls7k7IVmcy/qn4k9RKWFhUGf5w==}
     dependencies:
       '@socket.io/component-emitter': 3.0.0
       debug: 4.3.2
-      engine.io-parser: 5.0.1
+      engine.io-parser: 5.0.2
       has-cors: 1.1.0
       parseqs: 0.0.6
       parseuri: 0.0.6
@@ -3963,8 +3963,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /engine.io-parser/5.0.1:
-    resolution: {integrity: sha512-j4p3WwJrG2k92VISM0op7wiq60vO92MlF3CRGxhKHy9ywG1/Dkc72g0dXeDQ+//hrcDn8gqQzoEkdO9FN0d9AA==}
+  /engine.io-parser/5.0.2:
+    resolution: {integrity: sha512-wuiO7qO/OEkPJSFueuATIXtrxF7/6GTbAO9QLv7nnbjwZ5tYhLm9zxvLwxstRs0dcT0KUlWTjtIOs1T86jt12g==}
     engines: {node: '>=10.0.0'}
     dependencies:
       base64-arraybuffer: 1.0.1
@@ -5947,7 +5947,7 @@ packages:
     peerDependencies:
       postcss: ^8.2.15
     dependencies:
-      browserslist: 4.17.6
+      browserslist: 4.18.0
       caniuse-api: 3.0.0
       colord: 2.9.1
       postcss: 8.3.11
@@ -6018,7 +6018,7 @@ packages:
     peerDependencies:
       postcss: ^8.2.15
     dependencies:
-      browserslist: 4.17.6
+      browserslist: 4.18.0
       caniuse-api: 3.0.0
       cssnano-utils: 2.0.1_postcss@8.3.11
       postcss: 8.3.11
@@ -6055,7 +6055,7 @@ packages:
       postcss: ^8.2.15
     dependencies:
       alphanum-sort: 1.0.2
-      browserslist: 4.17.6
+      browserslist: 4.18.0
       cssnano-utils: 2.0.1_postcss@8.3.11
       postcss: 8.3.11
       postcss-value-parser: 4.1.0
@@ -6214,7 +6214,7 @@ packages:
     peerDependencies:
       postcss: ^8.2.15
     dependencies:
-      browserslist: 4.17.6
+      browserslist: 4.18.0
       postcss: 8.3.11
       postcss-value-parser: 4.1.0
     dev: false
@@ -6258,7 +6258,7 @@ packages:
     peerDependencies:
       postcss: ^8.2.15
     dependencies:
-      browserslist: 4.17.6
+      browserslist: 4.18.0
       caniuse-api: 3.0.0
       postcss: 8.3.11
     dev: false
@@ -7008,7 +7008,7 @@ packages:
       '@socket.io/component-emitter': 3.0.0
       backo2: 1.0.2
       debug: 4.3.2
-      engine.io-client: 6.0.2
+      engine.io-client: 6.0.3
       parseuri: 0.0.6
       socket.io-parser: 4.1.1
     transitivePeerDependencies:
@@ -7239,7 +7239,7 @@ packages:
     peerDependencies:
       postcss: ^8.2.15
     dependencies:
-      browserslist: 4.17.6
+      browserslist: 4.18.0
       postcss: 8.3.11
       postcss-selector-parser: 6.0.6
     dev: false

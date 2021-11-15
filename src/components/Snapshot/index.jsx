@@ -60,7 +60,7 @@ function SnapshotResolver({ snapshot, report, placeholder, ...props }) {
 		if (snapshot) {
 			setState("LOADING")
 			snapshot.resolve(API).then((newResolvedSnapshot) => {
-				return newResolvedSnapshot.fetchPlayerNames(API).then(() => {
+				return newResolvedSnapshot.fetchPlayerData(API).then(() => {
 					setResolvedSnapshot(newResolvedSnapshot)
 					setState("LOADED")
 				})
