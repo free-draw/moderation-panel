@@ -192,11 +192,11 @@ export const ACCEPT_REPORT = ({ data: { action, report, target, from }, source }
 		color: indicatorColors.accept,
 		text: <> {source} accepted report of user <em>{target.name}</em> from <em>{from.name}</em> </>,
 		fields: [
-			useUserField("From", "TODO"),
-			useUserField("Target", "TODO"),
+			useUserField("From", from),
+			useUserField("Target", target),
 			useField("Type", action.type),
 			useField("Reason", action.reason),
-			useField("Expires at", action.expiry ? action.action.toLocaleString() : null),
+			useField("Expires at", action.expiry ? action.toLocaleString() : null),
 		],
 		buttons: [
 			useViewReportButton(report.id),
