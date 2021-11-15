@@ -34,7 +34,7 @@ function ReportAcceptDialog({ report, close }) {
 							report.accept(API, {
 								type,
 								reason: ModerationPresetReasonStrings[reason],
-								duration: ModerationPresetDurationLengths[duration] ? duration / 1000 : null,
+								duration: duration ? ModerationPresetDurationLengths[duration] / 1000 : null,
 							})
 
 							close()
