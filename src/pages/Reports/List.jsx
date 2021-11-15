@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { Link, useRouteMatch } from "react-router-dom"
+import { Link, useRouteMatch, useHistory } from "react-router-dom"
 import useAsync from "/src/util/useAsync"
 import { getPendingReports, getRobloxUser, getRobloxThumbnail, RobloxThumbnailType } from "@free-draw/moderation-client"
 import colors from "/src/presets/colors"
@@ -103,32 +103,7 @@ const ListContainerElement = styled.div`
 	}
 `
 
-function List() {
-	const [ reports, setReports ] = React.useState([])
-
-	React.useEffect(() => {
-		getPendingReports(API).then((newReports) => {
-			setReports(newReports)
-		})
-	}, [])
-
-	React.useEffect(() => {
-		const onReportCreate = (newReport) => {
-			setReports([ ...reports, newReport ])
-		}
-		const onReportDelete = (report) => {
-			setReports(reports.filter(filterReport => filterReport.id !== report.id))
-		}
-
-		Realtime.on("reportCreate", onReportCreate)
-		Realtime.on("reportDelete", onReportDelete)
-
-		return () => {
-			Realtime.off("reportCreate", onReportCreate)
-			Realtime.off("reportDelete", onReportDelete)
-		}
-	}, [ reports ])
-
+function List({ reports }) {
 	const listContainerRef = React.useRef()
 	const [ listSize, setListSize ] = React.useState(0)
 	React.useLayoutEffect(() => {
@@ -154,7 +129,51 @@ function List() {
 	)
 }
 
-export default List
+function ListStateManager() {
+	const [ reports, setReports ] = React.useState([])
+
+	React.useEffect(() => {
+		getPendingReports(API).then((newReports) => {
+			setReports(newReports)
+		})
+	}, [])
+
+	const match = useRouteMatch("/reports/:id")
+	const history = useHistory()
+	const currentId = match ? match.params.id : null
+	React.useEffect(() => {
+		const onReportCreate = (newReport) => {
+			setReports([ ...reports, newReport ])
+		}
+		const onReportDelete = (report) => {
+			if (report.id === currentId) {
+				const reportIndex = reports.findIndex(findReport => findReport.id === report.id)
+				if (reportIndex !== -1) {
+					const nextReport = reports[reportIndex + 1] ?? reports[reports.length]
+					if (nextReport) {
+						history.push(`/reports/${nextReport.id}`)
+					} else {
+						history.push("/reports")
+					}
+				}
+			}
+
+			setReports(reports.filter(filterReport => filterReport.id !== report.id))
+		}
+
+		Realtime.on("reportCreate", onReportCreate)
+		Realtime.on("reportDelete", onReportDelete)
+
+		return () => {
+			Realtime.off("reportCreate", onReportCreate)
+			Realtime.off("reportDelete", onReportDelete)
+		}
+	}, [ reports, currentId ])
+
+	return <List reports={reports} />
+}
+
+export default ListStateManager
 
 export {
 	ListContainerElement,
