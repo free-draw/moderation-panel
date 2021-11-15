@@ -98,7 +98,7 @@ const ListContainerElement = styled.div`
 	overflow: auto hidden;
 
 	pointer-events: none;
-	> * {
+	> * > * {
 		pointer-events: all;
 	}
 `
