@@ -74,20 +74,20 @@ function useLinkButton({ id, text, style }, path) {
 	}
 }
 
-function useViewSnapshotButton(snapshotId) {
+function useViewSnapshotButton(snapshot) {
 	return useLinkButton({
 		id: "view",
 		text: "View Snapshot",
 		style: "filled",
-	}, `/snapshots/${snapshotId}`)
+	}, `/snapshots/${snapshot.id}`)
 }
 
-function useViewReportButton(reportId) {
+function useViewReportButton(report) {
 	return useLinkButton({
 		id: "view",
 		text: "View Report",
 		style: "filled",
-	}, `/reports/${reportId}`)
+	}, `/reports/${report.id}`)
 }
 
 /* LOG TYPES */
@@ -199,7 +199,7 @@ export const ACCEPT_REPORT = ({ data: { action, report, target, from }, source }
 			useField("Expires at", action.expiry ? action.expiry.toLocaleString() : null),
 		],
 		buttons: [
-			useViewReportButton(report.id),
+			useViewReportButton(report),
 		],
 	}
 }
@@ -212,7 +212,7 @@ export const DECLINE_REPORT = ({ data: { report, target, from }, source }) => {
 			useUserField("Target", target),
 		],
 		buttons: [
-			useViewReportButton(report.id),
+			useViewReportButton(report),
 		],
 	}
 }
