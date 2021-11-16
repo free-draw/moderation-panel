@@ -1,7 +1,7 @@
 import React from "react"
 import { useRouteMatch } from "react-router"
 import styled from "styled-components"
-import { getReport } from "@free-draw/moderation-client"
+import { getReport, ReportStatus } from "@free-draw/moderation-client"
 import Page from "/src/components/Page"
 import Snapshot from "/src/components/Snapshot"
 import List from "./List"
@@ -47,7 +47,7 @@ function ReportsPage() {
 			/>
 			<List />
 			{report ? <Details report={report} /> : null}
-			{report ? <Actions report={report} /> : null}
+			{report && report.status === ReportStatus.PENDING ? <Actions report={report} /> : null}
 		</ReportsPageElement>
 	)
 }
