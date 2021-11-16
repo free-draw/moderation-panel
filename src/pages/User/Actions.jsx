@@ -204,10 +204,10 @@ function Action({ action }) {
 				</ActionTextElement>
 				<ActionButtonsElement>
 					{
-						action.report ? (
+						action.report || action.snapshot ? (
 							<IconButton
 								icon={mdiMagnify}
-								onClick={() => history.push(`/reports/${action.report}`)}
+								onClick={() => history.push(action.report ? `/reports/${action.report.id}` : `/snapshots/${action.snapshot.id}`)}
 							/>
 						) : null
 					}
