@@ -19,7 +19,6 @@ import ContentSection from "./ContentSection"
 
 const NotesTextAreaElement = styled(TextArea)`
 	height: 150px;
-	z-index: -10;
 `
 
 function CreateDialog({ onCreate, onClose }) {

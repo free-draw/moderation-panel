@@ -87,7 +87,7 @@ function Dropdown({ options, currentOptionId, placeholder, index, onSelection })
 	const currentOption = options.find(option => option.id === currentOptionId)
 
 	return (
-		<DropdownContainerElement zIndex={-index}>
+		<DropdownContainerElement zIndex={100 - index}>
 			<DropdownElement>
 				{
 					open ? (
