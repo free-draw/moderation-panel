@@ -21,7 +21,13 @@ function SnapshotsPage() {
 
 	return (
 		<SnapshotsPageElement>
-			<SnapshotElement id={params.id} />
+			<SnapshotElement
+				id={params.id}
+				placeholder={{
+					text: "",
+					subtext: "",
+				}}
+			/>
 		</SnapshotsPageElement>
 	)
 }

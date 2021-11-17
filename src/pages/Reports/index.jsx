@@ -38,7 +38,7 @@ function ReportsPage() {
 	return (
 		<ReportsPageElement>
 			<SnapshotElement
-				snapshot={report ? report.snapshot : null}
+				id={report ? report.snapshot.id : null}
 				report={report}
 				placeholder={{
 					text: "No report selected",

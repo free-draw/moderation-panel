@@ -52,16 +52,16 @@ function Snapshot({ snapshot, placeholder, report, ...props }) {
 	)
 }
 
-function SnapshotResolver({ snapshot, report, placeholder, ...props }) {
-	const [ resolvedSnapshot, setResolvedSnapshot ] = React.useState(null)
+function SnapshotResolver({ id, report, placeholder, ...props }) {
+	const [ snapshot, setSnapshot ] = React.useState(null)
 	const [ state, setState ] = React.useState("NONE")
 
 	React.useEffect(() => {
-		if (snapshot) {
+		if (id) {
 			setState("LOADING")
-			snapshot.resolve(API).then((newResolvedSnapshot) => {
-				return newResolvedSnapshot.fetchPlayerData(API).then(() => {
-					setResolvedSnapshot(newResolvedSnapshot)
+			getSnapshot(API, id).then((newSnapshot) => {
+				return newSnapshot.fetchPlayerData(API).then(() => {
+					setSnapshot(newSnapshot)
 					setState("LOADED")
 				})
 			}, (error) => {
@@ -70,13 +70,13 @@ function SnapshotResolver({ snapshot, report, placeholder, ...props }) {
 			})
 		} else {
 			setState("NONE")
-			setResolvedSnapshot(null)
+			setSnapshot(null)
 		}
-	}, [ snapshot ])
+	}, [ id ])
 
 	switch (state) {
 		case "LOADED":
-			return <Snapshot snapshot={resolvedSnapshot} report={report} />
+			return <Snapshot snapshot={snapshot} report={report} />
 
 		case "LOADING":
 			return (
