@@ -2,8 +2,8 @@ import React from "react"
 import styled from "styled-components"
 import Icon from "@mdi/react"
 import { mdiCameraControl } from "@mdi/js"
-
-import colors from "/src/presets/colors"
+import colors from "../../../presets/colors"
+import { Report, Snapshot, SnapshotPlayer } from "@free-draw/moderation-client"
 
 const SectionElement = styled.div`
 	display: flex;
@@ -19,7 +19,10 @@ const SectionContentsElement = styled.span`
 	margin-top: 12px;
 `
 
-function Section({ label, children }) {
+function Section({ label, children }: {
+	label: string,
+	children: React.ReactNode[],
+}) {
 	return (
 		<SectionElement>
 			<SectionLabelElement>{label}</SectionLabelElement>
@@ -45,10 +48,12 @@ const PlayerElement = styled.a.attrs({
 	}
 `
 
-const PlayerNameElement = styled.span`
+const PlayerNameElement = styled.span<{
+	isEmphasized?: boolean,
+}>`
 	font-size: 16px;
-	font-weight: ${props => props.emphasized ? 700 : 400};
-	color: ${props => props.emphasized ? colors.brand[600] : "black"};
+	font-weight: ${props => props.isEmphasized ? 700 : 400};
+	color: ${props => props.isEmphasized ? colors.brand[600] : "black"};
 `
 
 const PlayerBreadcrumbElement = styled.span`
@@ -84,10 +89,14 @@ const PlayerButtonElement = styled.span`
 	}
 `
 
-function Player({ player, emphasized, breadcrumb }) {
+function Player({ player, breadcrumb, isEmphasized }: {
+	player: SnapshotPlayer,
+	breadcrumb?: string,
+	isEmphasized?: boolean,
+}) {
 	return (
 		<PlayerElement href={`https://www.roblox.com/users/${player.id}/profile`}>
-			<PlayerNameElement emphasized={emphasized}>{player.name}</PlayerNameElement>
+			<PlayerNameElement isEmphasized={isEmphasized}>{player.name}</PlayerNameElement>
 			{ breadcrumb ? <PlayerBreadcrumbElement>{breadcrumb}</PlayerBreadcrumbElement> : null }
 			<PlayerSpacerElement />
 			<PlayerButtonsElement>
@@ -114,7 +123,10 @@ const ServerTabElement = styled.div`
 	padding: 20px;
 `
 
-function ServerTab({ snapshot, report }) {
+function ServerTab({ snapshot, report }: {
+	snapshot: Snapshot,
+	report: Report,
+}) {
 	return (
 		<ServerTabElement>
 			<Section label="Players">
@@ -133,8 +145,8 @@ function ServerTab({ snapshot, report }) {
 						return <Player
 							key={player.id}
 							player={player}
-							emphasized={report ? report.target.id == player.id : false}
 							breadcrumb={breadcrumb}
+							isEmphasized={report ? report.target.id == player.id : false}
 						/>
 					})
 				}

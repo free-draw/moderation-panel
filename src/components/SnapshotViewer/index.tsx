@@ -1,13 +1,13 @@
 import React from "react"
 import styled from "styled-components"
-import { getSnapshot } from "@free-draw/moderation-client"
-import API from "/src/API"
-import Spinner from "/src/components/Spinner"
+import { Snapshot, getSnapshot, Report } from "@free-draw/moderation-client"
+import API from "../../API"
+import Spinner from "../Spinner"
 import {
 	ViewerCanvas,
 	ViewerHoverDetails,
 	ViewerPlayerBubbles,
-} from "/src/components/viewer"
+} from "../viewer"
 
 import Tabs from "./Tabs"
 
@@ -40,9 +40,13 @@ const SnapshotCanvasElement = styled(ViewerCanvas)`
 	height: 100%;
 `
 
-function Snapshot({ snapshot, placeholder, report, ...props }) {
+function SnapshotViewer({ snapshot, report, ...props }: {
+	snapshot: Snapshot,
+	report?: Report,
+	[key: string]: any,
+}) {
 	return (
-		<SnapshotElement state="LOADED" {...props}>
+		<SnapshotElement {...props}>
 			<Tabs snapshot={snapshot} report={report} />
 			<SnapshotCanvasElement data={snapshot.canvas}>
 				<ViewerHoverDetails />
@@ -52,42 +56,57 @@ function Snapshot({ snapshot, placeholder, report, ...props }) {
 	)
 }
 
-function SnapshotResolver({ id, report, placeholder, ...props }) {
-	const [ snapshot, setSnapshot ] = React.useState(null)
-	const [ state, setState ] = React.useState("NONE")
+enum SnapshotResolverState {
+	LOADED = "LOADED",
+	LOADING = "LOADING",
+	ERROR = "ERROR",
+	NONE = "NONE",
+}
+
+function SnapshotResolver({ id, report, placeholder, ...props }: {
+	id: string,
+	report?: Report,
+	placeholder: {
+		text: string,
+		subtext: string,
+	},
+	[key: string]: any,
+}) {
+	const [ snapshot, setSnapshot ] = React.useState<Snapshot | null>(null)
+	const [ state, setState ] = React.useState<SnapshotResolverState>(SnapshotResolverState.NONE)
 
 	React.useEffect(() => {
 		if (id) {
-			setState("LOADING")
+			setState(SnapshotResolverState.LOADING)
 			getSnapshot(API, id).then((newSnapshot) => {
-				return newSnapshot.fetchPlayerData(API).then(() => {
+				return newSnapshot!.fetchPlayerData(API).then(() => {
 					setSnapshot(newSnapshot)
-					setState("LOADED")
+					setState(SnapshotResolverState.LOADED)
 				})
 			}, (error) => {
-				setState("ERROR")
+				setState(SnapshotResolverState.ERROR)
 				throw error
 			})
 		} else {
-			setState("NONE")
+			setState(SnapshotResolverState.NONE)
 			setSnapshot(null)
 		}
 	}, [ id ])
 
 	switch (state) {
-		case "LOADED":
-			return <Snapshot snapshot={snapshot} report={report} />
+		case SnapshotResolverState.LOADED:
+			return <SnapshotViewer snapshot={snapshot!} report={report} />
 
-		case "LOADING":
+		case SnapshotResolverState.LOADING:
 			return (
-				<SnapshotElement state="LOADING" {...props}>
+				<SnapshotElement {...props}>
 					<Spinner />
 				</SnapshotElement>
 			)
 
 		case "ERROR":
 			return (
-				<SnapshotElement state="ERROR" {...props}>
+				<SnapshotElement {...props}>
 					<SnapshotStateTextElement>Error loading snapshot</SnapshotStateTextElement>
 					<SnapshotStateSubtextElement>Check the console for more info</SnapshotStateSubtextElement>
 				</SnapshotElement>
@@ -95,7 +114,7 @@ function SnapshotResolver({ id, report, placeholder, ...props }) {
 
 		case "NONE":
 			return (
-				<SnapshotElement state="ERROR" {...props}>
+				<SnapshotElement {...props}>
 					<SnapshotStateTextElement>{placeholder.text}</SnapshotStateTextElement>
 					<SnapshotStateSubtextElement>{placeholder.subtext}</SnapshotStateSubtextElement>
 				</SnapshotElement>

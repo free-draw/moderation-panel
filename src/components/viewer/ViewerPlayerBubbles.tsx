@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { getRobloxThumbnail, RobloxThumbnailType, SnapshotPlayer, Vector2 } from "@free-draw/moderation-client"
+import { getRobloxThumbnail, RobloxThumbnailType, Snapshot, SnapshotPlayer, Vector2 } from "@free-draw/moderation-client"
 import API from "../../API"
 import useAsync from "../../util/useAsync"
 import ViewerPositionalOverlay from "./ViewerPositionalOverlay"
@@ -58,7 +58,7 @@ function ViewerPlayerBubble({ player, position }: {
 const ViewerPlayerBubblesElement = styled.div``
 
 function ViewerPlayerBubbles({ players }: {
-	players: SnapshotPlayer[],
+	players: Snapshot["players"],
 }) {
 	return (
 		<ViewerPlayerBubblesElement>

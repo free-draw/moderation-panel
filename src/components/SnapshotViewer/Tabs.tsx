@@ -2,38 +2,59 @@ import React from "react"
 import styled from "styled-components"
 import Icon from "@mdi/react"
 import { mdiPresentation, mdiServerNetwork, mdiLayers, mdiMessageText } from "@mdi/js"
-
-import colors from "/src/presets/colors"
-
+import colors from "../../presets/colors"
 import ServerTab from "./tabContents/Server"
 import LogsTab from "./tabContents/Logs"
+import { Snapshot, Report } from "@free-draw/moderation-client"
+
+enum TabId {
+	CANVAS = "CANVAS",
+	SERVER = "SERVER",
+	LAYERS = "LAYERS",
+	LOGS = "LOGS",
+}
+
+type Tab = {
+	id: TabId,
+	name: string,
+	icon: string,
+	component?: React.ComponentType<{
+		snapshot: Snapshot,
+		report?: Report,
+	}>,
+}
 
 const tabs = [
 	{
-		id: "canvas",
+		id: TabId.CANVAS,
 		name: "Canvas",
 		icon: mdiPresentation,
 	},
+
 	{
-		id: "server",
+		id: TabId.SERVER,
 		name: "Server",
 		icon: mdiServerNetwork,
 		component: ServerTab,
 	},
+
 	{
-		id: "layers",
+		id: TabId.LAYERS,
 		name: "Layers",
 		icon: mdiLayers,
 	},
+
 	{
-		id: "logs",
+		id: TabId.LOGS,
 		name: "Logs",
 		icon: mdiMessageText,
 		component: LogsTab,
 	},
-]
+] as Tab[]
 
-const TabElement = styled.div`
+const TabElement = styled.div<{
+	isSelected: boolean,
+}>`
 	width: 56px;
 	height: 56px;
 	display: flex;
@@ -43,18 +64,22 @@ const TabElement = styled.div`
 	cursor: pointer;
 	pointer-events: all;
 
-	border: ${props => props.selected ? "none" : `1px solid ${colors.border}`};
-	background: ${props => props.selected ? colors.brand[600] : "white"};
-	color: ${props => props.selected ? "white" : "black"};
+	border: ${props => props.isSelected ? "none" : `1px solid ${colors.border}`};
+	background: ${props => props.isSelected ? colors.brand[600] : "white"};
+	color: ${props => props.isSelected ? "white" : "black"};
 
 	& + & {
 		margin-top: 8px;
 	}
 `
 
-function Tab({ icon, selected, onClick }) {
+function Tab({ icon, isSelected, onClick }: {
+	icon: string,
+	isSelected: boolean,
+	onClick: React.MouseEventHandler<HTMLDivElement>,
+}) {
 	return (
-		<TabElement selected={selected} onClick={onClick}>
+		<TabElement isSelected={isSelected} onClick={onClick}>
 			<Icon
 				path={icon}
 				size={28/24}
@@ -95,9 +120,12 @@ const TabContentsElement = styled.div`
 	pointer-events: all;
 `
 
-function Tabs({ snapshot, report }) {
-	const [ currentTabId, setCurrentTabId ] = React.useState(tabs[0].id)
-	const currentTab = tabs.find(tab => tab.id == currentTabId)
+function Tabs({ snapshot, report }: {
+	snapshot: Snapshot,
+	report?: Report,
+}) {
+	const [ currentTabId, setCurrentTabId ] = React.useState<TabId>(tabs[0].id)
+	const currentTab = tabs.find(tab => tab.id == currentTabId)!
 
 	return (
 		<TabsContainerElement>
@@ -107,7 +135,7 @@ function Tabs({ snapshot, report }) {
 						return (
 							<Tab
 								key={tab.id}
-								selected={tab === currentTab}
+								isSelected={tab === currentTab}
 								onClick={() => setCurrentTabId(tab.id)}
 								{...tab}
 							/>

@@ -1,22 +1,24 @@
+import { Snapshot, SnapshotLog, SnapshotLogType, SnapshotPlayerPartial } from "@free-draw/moderation-client"
 import React from "react"
 import styled from "styled-components"
+import colors from "../../../presets/colors"
 
-import colors from "/src/presets/colors"
-
-const logTextCreators = {
-	CHAT(player, data) {
+const logTextBuilders = {
+	[SnapshotLogType.CHAT]: (player: SnapshotPlayerPartial, data: {
+		content: string,
+	}) => {
 		return <> <em>{player.name}</em>: {data.content} </>
 	},
 
-	COMMAND(player, data) {
+	[SnapshotLogType.COMMAND]: (player: SnapshotPlayerPartial, data: string) => {
 		return <i>{player.name} ran command "{data}"</i>
 	},
 
-	JOIN(player) {
+	[SnapshotLogType.JOIN]: (player: SnapshotPlayerPartial) => {
 		return <i>{player.name} joined</i>
 	},
 
-	LEAVE(player) {
+	[SnapshotLogType.LEAVE]: (player: SnapshotPlayerPartial) => {
 		return <i>{player.name} left</i>
 	},
 }
@@ -36,8 +38,8 @@ const LogElement = styled.span`
 	}
 `
 
-function Log({ type, player, data }) {
-	const text = logTextCreators[type](player, data)
+function Log({ type, player, data }: SnapshotLog) {
+	const text = logTextBuilders[type](player, data)
 
 	return (
 		<LogElement>
@@ -52,11 +54,13 @@ const LogsTabElement = styled.div`
 	padding: 20px;
 `
 
-function LogsTab({ snapshot }) {
+function LogsTab({ snapshot }: {
+	snapshot: Snapshot,
+}) {
 	return (
 		<LogsTabElement>
 			{
-				snapshot.logs.map((logData, index) => <Log key={index} {...logData} />)
+				snapshot.logs.map((log, index) => <Log key={index} {...log} />)
 			}
 		</LogsTabElement>
 	)
