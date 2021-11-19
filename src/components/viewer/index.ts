@@ -7,7 +7,7 @@ import ViewerPlayerBubbles from "./ViewerPlayerBubbles"
 
 export {
 	ViewerContext,
-	
+
 	ViewerCanvas,
 	ViewerHoverDetails,
 	ViewerPositionalOverlay,

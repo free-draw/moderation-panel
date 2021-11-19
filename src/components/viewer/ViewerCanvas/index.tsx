@@ -3,16 +3,21 @@ import styled from "styled-components"
 import Canvas from "./core/Canvas"
 import Camera from "./core/Camera"
 import Input from "./core/Input"
-import useStaticValue from "/src/util/useStaticValue"
+import useStaticValue from "../../../util/useStaticValue"
 import ViewerContext from "../ViewerContext"
+import { Snapshot } from "@free-draw/moderation-client"
 
 const ViewerCanvasElement = styled.div`
 	position: relative;
 	overflow: hidden;
 `
 
-function ViewerCanvas({ data, className, children }) {
-	const ref = React.useRef()
+function ViewerCanvas({ data, className, children }: {
+	data: Snapshot["canvas"],
+	className?: string,
+	children?: React.ReactNode[],
+}) {
+	const ref = React.useRef() as React.RefObject<HTMLDivElement>
 
 	const canvas = useStaticValue(() => new Canvas())
 	const input = useStaticValue(() => new Input(canvas.element))

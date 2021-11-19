@@ -252,7 +252,7 @@ class Collector extends EventEmitter2 {
 }
 
 class Canvas extends EventEmitter2 {
-	public camera: Camera
+	public camera?: Camera
 	public collectors: Collector[] = []
 
 	public readonly app: PIXI.Application = new PIXI.Application({
@@ -267,10 +267,9 @@ class Canvas extends EventEmitter2 {
 
 	private maid: Maid = new Maid()
 
-	constructor(camera: Camera) {
+	constructor() {
 		super()
 
-		this.camera = camera
 		this.element = this.app.view
 
 		const updateSize = () => {

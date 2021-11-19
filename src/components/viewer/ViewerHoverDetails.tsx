@@ -1,9 +1,12 @@
+import { Vector2 } from "@free-draw/moderation-client"
 import React from "react"
 import styled from "styled-components"
-
+import { Pointer } from "./ViewerCanvas/core/Input"
 import ViewerContext from "./ViewerContext"
 
-const ViewerHoverDetailsElement = styled.div`
+const ViewerHoverDetailsElement = styled.div<{
+	enabled: boolean,
+}>`
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -21,16 +24,19 @@ const ViewerHoverDetailsNameElement = styled.span`
 	font-size: 16px;
 `
 
-function ViewerHoverDetails() {
-	const [ enabled, setEnabled ] = React.useState(false)
-	const [ name, setName ] = React.useState(null)
+const ViewerHoverDetails = () => {
+	const ref = React.useRef() as React.RefObject<HTMLDivElement>
 
-	const ref = React.useRef()
-	const { canvas, input } = React.useContext(ViewerContext)
+	const context = React.useContext(ViewerContext)
+	if (!context) throw new Error("ViewerHoverDetails must be inside of a ViewerCanvas")
+	const { canvas, input } = context
+
+	const [ enabled, setEnabled ] = React.useState<boolean>(false)
+	const [ name, setName ] = React.useState<string | null>(null)
 
 	React.useEffect(() => {
-		const listener = input.on("move", (_, screenPosition) => {
-			const position = canvas.camera.getRelativePosition(screenPosition)
+		const onMove = (_pointer: Pointer, screenPosition: Vector2) => {
+			const position = canvas.camera!.getRelativePosition(screenPosition)
 			const line = canvas.getLineAt(position)
 
 			const shouldBeEnabled = !!line
@@ -43,14 +49,17 @@ function ViewerHoverDetails() {
 				const owner = collector.owner
 
 				if (name !== owner.name) {
-					setName(owner.name)
+					setName(owner.name!)
 				}
 			}
 
-			ref.current.style.transform = `translate(${screenPosition.x}px, ${screenPosition.y}px)`
-		}, { objectify: true })
+			ref.current!.style.transform = `translate(${screenPosition.x}px, ${screenPosition.y}px)`
+		}
 
-		return () => listener.off()
+		input.on("move", onMove)
+		return () => {
+			input.off("move", onMove)
+		}
 	}, [ enabled, name ])
 
 	return (

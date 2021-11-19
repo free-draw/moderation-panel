@@ -3,7 +3,7 @@ import { EventEmitter2 } from "eventemitter2"
 
 import Maid from "../../../../class/Maid"
 
-function getEventPosition(event: MouseEvent) {
+function getEventPosition(event: MouseEvent): Vector2 {
 	return new Vector2(event.offsetX, event.offsetY)
 }
 
@@ -37,8 +37,6 @@ class Pointer extends EventEmitter2 {
 		this.emit("up", getEventPosition(event))
 	}
 }
-
-type EventListener = (event: Event) => void
 
 class Input extends EventEmitter2 {
 	public pointers: Record<string, Pointer> = {}

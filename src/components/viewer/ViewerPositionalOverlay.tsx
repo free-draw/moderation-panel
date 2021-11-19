@@ -19,6 +19,7 @@ const ViewerPositionalOverlayElement = styled.div`
 function ViewerPositionalOverlay(props: {
 	position: Vector2,
 	ignoreScale?: boolean,
+	children: React.ReactNode[],
 }) {
 	const context = React.useContext(ViewerContext)
 	if (!context) throw new Error("ViewerPositionalOverlay must be inside of a ViewerCanvas")
