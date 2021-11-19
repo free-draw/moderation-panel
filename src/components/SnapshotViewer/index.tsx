@@ -104,7 +104,7 @@ function SnapshotResolver({ id, report, placeholder, ...props }: {
 				</SnapshotElement>
 			)
 
-		case "ERROR":
+		case SnapshotResolverState.ERROR:
 			return (
 				<SnapshotElement {...props}>
 					<SnapshotStateTextElement>Error loading snapshot</SnapshotStateTextElement>
@@ -112,7 +112,7 @@ function SnapshotResolver({ id, report, placeholder, ...props }: {
 				</SnapshotElement>
 			)
 
-		case "NONE":
+		case SnapshotResolverState.NONE:
 			return (
 				<SnapshotElement {...props}>
 					<SnapshotStateTextElement>{placeholder.text}</SnapshotStateTextElement>
