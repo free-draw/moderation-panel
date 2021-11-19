@@ -54,11 +54,13 @@ function getButtonElement(style?: ButtonStyle) {
 	return FlatTextButtonElement
 }
 
-function TextButton({ text, style, onClick }: {
+type TextButtonOptions = {
 	text: string,
 	style?: ButtonStyle,
 	onClick: React.MouseEventHandler<HTMLSpanElement>,
-}) {
+}
+
+function TextButton({ text, style, onClick }: TextButtonOptions) {
 	const ButtonElement = getButtonElement(style)
 	return (
 		<ButtonElement
@@ -75,6 +77,8 @@ function TextButton({ text, style, onClick }: {
 export default TextButton
 
 export {
+	TextButtonOptions,
+
 	TextButtonElement,
 
 	FlatTextButtonElement,

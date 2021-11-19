@@ -10,6 +10,7 @@ import Page from "../components/Page"
 import Dialog from "../components/Dialog"
 import Spinner from "../components/Spinner"
 import TextBox from "../components/TextBox"
+import ButtonStyle from "../enum/ButtonStyle"
 
 const PARTIAL_USERNAME_REGEX = /^[a-zA-Z0-9]?[a-zA-Z0-9_]?$/
 const USERNAME_REGEX = /^[a-zA-Z0-9][a-zA-Z0-9_]{1,18}[a-zA-Z0-9]$/
@@ -26,7 +27,7 @@ function UsersFailureDialog(props: {
 				{
 					id: "acknowledge",
 					text: "Okay",
-					style: "flat",
+					style: ButtonStyle.FLAT,
 					onClick: props.onClose,
 				},
 			]}
@@ -151,7 +152,7 @@ function UsersPage() {
 			</SearchFormContainerElement>
 
 			{
-				failure ? <UsersFailureDialog username={content} close={() => setFailure(false)} /> : null
+				failure ? <UsersFailureDialog username={content} onClose={() => setFailure(false)} /> : null
 			}
 		</UsersPageElement>
 	)

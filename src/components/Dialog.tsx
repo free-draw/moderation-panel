@@ -2,7 +2,7 @@ import React from "react"
 import ReactDOM from "react-dom"
 import styled from "styled-components"
 import ButtonStyle from "../enum/ButtonStyle"
-import TextButton from "./TextButton"
+import TextButton, { TextButtonOptions } from "./TextButton"
 
 const DialogContainerElement = styled.div`
 	position: fixed;
@@ -67,12 +67,7 @@ const DialogButtonsElement = styled.div`
 function Dialog({ title, description, buttons, onCancel, children }: {
 	title?: string,
 	description?: string,
-	buttons?: {
-		id: string,
-		text: string,
-		style?: ButtonStyle,
-		onClick: React.MouseEventHandler<HTMLSpanElement>,
-	}[],
+	buttons?: (TextButtonOptions & { id: string })[],
 	onCancel?: () => void,
 	children?: React.ReactNode[],
 }) {

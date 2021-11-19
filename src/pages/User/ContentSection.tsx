@@ -1,9 +1,15 @@
 import React from "react"
 import styled from "styled-components"
+import IconButton, { IconButtonOptions } from "../../components/IconButton"
+import TextButton from "../../components/TextButton"
+import Spinner from "../../components/Spinner"
+import ButtonStyle from "../../enum/ButtonStyle"
 
-import IconButton from "/src/components/IconButton"
-import TextButton from "/src/components/TextButton"
-import Spinner from "/src/components/Spinner"
+enum ContentSectionStatus {
+	LOADED = "LOADED",
+	LOADING = "LOADING",
+	EMPTY = "EMPTY",
+}
 
 const ContentSectionStatusElement = styled.div`
 	height: 80px;
@@ -19,19 +25,21 @@ const ContentSectionStatusEmptyElement = styled.span`
 	font-weight: 400;
 `
 
-function ContentSectionStatus({ status }) {
+function ContentSectionStatusDisplay({ status }: {
+	status: ContentSectionStatus,
+}) {
 	switch (status) {
-		case "LOADED":
+		case ContentSectionStatus.LOADED:
 			return null
 
-		case "LOADING":
+		case ContentSectionStatus.LOADING:
 			return (
 				<ContentSectionStatusElement>
 					<Spinner />
 				</ContentSectionStatusElement>
 			)
 
-		case "EMPTY":
+		case ContentSectionStatus.EMPTY:
 			return (
 				<ContentSectionStatusElement>
 					<ContentSectionStatusEmptyElement>There's nothing here.</ContentSectionStatusEmptyElement>
@@ -83,8 +91,13 @@ const ContentSectionFooterElement = styled.div`
 	height: 80px;
 `
 
-function ContentSection({ name, buttons, status, children }) {
-	const [ expanded, setExpanded ] = React.useState(false)
+function ContentSection({ name, buttons, status, children }: {
+	name: string,
+	buttons: (IconButtonOptions & { id: string })[],
+	status: ContentSectionStatus,
+	children?: React.ReactNode[],
+}) {
+	const [ expanded, setExpanded ] = React.useState<boolean>(false)
 
 	return (
 		<ContentSectionElement>
@@ -99,14 +112,14 @@ function ContentSection({ name, buttons, status, children }) {
 				{
 					children && children.length > 0 ? (
 						expanded ? children : children.slice(0, 3)
-					) : <ContentSectionStatus status={status} />
+					) : <ContentSectionStatusDisplay status={status} />
 				}
 				{
 					children && children.length > 3 ? (
 						<ContentSectionFooterElement>
 							<TextButton
 								text={expanded ? "Show Less" : "Show More"}
-								style="flat"
+								style={ButtonStyle.FLAT}
 								onClick={() => setExpanded(!expanded)}
 							/>
 						</ContentSectionFooterElement>
@@ -120,6 +133,8 @@ function ContentSection({ name, buttons, status, children }) {
 export default ContentSection
 
 export {
+	ContentSectionStatus,
+
 	ContentSectionStatusElement,
 	ContentSectionStatusEmptyElement,
 

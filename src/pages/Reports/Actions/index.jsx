@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import API from "/src/API"
-import ModerationType, { ModerationTypeStrings } from "/src/enum/ModerationType"
+import { ActionType } from "@free-draw/moderation-client"
 import ModerationPresetReason, { ModerationPresetReasonStrings } from "/src/enum/ModerationPresetReason"
 import ModerationPresetDuration, { ModerationPresetDurationStrings, ModerationPresetDurationLengths } from "/src/enum/ModerationPresetDuration"
 import Dialog from "/src/components/Dialog"
@@ -47,21 +47,21 @@ function ReportAcceptDialog({ report, close }) {
 			<Dropdown
 				index={1}
 				placeholder="Type"
-				options={Object.keys(ModerationType).map(key => ({ id: key, name: ModerationTypeStrings[key] }))}
+				options={Object.values(ActionType).map(value => ({ id: value, name: value }))}
 				currentOptionId={type}
 				onSelection={setType}
 			/>
 			<Dropdown
 				index={2}
 				placeholder="Reason"
-				options={Object.keys(ModerationPresetReason).map(key => ({ id: key, name: ModerationPresetReasonStrings[key] }))}
+				options={Object.values(ModerationPresetReason).map(value => ({ id: value, name: ModerationPresetReasonStrings[value] }))}
 				currentOptionId={reason}
 				onSelection={setReason}
 			/>
 			<Dropdown
 				index={3}
 				placeholder="Duration"
-				options={Object.keys(ModerationPresetDuration).map(key => ({ id: key, name: ModerationPresetDurationStrings[key] }))}
+				options={Object.values(ModerationPresetDuration).map(value => ({ id: value, name: ModerationPresetDurationStrings[value] }))}
 				currentOptionId={duration}
 				onSelection={setDuration}
 			/>

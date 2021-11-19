@@ -1,5 +1,3 @@
-import { EventEmitter2 } from "eventemitter2"
-
 type EmitterCallbackLike = () => void
 
 type EventTargetLike = {
@@ -10,8 +8,6 @@ type EventTargetLike = {
 type EventEmitterLike = {
 	on(event: string, callback: EmitterCallbackLike): any,
 	off(event: string, callback: EmitterCallbackLike): any,
-	addListener(event: string, callback: EmitterCallbackLike): any,
-	removeListener(event: string, callback: EmitterCallbackLike): any,
 }
 
 type EmitterLike = EventTargetLike | EventEmitterLike
@@ -20,7 +16,7 @@ function connect(target: EmitterLike, event: string, callback: EmitterCallbackLi
 	if (target instanceof EventTarget) {
 		(target as EventTargetLike).addEventListener(event, callback)
 	} else {
-		(target as EventEmitterLike).addListener(event, callback)
+		(target as EventEmitterLike).on(event, callback)
 	}
 }
 
@@ -28,7 +24,7 @@ function disconnect(target: EmitterLike, event: string, callback: EmitterCallbac
 	if (target instanceof EventTarget) {
 		(target as EventTargetLike).removeEventListener(event, callback)
 	} else {
-		(target as EventEmitterLike).removeListener(event, callback)
+		(target as EventEmitterLike).off(event, callback)
 	}
 }
 

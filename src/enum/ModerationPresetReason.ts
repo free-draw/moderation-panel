@@ -20,7 +20,7 @@ const ModerationPresetReasonStrings = {
 	[ModerationPresetReason.PROFANITY]: "Profanity",
 	[ModerationPresetReason.HATE_SPEECH]: "Hate speech",
 	[ModerationPresetReason.OTHER]: "Other",
-}
+} as Record<ModerationPresetReason, string>
 
 export default ModerationPresetReason
 export { ModerationPresetReasonStrings }

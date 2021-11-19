@@ -2,29 +2,31 @@ import React from "react"
 import styled from "styled-components"
 import { useHistory } from "react-router-dom"
 import { mdiMagnify, mdiTrashCanOutline, mdiPlus } from "@mdi/js"
-import Maid from "/src/class/Maid"
-import API from "/src/API"
-import ModerationType, { ModerationTypeStrings } from "/src/enum/ModerationType"
-import ModerationPresetReason, { ModerationPresetReasonStrings } from "/src/enum/ModerationPresetReason"
-import ModerationPresetDuration , { ModerationPresetDurationStrings, ModerationPresetDurationLengths } from "/src/enum/ModerationPresetDuration"
-import colors from "/src/presets/colors"
-import IconButton from "/src/components/IconButton"
-import Dialog from "/src/components/Dialog"
-import Dropdown from "/src/components/Dropdown"
-import TextArea from "/src/components/TextArea"
-import { Field, FieldGroup } from "/src/components/fields"
-import Realtime from "/src/Realtime"
-
-import ContentSection from "./ContentSection"
+import API from "../../API"
+import ModerationPresetReason, { ModerationPresetReasonStrings } from "../../enum/ModerationPresetReason"
+import ModerationPresetDuration , { ModerationPresetDurationStrings, ModerationPresetDurationLengths } from "../../enum/ModerationPresetDuration"
+import colors from "../../presets/colors"
+import IconButton from "../../components/IconButton"
+import Dialog from "../../components/Dialog"
+import Dropdown from "../../components/Dropdown"
+import TextArea from "../../components/TextArea"
+import { Field, FieldGroup } from "../../components/fields"
+import Realtime from "../../Realtime"
+import ContentSection, { ContentSectionStatus } from "./ContentSection"
+import { User, Action, ActionOptions, UserResolvable, ActionType } from "@free-draw/moderation-client"
+import ButtonStyle from "../../enum/ButtonStyle"
 
 const NotesTextAreaElement = styled(TextArea)`
 	height: 150px;
 `
 
-function CreateDialog({ onCreate, onClose }) {
-	const [ type, setType ] = React.useState(null)
-	const [ reason, setReason ] = React.useState(null)
-	const [ duration, setDuration ] = React.useState(ModerationPresetDuration.FOREVER)
+function CreateDialog({ onCreate, onClose }: {
+	onCreate: (options: ActionOptions) => void,
+	onClose: () => void,
+}) {
+	const [ type, setType ] = React.useState<ActionType | null>(null)
+	const [ reason, setReason ] = React.useState<ModerationPresetReason | null>(null)
+	const [ duration, setDuration ] = React.useState<ModerationPresetDuration | null>(null)
 	const [ notes, setNotes ] = React.useState("")
 
 	return (
@@ -39,16 +41,17 @@ function CreateDialog({ onCreate, onClose }) {
 				{
 					id: "create",
 					text: "Create",
-					style: "filled",
+					style: ButtonStyle.FILLED,
 					onClick() {
-						onCreate({
-							type,
-							reason: ModerationPresetReasonStrings[reason],
-							duration: ModerationPresetDurationLengths[duration],
-							notes,
-						})
-
-						onClose()
+						if (type && reason && duration) {
+							onCreate({
+								type,
+								reason: ModerationPresetReasonStrings[reason!],
+								duration: ModerationPresetDurationLengths[duration!] ?? undefined,
+								notes,
+							})
+							onClose()
+						}
 					},
 				},
 			]}
@@ -56,21 +59,36 @@ function CreateDialog({ onCreate, onClose }) {
 		>
 			<Dropdown
 				placeholder="Type"
-				options={Object.keys(ModerationType).map(key => ({ id: key, name: ModerationTypeStrings[key] }))}
+				options={Object.values(ActionType).map((value: ActionType) => {
+					return {
+						id: value,
+						name: value,
+					}
+				})}
 				currentOptionId={type}
 				onSelection={setType}
 				index={1}
 			/>
 			<Dropdown
 				placeholder="Reason"
-				options={Object.keys(ModerationPresetReason).map(key => ({ id: key, name: ModerationPresetReasonStrings[key] }))}
+				options={Object.values(ModerationPresetReason).map((value: ModerationPresetReason) => {
+					return {
+						id: value,
+						name: ModerationPresetReasonStrings[value],
+					}
+				})}
 				currentOptionId={reason}
 				onSelection={setReason}
 				index={2}
 			/>
 			<Dropdown
 				placeholder="Duration"
-				options={Object.keys(ModerationPresetDuration).map(key => ({ id: key, name: ModerationPresetDurationStrings[key] }))}
+				options={Object.values(ModerationPresetDuration).map((value: ModerationPresetDuration) => {
+					return {
+						id: value,
+						name: ModerationPresetDurationStrings[value],
+					}
+				})}
 				currentOptionId={duration}
 				onSelection={setDuration}
 				index={3}
@@ -83,7 +101,11 @@ function CreateDialog({ onCreate, onClose }) {
 	)
 }
 
-function DeleteDialog({ action, onDelete, onClose }) {
+function DeleteDialog({ action, onDelete, onClose }: {
+	action: Action,
+	onDelete: () => void,
+	onClose: () => void,
+}) {
 	return (
 		<Dialog
 			title="Delete action?"
@@ -97,7 +119,7 @@ function DeleteDialog({ action, onDelete, onClose }) {
 				{
 					id: "confirm",
 					text: "Delete",
-					style: "filled",
+					style: ButtonStyle.FILLED,
 					onClick: onDelete,
 				},
 			]}
@@ -106,17 +128,20 @@ function DeleteDialog({ action, onDelete, onClose }) {
 	)
 }
 
-const ActionElement = styled.div`
-	border: 1px solid ${props => props.expanded ? colors.brand[600] : colors.border};
+const ActionElement = styled.div<{
+	isEnabled: boolean,
+	isExpanded: boolean,
+}>`
+	border: 1px solid ${props => props.isExpanded ? colors.brand[600] : colors.border};
 	border-radius: 8px;
 	padding: 16px;
 	display: flex;
 	flex-direction: column;
 	user-select: none;
 	cursor: pointer;
-	opacity: ${props => props.enabled || props.expanded ? "100%" : "50%"};
+	opacity: ${props => props.isEnabled || props.isExpanded ? "100%" : "50%"};
 
-	${props => props.enabled ? "" : "filter: grayscale(100%)"};
+	${props => props.isEnabled ? "" : "filter: grayscale(100%)"};
 
 	& + & {
 		margin-top: 8px;
@@ -146,8 +171,10 @@ const ActionTypeElement = styled.span`
 	margin-top: 6px;
 `
 
-const ActionExtendedDetailsElement = styled.div`
-	display: ${props => props.expanded ? "flex" : "none"};
+const ActionExtendedDetailsElement = styled.div<{
+	isExpanded: boolean,
+}>`
+	display: ${props => props.isExpanded ? "flex" : "none"};
 	margin-top: 16px;
 `
 
@@ -170,30 +197,38 @@ const ActionButtonsElement = styled.div`
 	}
 `
 
-function Action({ action }) {
+enum ModeratorState {
+	LOADED = "LOADED",
+	LOADING = "LOADING",
+	UNKNOWN = "UNKNOWN",
+}
+
+function ActionsItem({ action }: {
+	action: Action,
+}) {
 	const history = useHistory()
 
 	const [ expanded, setExpanded ] = React.useState(false)
 	const [ prompt, setPrompt ] = React.useState(false)
 
-	const [ moderatorName, setModeratorName ] = React.useState(null)
-	const [ moderatorState, setModeratorState ] = React.useState(action.moderator ? "LOADING" : "UNKNOWN")
+	const [ moderatorName, setModeratorName ] = React.useState<string | null>(null)
+	const [ moderatorState, setModeratorState ] = React.useState<ModeratorState>(action.moderator ? ModeratorState.LOADING : ModeratorState.UNKNOWN)
 
 	React.useEffect(() => {
 		if (action.moderator) {
 			action.moderator.resolve(API).then((moderator) => {
 				setModeratorName(moderator.name)
-				setModeratorState("LOADED")
+				setModeratorState(ModeratorState.LOADED)
 			})
 		} else {
-			setModeratorState("UNKNOWN")
+			setModeratorState(ModeratorState.UNKNOWN)
 		}
 	}, [ action.moderator ])
 
 	return (
 		<ActionElement
-			enabled={action.active}
-			expanded={expanded}
+			isEnabled={action.active}
+			isExpanded={expanded}
 			onClick={() => setExpanded(!expanded)}
 		>
 			<ActionDetailsElement>
@@ -206,7 +241,7 @@ function Action({ action }) {
 						action.report || action.snapshot ? (
 							<IconButton
 								icon={mdiMagnify}
-								onClick={() => history.push(action.report ? `/reports/${action.report.id}` : `/snapshots/${action.snapshot.id}`)}
+								onClick={() => history.push(action.report ? `/reports/${action.report.id}` : `/snapshots/${action.snapshot!.id}`)}
 							/>
 						) : null
 					}
@@ -234,30 +269,30 @@ function Action({ action }) {
 					</>
 				</ActionButtonsElement>
 			</ActionDetailsElement>
-			<ActionExtendedDetailsElement expanded={expanded}>
+			<ActionExtendedDetailsElement isExpanded={expanded}>
 				<FieldGroup>
 					<Field
 						name="Notes"
 						value={action.notes ?? "No notes specified"}
-						empty={!action.notes}
+						isEmpty={!action.notes}
 					/>
 					<Field
 						name="Moderator"
 						value={moderatorName ?? "Unknown"}
-						empty={moderatorState === "UNKNOWN"}
-						inline
+						isEmpty={moderatorState === "UNKNOWN"}
+						isInline
 					/>
 					<Field
 						name="Created"
 						value={action.created.toLocaleString()}
-						inline
+						isInline
 					/>
 					{
 						action.expiry ? (
 							<Field
 								name="Expiry"
 								value={action.expiry.toLocaleString()}
-								inline
+								isInline
 							/>
 						) : null
 					}
@@ -267,43 +302,50 @@ function Action({ action }) {
 	)
 }
 
-function Actions({ user }) {
+function Actions({ user }: {
+	user: User,
+}) {
 	const [ actions, setActions ] = React.useState(user.actions)
 	const [ dialogOpen, setDialogOpen ] = React.useState(false)
 
 	React.useEffect(() => {
-		const maid = new Maid()
-		maid.listen(Realtime, "actionCreate", (actionUser, action) => {
+		const onActionCreate = (actionUser: UserResolvable, action: Action) => {
 			if (actionUser.id === user.id) {
 				setActions([ ...actions, action ])
 			}
-		})
-		maid.listen(Realtime, "actionDelete", (actionUser, action) => {
+		}
+
+		const onActionDelete = (actionUser: UserResolvable, action: Action) => {
 			if (actionUser.id === user.id) {
 				setActions([
 					...actions.filter(filterAction => filterAction.id !== action.id),
 					action,
 				])
 			}
-		})
+		}
 
-		return () => maid.clean()
+		Realtime.on("actionCreate", onActionCreate)
+		Realtime.on("actionDelete", onActionDelete)
+
+		return () => {
+			Realtime.off("actionCreate", onActionCreate)
+			Realtime.off("actionDelete", onActionDelete)
+		}
 	}, [ user, actions ])
 
-	let status
+	let status: ContentSectionStatus
 	if (actions && actions.length > 0) {
-		status = "LOADED"
+		status = ContentSectionStatus.LOADED
 	} else if (actions) {
-		status = "EMPTY"
+		status = ContentSectionStatus.EMPTY
 	} else {
-		status = "LOADING"
+		status = ContentSectionStatus.LOADING
 	}
 
 	return (
 		<>
 			<ContentSection
 				name="Actions"
-				loading={!actions}
 				status={status}
 				buttons={[
 					{
@@ -317,8 +359,8 @@ function Actions({ user }) {
 					actions && actions.length > 0 ? (
 						[ ...actions ]
 							.sort((B, A) => A.created.getTime() - B.created.getTime())
-							.map(action => <Action key={action.id} action={action} />)
-					) : null
+							.map(action => <ActionsItem key={action.id} action={action} />)
+					) : undefined
 				}
 			</ContentSection>
 			{
@@ -329,7 +371,7 @@ function Actions({ user }) {
 							return user.createAction(API, options)
 						}}
 					/>
-				) : null
+				) : undefined
 			}
 		</>
 	)

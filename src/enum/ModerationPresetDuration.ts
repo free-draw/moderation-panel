@@ -20,7 +20,7 @@ const ModerationPresetDurationStrings = {
 	[ModerationPresetDuration.TWENTY_FOUR_WEEKS]: "6 months",
 	[ModerationPresetDuration.ONE_YEAR]: "1 year",
 	[ModerationPresetDuration.FOREVER]: "Forever",
-}
+} as Record<ModerationPresetDuration, string>
 
 const ModerationPresetDurationLengths = {
 	[ModerationPresetDuration.THREE_DAYS]: ms("3d"),
@@ -31,7 +31,7 @@ const ModerationPresetDurationLengths = {
 	[ModerationPresetDuration.TWENTY_FOUR_WEEKS]: ms("24w"),
 	[ModerationPresetDuration.ONE_YEAR]: ms("1y"),
 	[ModerationPresetDuration.FOREVER]: null,
-}
+} as Record<ModerationPresetDuration, number | null>
 
 export default ModerationPresetDuration
 export { ModerationPresetDurationStrings, ModerationPresetDurationLengths }

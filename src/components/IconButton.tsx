@@ -16,11 +16,13 @@ const IconButtonElement = styled.div.attrs({
 	}
 `
 
-function IconButton(props: {
+type IconButtonOptions = {
 	icon: string,
 	color?: string,
 	onClick: React.MouseEventHandler<HTMLDivElement>,
-}) {
+}
+
+function IconButton(props: IconButtonOptions) {
 	return (
 		<IconButtonElement
 			onClick={(event) => {
@@ -40,5 +42,7 @@ function IconButton(props: {
 export default IconButton
 
 export {
+	IconButtonOptions,
+
 	IconButtonElement,
 }

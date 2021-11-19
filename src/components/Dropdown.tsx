@@ -94,17 +94,16 @@ const DropdownArrowElement = styled(Arrow)<{
 const DropdownOptionsElement = styled.div``
 
 type DropdownOption = {
-	id: string,
+	id: any,
 	name: string,
-	onClick: React.MouseEventHandler<HTMLDivElement>,
 }
 
 function Dropdown({ options, currentOptionId, placeholder, index, onSelection }: {
 	options: DropdownOption[],
-	currentOptionId: string,
+	currentOptionId: any,
 	placeholder: string,
 	index: number,
-	onSelection: (id: string) => void,
+	onSelection: (id: any) => void,
 }) {
 	const [ open, setOpen ] = React.useState<boolean>(false)
 
