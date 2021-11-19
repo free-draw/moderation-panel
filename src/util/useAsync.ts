@@ -1,15 +1,17 @@
 import React from "react"
 
-type UseAsyncCallback<P extends any[], T> = (...args: P) => Promise<T>
-type UseAsyncCaller<P extends any[], T> = (...args: P) => T | null
+// TODO: Remove this when upgrading to TypeScript 4.5
+type Awaited<P extends Promise<any>> = P extends Promise<infer T> ? T : never
 
-function useAsync<P extends any[], T>(
-	callback: UseAsyncCallback<P, T>,
-	dependencies: any[],
-	defer: boolean
-): UseAsyncCaller<P, T> {
+type UseAsyncFunction = (...args: any[]) => Promise<any>
+
+function useAsync<F extends UseAsyncFunction>(
+	callback: F,
+	dependencies?: any[],
+	defer?: boolean
+): (...args: Parameters<F>) => Awaited<ReturnType<F>> | null {
 	return (...args) => {
-		const [ result, setResult ] = React.useState<T | null>(null)
+		const [ result, setResult ] = React.useState<Awaited<ReturnType<F>> | null>(null)
 
 		React.useEffect(() => {
 			setResult(null)
