@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-
+import { Vector2 } from "@free-draw/moderation-client"
 import ViewerContext from "./ViewerContext"
 
 const ViewerPositionalOverlayElement = styled.div`
@@ -16,21 +16,28 @@ const ViewerPositionalOverlayElement = styled.div`
 	}
 `
 
-function ViewerPositionalOverlay(props) {
-	const { camera } = React.useContext(ViewerContext)
-	const ref = React.useRef()
+function ViewerPositionalOverlay(props: {
+	position: Vector2,
+	ignoreScale?: boolean,
+}) {
+	const context = React.useContext(ViewerContext)
+	if (!context) throw new Error("ViewerPositionalOverlay must be inside of a ViewerCanvas")
+	const { camera } = context
+
+	const ref = React.useRef() as React.RefObject<HTMLDivElement>
 
 	React.useEffect(() => {
-		const updatePosition = () => {
+		const onUpdate = () => {
 			const position = camera.position.inverse().add(props.position).multiplyScalar(camera.scale)
 			const scale = props.ignoreScale ? 1 : camera.scale
-			ref.current.style.transform = `translate(${position.x}px, ${position.y}px) scale(${scale})`
+			ref.current!.style.transform = `translate(${position.x}px, ${position.y}px) scale(${scale})`
 		}
 
-		updatePosition()
-
-		const listener = camera.on("update", updatePosition, { objectify: true })
-		return () => listener.off()
+		onUpdate()
+		camera.on("update", onUpdate)
+		return () => {
+			camera.off("update", onUpdate)
+		}
 	}, [ props.position, props.ignoreScale ])
 
 	return (

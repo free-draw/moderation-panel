@@ -14,6 +14,7 @@ specifiers:
   '@types/lodash': ^4.14.177
   '@types/ms': ^0.7.31
   '@types/react': ^17.0.35
+  '@types/styled-components': ^5.1.15
   axios: ^0.21.4
   babel-plugin-styled-components: ^1.13.3
   binary-parser: ^1.9.2
@@ -33,9 +34,9 @@ specifiers:
   react-reduce-motion: ^2.0.2
   react-router: ^5.2.1
   react-router-dom: ^5.3.0
-  react-spring: ^9.3.0
+  react-spring: ^9.3.1
   react-window: ^1.8.6
-  socket.io-client: ^4.3.2
+  socket.io-client: ^4.4.0
   styled-components: ^5.3.3
   url-join: ^4.0.1
 
@@ -53,6 +54,7 @@ dependencies:
   '@types/lodash': 4.14.177
   '@types/ms': 0.7.31
   '@types/react': 17.0.35
+  '@types/styled-components': 5.1.15
   axios: 0.21.4
   babel-plugin-styled-components: 1.13.3_styled-components@5.3.3
   binary-parser: 1.9.2
@@ -69,9 +71,9 @@ dependencies:
   react-reduce-motion: 2.0.2_react@17.0.2
   react-router: 5.2.1_react@17.0.2
   react-router-dom: 5.3.0_react@17.0.2
-  react-spring: 9.3.0_react-dom@17.0.2+react@17.0.2
+  react-spring: 9.3.1_react-dom@17.0.2+react@17.0.2
   react-window: 1.8.6_react-dom@17.0.2+react@17.0.2
-  socket.io-client: 4.3.2
+  socket.io-client: 4.4.0
   styled-components: 5.3.3_react-dom@17.0.2+react@17.0.2
   url-join: 4.0.1
 
@@ -383,7 +385,7 @@ packages:
       js-base64: 3.7.2
       lodash: 4.17.21
       node-cache: 5.1.2
-      socket.io-client: 4.3.2
+      socket.io-client: 4.4.0
       url-join: 4.0.1
     transitivePeerDependencies:
       - bufferutil
@@ -478,7 +480,7 @@ packages:
     dependencies:
       '@parcel/logger': 2.0.0-rc.0
       '@parcel/utils': 2.0.0-rc.0
-      lmdb-store: 1.6.13
+      lmdb-store: 1.6.14
     dev: false
 
   /@parcel/cache/2.0.1:
@@ -489,7 +491,7 @@ packages:
     dependencies:
       '@parcel/logger': 2.0.1
       '@parcel/utils': 2.0.1
-      lmdb-store: 1.6.13
+      lmdb-store: 1.6.14
     dev: false
 
   /@parcel/cache/2.0.1_@parcel+core@2.0.1:
@@ -501,7 +503,7 @@ packages:
       '@parcel/core': 2.0.1
       '@parcel/logger': 2.0.1
       '@parcel/utils': 2.0.1
-      lmdb-store: 1.6.13
+      lmdb-store: 1.6.14
     dev: false
 
   /@parcel/codeframe/2.0.0-rc.0:
@@ -2573,10 +2575,17 @@ packages:
     resolution: {integrity: sha512-w8oigUCDjElRHRRrMvn/spybSMyX8MTkKA5Dv+tS1IE/TgmNZPqUYtvYBXGY8cieSE66gm+szeK+bnbxC2xHTQ==}
     dev: false
 
+  /@types/hoist-non-react-statics/3.3.1:
+    resolution: {integrity: sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==}
+    dependencies:
+      '@types/react': 17.0.35
+      hoist-non-react-statics: 3.3.2
+    dev: false
+
   /@types/http-proxy/1.17.7:
     resolution: {integrity: sha512-9hdj6iXH64tHSLTY+Vt2eYOGzSogC+JQ2H7bdPWkuh7KXP5qLllWx++t+K9Wk556c3dkDdPws/SpMRi0sdCT1w==}
     dependencies:
-      '@types/node': 16.11.7
+      '@types/node': 16.11.8
 
   /@types/js-cookie/3.0.1:
     resolution: {integrity: sha512-7wg/8gfHltklehP+oyJnZrz9XBuX5ZPP4zB6UsI84utdlkRYLnOm2HfpLXazTwZA+fpGn0ir8tGNgVnMEleBGQ==}
@@ -2590,8 +2599,8 @@ packages:
     resolution: {integrity: sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA==}
     dev: false
 
-  /@types/node/16.11.7:
-    resolution: {integrity: sha512-QB5D2sqfSjCmTuWcBWyJ+/44bcjO7VbjSbOE0ucoVbAsSNQc4Lt6QkgkVXkTDwkL4z/beecZNDvVX15D4P8Jbw==}
+  /@types/node/16.11.8:
+    resolution: {integrity: sha512-hmT5gfpRkkHr7DZZHMf3jBe/zNcVGN+jXSL2f8nAsYfBPxQFToKwQlS/zES4Sjp488Bi73i+p6bvrNRRGU0x9Q==}
 
   /@types/parse-json/4.0.0:
     resolution: {integrity: sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==}
@@ -2615,6 +2624,14 @@ packages:
 
   /@types/scheduler/0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
+    dev: false
+
+  /@types/styled-components/5.1.15:
+    resolution: {integrity: sha512-4evch8BRI3AKgb0GAZ/sn+mSeB+Dq7meYtMi7J/0Mg98Dt1+r8fySOek7Sjw1W+Wskyjc93565o5xWAT/FdY0Q==}
+    dependencies:
+      '@types/hoist-non-react-statics': 3.3.1
+      '@types/react': 17.0.35
+      csstype: 3.0.10
     dev: false
 
   /abab/2.0.5:
@@ -3056,8 +3073,8 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001281
-      electron-to-chromium: 1.3.900
+      caniuse-lite: 1.0.30001282
+      electron-to-chromium: 1.3.903
       escalade: 3.1.1
       node-releases: 2.0.1
       picocolors: 1.0.0
@@ -3131,13 +3148,13 @@ packages:
     resolution: {integrity: sha512-bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==}
     dependencies:
       browserslist: 4.18.1
-      caniuse-lite: 1.0.30001281
+      caniuse-lite: 1.0.30001282
       lodash.memoize: 4.1.2
       lodash.uniq: 4.5.0
     dev: false
 
-  /caniuse-lite/1.0.30001281:
-    resolution: {integrity: sha512-1ktfDV2+4LYxOGeAZygMyvhiPBJKV1gsqPmfGGwRbwYOzDWbsQHgBFo+2lpRTMO2gWjPWJrCMLWa2fnSVnxn0A==}
+  /caniuse-lite/1.0.30001282:
+    resolution: {integrity: sha512-YhF/hG6nqBEllymSIjLtR2iWDDnChvhnVJqp+vloyt2tEHFG1yBR+ac2B/rOw0qOK0m0lEXU2dv4E/sMk5P9Kg==}
     dev: false
 
   /caseless/0.12.0:
@@ -3903,8 +3920,8 @@ packages:
       jake: 10.8.2
     dev: false
 
-  /electron-to-chromium/1.3.900:
-    resolution: {integrity: sha512-SuXbQD8D4EjsaBaJJxySHbC+zq8JrFfxtb4GIr4E9n1BcROyMcRrJCYQNpJ9N+Wjf5mFp7Wp0OHykd14JNEzzQ==}
+  /electron-to-chromium/1.3.903:
+    resolution: {integrity: sha512-+PnYAyniRRTkNq56cqYDLq9LyklZYk0hqoDy9GpcU11H5QjRmFZVDbxtgHUMK/YzdNTcn1XWP5gb+hFlSCr20g==}
     dev: false
 
   /elliptic/6.5.4:
@@ -3947,8 +3964,8 @@ packages:
       once: 1.4.0
     dev: false
 
-  /engine.io-client/6.0.3:
-    resolution: {integrity: sha512-IH8ZhDIwiLv0d/wXVzmjfV9Y82hbJIDhCGSVUV8o1kcpDe2I6Y3bZA3ZbJy4Ls7k7IVmcy/qn4k9RKWFhUGf5w==}
+  /engine.io-client/6.1.1:
+    resolution: {integrity: sha512-V05mmDo4gjimYW+FGujoGmmmxRaDsrVr7AXA3ZIfa04MWM1jOfZfUwou0oNqhNwy/votUDvGDt4JA4QF4e0b4g==}
     dependencies:
       '@socket.io/component-emitter': 3.0.0
       debug: 4.3.2
@@ -4321,7 +4338,7 @@ packages:
       console-control-strings: 1.1.0
       has-unicode: 2.0.1
       object-assign: 4.1.1
-      signal-exit: 3.0.5
+      signal-exit: 3.0.6
       string-width: 1.0.2
       strip-ansi: 3.0.1
       wide-align: 1.1.5
@@ -5215,16 +5232,15 @@ packages:
     resolution: {integrity: sha1-HADHQ7QzzQpOgHWPe2SldEDZ/wA=}
     dev: false
 
-  /lmdb-store/1.6.13:
-    resolution: {integrity: sha512-WJPNfzSZXD6anGFdIEK/wq/HzAU5kfi7+LSUSzQ2Qo9uV9REeIYPGqWX+FKl/QCb6qK4ie1D4f44aEvvv7M7rw==}
+  /lmdb-store/1.6.14:
+    resolution: {integrity: sha512-4woZfvfgolMEngjoMJrwePjdLotr3QKGJsDWURlJmKBed5JtE00IfAKo7ryPowl4ksGcs21pcdLkwrPnKomIuA==}
     requiresBuild: true
     dependencies:
+      msgpackr: 1.5.1
       nan: 2.15.0
       node-gyp-build: 4.3.0
       ordered-binary: 1.1.3
       weak-lru-cache: 1.1.3
-    optionalDependencies:
-      msgpackr: 1.5.0
     dev: false
 
   /loader-utils/1.4.0:
@@ -5466,13 +5482,12 @@ packages:
     dev: false
     optional: true
 
-  /msgpackr/1.5.0:
-    resolution: {integrity: sha512-GWMowA95SOMkrFM+uKF/9MOIoZbDwoZ09XEqSoOwyt/IzohTfxfOJrIGW0fInvcZUEoZ0wHCwVg4K0UOOUA49A==}
+  /msgpackr/1.5.1:
+    resolution: {integrity: sha512-I1CXFG8BYYSeIhtDlHpUVMsdDiyvP9JAh1d9QoBnkPx3ETPeH/1lR14hweM9GETs09wCWlaOyhtXxIc9boxAAA==}
     requiresBuild: true
     optionalDependencies:
       msgpackr-extract: 1.0.15
     dev: false
-    optional: true
 
   /nan/2.15.0:
     resolution: {integrity: sha512-8ZtvEnA2c5aYCZYd1cvgdnU6cqwixRoYg70xPLWUws5ORTa/lnw+u4amixRS/Ac5U5mQVgp9pnlSUnbNWFaWZQ==}
@@ -6579,8 +6594,8 @@ packages:
       tiny-warning: 1.0.3
     dev: false
 
-  /react-spring/9.3.0_react-dom@17.0.2+react@17.0.2:
-    resolution: {integrity: sha512-zxhMUCM4ha22724q1CshmbzKUfqdUp2HyA4P72+A0xVF/9bgaFuMukI8C8/Rjfdqw6sGg3hZNvmY9Z8n4cqWmg==}
+  /react-spring/9.3.1_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-YbWcG+LiiyMi4RnBrMudVj2Rqnt2yEozeISkW5Hm2SOss+uDS4CpVjLuwdFAwczw99FSPrRfyAlGjEx3HvOWiw==}
     dependencies:
       '@react-spring/core': 9.3.0_react@17.0.2
       '@react-spring/konva': 9.3.0_react@17.0.2
@@ -6748,7 +6763,7 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       onetime: 5.1.2
-      signal-exit: 3.0.5
+      signal-exit: 3.0.6
     dev: false
 
   /ret/0.1.15:
@@ -6936,8 +6951,8 @@ packages:
       get-intrinsic: 1.1.1
       object-inspect: 1.11.0
 
-  /signal-exit/3.0.5:
-    resolution: {integrity: sha512-KWcOiKeQj6ZyXx7zq4YxSMgHRlod4czeBQZrPb8OKcohcqAXShm7E20kEMle9WBt26hFcAf0qLOcp5zmY7kOqQ==}
+  /signal-exit/3.0.6:
+    resolution: {integrity: sha512-sDl4qMFpijcGw22U5w63KmD3cZJfBuFlVNbVMKje2keoKML7X2UzWbc4XrmEbDwg0NXJc3yv4/ox7b+JWb57kQ==}
     dev: false
 
   /simple-concat/1.0.1:
@@ -7002,14 +7017,14 @@ packages:
       use: 3.1.1
     dev: false
 
-  /socket.io-client/4.3.2:
-    resolution: {integrity: sha512-2B9LqSunN60yV8F7S84CCEEcgbYNfrn7ejIInZtLZ7ppWtiX8rGZAjvdCvbnC8bqo/9RlCNOUsORLyskxSFP1g==}
+  /socket.io-client/4.4.0:
+    resolution: {integrity: sha512-g7riSEJXi7qCFImPow98oT8X++MSsHz6MMFRXkWNJ6uEROSHOa3kxdrsYWMq85dO+09CFMkcqlpjvbVXQl4z6g==}
     engines: {node: '>=10.0.0'}
     dependencies:
       '@socket.io/component-emitter': 3.0.0
       backo2: 1.0.2
       debug: 4.3.2
-      engine.io-client: 6.0.3
+      engine.io-client: 6.1.1
       parseuri: 0.0.6
       socket.io-parser: 4.1.1
     transitivePeerDependencies:
