@@ -3,7 +3,7 @@ lockfileVersion: 5.3
 specifiers:
   '@babel/core': ^7.16.0
   '@fontsource/inter': ^4.5.1
-  '@free-draw/moderation-client': ^0.6.1
+  '@free-draw/moderation-client': ^0.6.2
   '@mdi/js': ^5.9.55
   '@mdi/react': ^1.5.0
   '@parcel/config-default': ^2.0.1
@@ -45,7 +45,7 @@ specifiers:
 dependencies:
   '@babel/core': 7.16.0
   '@fontsource/inter': 4.5.1
-  '@free-draw/moderation-client': 0.6.1
+  '@free-draw/moderation-client': 0.6.2
   '@mdi/js': 5.9.55
   '@mdi/react': 1.5.0
   '@parcel/config-default': 2.0.1
@@ -380,8 +380,8 @@ packages:
     resolution: {integrity: sha512-mvtOvXNNVLlF1p/UbLgLrmz2RCOl6Ow+TqyiK10SosoLKX7edsXYiHFHb7XIZdjII6F2sJVPPsJXWhBnbXT2DQ==}
     dev: false
 
-  /@free-draw/moderation-client/0.6.1:
-    resolution: {integrity: sha512-wvvnjGUpAvgDARsYPPCC6Cu4PbHjfIoQ9Bagptm50/WwUX7e6pnrTksHUlwI4mMN+wrG0Ig8msvmdzxxcG2Irg==}
+  /@free-draw/moderation-client/0.6.2:
+    resolution: {integrity: sha512-hUjCUbIrvONcR/YgNrDmRKBUgErMEkLg0zPpxHMf1JQF9N+fGxnCiEzv7NPUMD7LW0bivSlOaxVTqgThpc7AFA==}
     dependencies:
       axios: 0.24.0
       binary-parser: 2.0.1
