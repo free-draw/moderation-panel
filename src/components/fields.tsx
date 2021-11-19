@@ -1,10 +1,12 @@
 import React from "react"
 import styled from "styled-components"
 
-const FieldElement = styled.div`
+const FieldElement = styled.div<{
+	isInline?: boolean,
+}>`
 	display: flex;
 	flex-direction: column;
-	${props => props.inline ? "flex-grow: 1" : "width: 100%"};
+	${props => props.isInline ? "flex-grow: 1" : "width: 100%"};
 `
 
 const FieldNameElement = styled.span`
@@ -13,18 +15,25 @@ const FieldNameElement = styled.span`
 	margin-bottom: 7px;
 `
 
-const FieldValueElement = styled.span`
+const FieldValueElement = styled.span<{
+	isEmpty?: boolean,
+}>`
 	font-size: 16px;
-	font-weight: ${props => props.empty ? 400 : 600};
-	font-style: ${props => props.empty ? "italic" : "normal"};
-	opacity: ${props => props.empty ? "50%" : "100%"};
+	font-weight: ${props => props.isEmpty ? 400 : 600};
+	font-style: ${props => props.isEmpty ? "italic" : "normal"};
+	opacity: ${props => props.isEmpty ? "50%" : "100%"};
 `
 
-export function Field({ name, value, inline, empty }) {
+export function Field({ name, value, isInline, isEmpty }: {
+	name: string,
+	value: string,
+	isInline?: boolean,
+	isEmpty?: boolean,
+}) {
 	return (
-		<FieldElement inline={inline}>
+		<FieldElement isInline={isInline}>
 			<FieldNameElement>{name}</FieldNameElement>
-			<FieldValueElement empty={empty}>
+			<FieldValueElement isEmpty={isEmpty}>
 				{value}
 			</FieldValueElement>
 		</FieldElement>
@@ -39,7 +48,9 @@ const FieldGroupElement = styled.div`
 	position: relative;
 `
 
-export function FieldGroup(props) {
+export function FieldGroup(props: {
+	children: React.ReactNode[],
+}) {
 	return (
 		<FieldGroupElement>
 			{props.children}

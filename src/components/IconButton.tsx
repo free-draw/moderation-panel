@@ -16,12 +16,16 @@ const IconButtonElement = styled.div.attrs({
 	}
 `
 
-function IconButton(props) {
+function IconButton(props: {
+	icon: string,
+	color?: string,
+	onClick: React.MouseEventHandler<HTMLDivElement>,
+}) {
 	return (
 		<IconButtonElement
 			onClick={(event) => {
 				event.stopPropagation()
-				props.onClick()
+				return props.onClick(event)
 			}}
 		>
 			<Icon

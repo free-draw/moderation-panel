@@ -1,14 +1,15 @@
 import React from "react"
 import styled from "styled-components"
 import Icon from "@mdi/react"
-
-import colors from "/src/presets/colors"
-
-import Arrow from "/src/assets/arrow.svg"
+import colors from "../presets/colors"
+import Arrow from "../assets/arrow.svg"
 
 const height = 42
 
-const DropdownItemElement = styled.div`
+const DropdownItemElement = styled.div<{
+	isPrimary?: boolean,
+	isPlaceholder?: boolean,
+}>`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -17,8 +18,8 @@ const DropdownItemElement = styled.div`
 	cursor: pointer;
 	border-radius: 8px;
 
-	${props => props.placeholder ? "color: rgba(0, 0, 0, 0.5)" : null};
-	${props => !props.primary ? "&:hover { background: rgba(0, 0, 0, 0.1) }" : null};
+	${props => props.isPlaceholder ? "color: rgba(0, 0, 0, 0.5)" : null};
+	${props => !props.isPrimary ? "&:hover { background: rgba(0, 0, 0, 0.1) }" : null};
 
 	svg {
 		margin-left: 8px;
@@ -31,10 +32,17 @@ const DropdownItemNameElement = styled.span`
 	font-weight: 400;
 `
 
-function DropdownItem({ primary, name, icon, onClick }) {
+function DropdownItem({ isPrimary, name, icon, isPlaceholder, onClick }: {
+	isPrimary?: boolean,
+	name: string,
+	icon?: string,
+	isPlaceholder?: boolean,
+	onClick: React.MouseEventHandler<HTMLDivElement>,
+}) {
 	return (
 		<DropdownItemElement
-			primary={primary}
+			isPrimary={isPrimary}
+			isPlaceholder={isPlaceholder}
 			onClick={onClick}
 		>
 			{
@@ -51,7 +59,9 @@ function DropdownItem({ primary, name, icon, onClick }) {
 	)
 }
 
-const DropdownContainerElement = styled.div`
+const DropdownContainerElement = styled.div<{
+	zIndex: number,
+}>`
 	width: 100%;
 	height: ${height}px;
 	position: relative;
@@ -67,7 +77,9 @@ const DropdownElement = styled.div`
 	background: white;
 `
 
-const DropdownArrowElement = styled(Arrow)`
+const DropdownArrowElement = styled(Arrow)<{
+	isOpen: boolean,
+}>`
 	position: absolute;
 	right: 18px;
 	top: calc(50% - (12px / 2));
@@ -76,13 +88,25 @@ const DropdownArrowElement = styled(Arrow)`
 	pointer-events: none;
 	color: #9f9f9f;
 
-	${props => props.open ? "transform: rotate(90deg)" : null};
+	${props => props.isOpen ? "transform: rotate(90deg)" : null};
 `
 
 const DropdownOptionsElement = styled.div``
 
-function Dropdown({ options, currentOptionId, placeholder, index, onSelection }) {
-	const [ open, setOpen ] = React.useState(false)
+type DropdownOption = {
+	id: string,
+	name: string,
+	onClick: React.MouseEventHandler<HTMLDivElement>,
+}
+
+function Dropdown({ options, currentOptionId, placeholder, index, onSelection }: {
+	options: DropdownOption[],
+	currentOptionId: string,
+	placeholder: string,
+	index: number,
+	onSelection: (id: string) => void,
+}) {
+	const [ open, setOpen ] = React.useState<boolean>(false)
 
 	const currentOption = options.find(option => option.id === currentOptionId)
 
@@ -96,7 +120,6 @@ function Dropdown({ options, currentOptionId, placeholder, index, onSelection })
 								options.map((option) => {
 									return (
 										<DropdownItem
-											isCurrent={option === currentOption}
 											key={option.id}
 											name={option.name}
 											onClick={(event) => {
@@ -111,7 +134,7 @@ function Dropdown({ options, currentOptionId, placeholder, index, onSelection })
 						</DropdownOptionsElement>
 					) : (
 						<DropdownItem
-							primary
+							isPrimary
 							isPlaceholder={!currentOption}
 							name={currentOption ? currentOption.name : placeholder}
 							onClick={(event) => {
@@ -122,7 +145,7 @@ function Dropdown({ options, currentOptionId, placeholder, index, onSelection })
 					)
 				}
 			</DropdownElement>
-			<DropdownArrowElement open={open} />
+			<DropdownArrowElement isOpen={open} />
 		</DropdownContainerElement>
 	)
 }

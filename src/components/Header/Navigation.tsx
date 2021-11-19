@@ -2,23 +2,25 @@ import React from "react"
 import styled from "styled-components"
 import { Link, useRouteMatch } from "react-router-dom"
 
-import colors from "/src/presets/colors"
+import colors from "../../presets/colors"
 
-const NavigationButtonElement = styled(Link)`
+const NavigationButtonElement = styled(Link)<{
+	isSelected: boolean,
+}>`
 	position: relative;
 	padding: 8px 16px;
 	border-radius: 8px;
 	box-sizing: border-box;
-	color: ${props => props.selected ? "white" : "black"};
+	color: ${props => props.isSelected ? "white" : "black"};
 
 	${
-		props => props.selected
+		props => props.isSelected
 			? `background: ${colors.brand[600]}`
 			: `border: 1px solid ${colors.border}`
 	};
 
 	&:hover {
-		background: ${props => props.selected ? colors.brand[700] : "rgba(0, 0, 0, 10%)"}
+		background: ${props => props.isSelected ? colors.brand[700] : "rgba(0, 0, 0, 10%)"}
 	}
 
 	& + & {
@@ -31,11 +33,15 @@ const NavigationButtonTextElement = styled.span`
 	font-weight: 300;
 `
 
-function NavigationButton({ text, path, exact }) {
+function NavigationButton({ text, path, exact }: {
+	text: string,
+	path: string,
+	exact?: boolean,
+}) {
 	const match = useRouteMatch({ path, exact })
 
 	return (
-		<NavigationButtonElement selected={!!match} to={path}>
+		<NavigationButtonElement isSelected={!!match} to={path}>
 			<NavigationButtonTextElement>{text}</NavigationButtonTextElement>
 		</NavigationButtonElement>
 	)

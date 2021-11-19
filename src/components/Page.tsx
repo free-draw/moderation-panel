@@ -3,10 +3,13 @@ import styled from "styled-components"
 
 const PageElement = styled.div``
 
-function Page({ name, className, children, ...props }) {
+function Page({ name, children, ...props }: {
+	name: string,
+	children: React.ReactNode[],
+	[key: string]: any,
+}) {
 	return (
-		// TODO: Remove compatibility once refactored
-		<PageElement className={`page-${name} ${className}`} {...props}>
+		<PageElement {...props}>
 			{children}
 		</PageElement>
 	)

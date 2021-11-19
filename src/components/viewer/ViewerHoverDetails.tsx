@@ -5,14 +5,14 @@ import { Pointer } from "./ViewerCanvas/core/Input"
 import ViewerContext from "./ViewerContext"
 
 const ViewerHoverDetailsElement = styled.div<{
-	enabled: boolean,
+	isEnabled: boolean,
 }>`
 	position: absolute;
 	top: 0;
 	left: 0;
 	pointer-events: none;
 	user-select: none;
-	visibility: ${props => props.enabled ? "visible" : "hidden"};
+	visibility: ${props => props.isEnabled ? "visible" : "hidden"};
 
 	background: rgba(0, 0, 0, 50%);
 	padding: 8px 12px;
@@ -63,7 +63,7 @@ const ViewerHoverDetails = () => {
 	}, [ enabled, name ])
 
 	return (
-		<ViewerHoverDetailsElement enabled={enabled} ref={ref}>
+		<ViewerHoverDetailsElement isEnabled={enabled} ref={ref}>
 			<ViewerHoverDetailsNameElement>{name}</ViewerHoverDetailsNameElement>
 		</ViewerHoverDetailsElement>
 	)

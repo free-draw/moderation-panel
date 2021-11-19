@@ -1,10 +1,8 @@
 import React from "react"
 import styled, { keyframes } from "styled-components"
-
-import colors from "/src/presets/colors"
-
-import SpinnerBackground from "/src/assets/spinner/background.svg"
-import SpinnerForeground from "/src/assets/spinner/foreground.svg"
+import colors from "../presets/colors"
+import SpinnerBackground from "../assets/spinner/background.svg"
+import SpinnerForeground from "../assets/spinner/foreground.svg"
 
 const SpinnerAnimation = keyframes`
 	from {
@@ -36,7 +34,7 @@ const SpinnerForegroundElement = styled(SpinnerForeground)`
 	color: ${colors.brand[600]};
 `
 
-export default function Spinner(props) {
+export default function Spinner(props: Record<string, any>) {
 	return (
 		<SpinnerElement {...props}>
 			<SpinnerBackgroundElement />

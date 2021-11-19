@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
-
-import colors from "/src/presets/colors"
+import ButtonStyle from "../enum/ButtonStyle"
+import colors from "../presets/colors"
 
 const TextButtonElement = styled.span.attrs({
 	role: "button",
@@ -41,26 +41,30 @@ const FilledTextButtonElement = styled(TextButtonElement)`
 	}
 `
 
-function getButtonElement(style) {
+function getButtonElement(style?: ButtonStyle) {
 	switch (style) {
-		case "flat":
+		case ButtonStyle.FLAT:
 			return FlatTextButtonElement
-		case "bordered":
+		case ButtonStyle.BORDERED:
 			return BorderedTextButtonElement
-		case "filled":
+		case ButtonStyle.FILLED:
 			return FilledTextButtonElement
 	}
 
 	return FlatTextButtonElement
 }
 
-function TextButton({ text, style, onClick }) {
+function TextButton({ text, style, onClick }: {
+	text: string,
+	style?: ButtonStyle,
+	onClick: React.MouseEventHandler<HTMLSpanElement>,
+}) {
 	const ButtonElement = getButtonElement(style)
 	return (
 		<ButtonElement
 			onClick={(event) => {
 				event.stopPropagation()
-				onClick(event)
+				return onClick(event)
 			}}
 		>
 			{text}

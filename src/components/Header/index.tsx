@@ -1,9 +1,8 @@
 import React from "react"
 import styled from "styled-components"
 import { getModerator, getToken, TokenType } from "@free-draw/moderation-client"
-import API from "/src/API"
-import Logo from "/src/assets/logo.svg"
-import Settings from "./Settings"
+import API from "../../API"
+import Logo from "../../assets/logo.svg"
 import Navigation from "./Navigation"
 
 const HeaderElement = styled.div`
@@ -48,21 +47,21 @@ function Header() {
 	const [ loaded, setLoaded ] = React.useState(false)
 	const [ name, setName ] = React.useState("")
 
-	React.useEffect(async () => {
-		const token = await getToken(API)
+	React.useEffect(() => {
+		getToken(API).then(async (token) => {
+			switch (token.type) {
+				case TokenType.USER:
+					const moderator = await getModerator(API, token.id!)
+					setName(moderator!.name)
+					break
 
-		switch (token.type) {
-			case TokenType.USER:
-				const moderator = await getModerator(API, token.id)
-				setName(moderator.name)
-				break
+				case TokenType.SERVER:
+					setName("[SERVER]")
+					break
+			}
 
-			case TokenType.SERVER:
-				setName("[SERVER]")
-				break
-		}
-
-		setLoaded(true)
+			setLoaded(true)
+		})
 	}, [])
 
 	return (
@@ -78,7 +77,6 @@ function Header() {
 						</HeaderUserElement>
 					) : null
 				}
-				<Settings />
 			</HeaderContextElement>
 		</HeaderElement>
 	)

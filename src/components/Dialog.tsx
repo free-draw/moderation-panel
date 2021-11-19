@@ -1,8 +1,8 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import styled from "styled-components"
-
-import TextButton from "/src/components/TextButton"
+import ButtonStyle from "../enum/ButtonStyle"
+import TextButton from "./TextButton"
 
 const DialogContainerElement = styled.div`
 	position: fixed;
@@ -64,7 +64,18 @@ const DialogButtonsElement = styled.div`
 	}
 `
 
-function Dialog({ title, description, buttons, onCancel, children }) {
+function Dialog({ title, description, buttons, onCancel, children }: {
+	title?: string,
+	description?: string,
+	buttons?: {
+		id: string,
+		text: string,
+		style?: ButtonStyle,
+		onClick: React.MouseEventHandler<HTMLSpanElement>,
+	}[],
+	onCancel?: () => void,
+	children: React.ReactNode[],
+}) {
 	return ReactDOM.createPortal((
 		<DialogContainerElement
 			onClick={(event) => {
@@ -94,7 +105,6 @@ function Dialog({ title, description, buttons, onCancel, children }) {
 											key={buttonData.id}
 											text={buttonData.text}
 											style={buttonData.style}
-											variant={buttonData.variant}
 											onClick={buttonData.onClick}
 										/>
 									)

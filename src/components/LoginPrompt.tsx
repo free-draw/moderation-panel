@@ -1,20 +1,23 @@
 import React from "react"
 import styled from "styled-components"
+import colors from "../presets/colors"
+import Logo from "../assets/logo.svg"
 
-import colors from "/src/presets/colors"
-
-import Logo from "/src/assets/logo.svg"
+type LoginProvider = {
+	id: string,
+	name: string,
+	textColor: string,
+	backgroundColor: string,
+}
 
 const loginProviders = [
 	{
 		id: "discord",
 		name: "Discord",
-		colors: {
-			text: "white",
-			background: "#5865f2",
-		},
+		textColor: "white",
+		backgroundColor: "#5865f2",
 	},
-]
+] as LoginProvider[]
 
 const LoginProviderElement = styled.a`
 	display: flex;
@@ -40,13 +43,18 @@ const LoginProviderTextElement = styled.span`
 	}
 `
 
-function LoginProvider({ id, name, colors }) {
+function LoginProvider({ id, name, textColor, backgroundColor }: {
+	id: string,
+	name: string,
+	textColor: string,
+	backgroundColor: string,
+}) {
 	return (
 		<LoginProviderElement
 			href={`/api/auth/redirect/${id}`}
 			style={{
-				background: colors.background,
-				color: colors.text,
+				color: textColor,
+				background: backgroundColor,
 			}}
 		>
 			<LoginProviderTextElement>
