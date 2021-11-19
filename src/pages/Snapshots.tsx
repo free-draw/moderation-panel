@@ -1,14 +1,12 @@
 import React from "react"
 import styled from "styled-components"
 import { useRouteMatch } from "react-router"
-
-import Page from "/src/components/Page"
-
-import Snapshot from "/src/components/Snapshot"
+import Page from "../components/Page"
+import SnapshotViewer from "../components/SnapshotViewer"
 
 const SnapshotsPageElement = styled(Page)``
 
-const SnapshotElement = styled(Snapshot)`
+const SnapshotViewerElement = styled(SnapshotViewer)`
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -17,11 +15,13 @@ const SnapshotElement = styled(Snapshot)`
 `
 
 function SnapshotsPage() {
-	const { params } = useRouteMatch("/snapshots/:id")
+	const { params } = useRouteMatch<{
+		id: string,
+	}>("/snapshots/:id")!
 
 	return (
 		<SnapshotsPageElement>
-			<SnapshotElement
+			<SnapshotViewerElement
 				id={params.id}
 				placeholder={{
 					text: "",

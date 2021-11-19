@@ -1,8 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-
-import Page from "/src/components/Page"
-
+import Page from "../components/Page"
 import slart from "url:/src/assets/slart.png"
 
 const HomePageElement = styled(Page)`

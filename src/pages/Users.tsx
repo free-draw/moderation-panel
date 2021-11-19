@@ -4,17 +4,20 @@ import { Link, useHistory } from "react-router-dom"
 import Icon from "@mdi/react"
 import { mdiSend } from "@mdi/js"
 import { getRobloxUsername } from "@free-draw/moderation-client"
-import API from "/src/API"
-import colors from "/src/presets/colors"
-import Page from "/src/components/Page"
-import Dialog from "/src/components/Dialog"
-import Spinner from "/src/components/Spinner"
-import TextBox from "/src/components/TextBox"
+import API from "../API"
+import colors from "../presets/colors"
+import Page from "../components/Page"
+import Dialog from "../components/Dialog"
+import Spinner from "../components/Spinner"
+import TextBox from "../components/TextBox"
 
 const PARTIAL_USERNAME_REGEX = /^[a-zA-Z0-9]?[a-zA-Z0-9_]?$/
 const USERNAME_REGEX = /^[a-zA-Z0-9][a-zA-Z0-9_]{1,18}[a-zA-Z0-9]$/
 
-function UsersFailureDialog(props) {
+function UsersFailureDialog(props: {
+	username: string,
+	onClose: () => void,
+}) {
 	return (
 		<Dialog
 			title="Couldn't find user"
@@ -24,10 +27,10 @@ function UsersFailureDialog(props) {
 					id: "acknowledge",
 					text: "Okay",
 					style: "flat",
-					onClick: props.close,
+					onClick: props.onClose,
 				},
 			]}
-			onCancel={props.close}
+			onCancel={props.onClose}
 		/>
 	)
 }
@@ -65,7 +68,9 @@ const SearchFormEntryElement = styled(TextBox)`
 const SearchFormSubmitElement = styled(Icon).attrs({
 	path: mdiSend,
 	size: 1,
-})`
+})<{
+	onClick: () => void,
+}>`
 	position: absolute;
 	right: 14px;
 	top: calc(50% - (24px / 2));
@@ -79,12 +84,14 @@ const SearchFormSpinnerElement = styled(Spinner)`
 	top: calc(50% - (24px / 2));
 `
 
-const SearchFormHintElement = styled.span`
+const SearchFormHintElement = styled.span<{
+	isError: boolean,
+}>`
 	margin-top: 14px;
 	font-size: 14px;
 	font-weight: 300;
 
-	${props => props.error ? "color: #d81b60" : ""};
+	${props => props.isError ? "color: #d81b60" : ""};
 
 	a {
 		font-weight: 700;
@@ -95,9 +102,9 @@ const SearchFormHintElement = styled.span`
 function UsersPage() {
 	const history = useHistory()
 
-	const [ content, setContent ] = React.useState("")
-	const [ failure, setFailure ] = React.useState(false)
-	const [ loading, setLoading ] = React.useState(false)
+	const [ content, setContent ] = React.useState<string>("")
+	const [ failure, setFailure ] = React.useState<boolean>(false)
+	const [ loading, setLoading ] = React.useState<boolean>(false)
 
 	const isContentValid = PARTIAL_USERNAME_REGEX.test(content) || USERNAME_REGEX.test(content)
 
@@ -132,7 +139,7 @@ function UsersPage() {
 					{loading ? <SearchFormSpinnerElement /> : null}
 				</SearchFormElement>
 
-				<SearchFormHintElement error={!isContentValid}>
+				<SearchFormHintElement isError={!isContentValid}>
 					{
 						isContentValid ? (
 							<>

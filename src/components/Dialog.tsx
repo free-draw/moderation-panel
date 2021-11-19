@@ -74,7 +74,7 @@ function Dialog({ title, description, buttons, onCancel, children }: {
 		onClick: React.MouseEventHandler<HTMLSpanElement>,
 	}[],
 	onCancel?: () => void,
-	children: React.ReactNode[],
+	children?: React.ReactNode[],
 }) {
 	return ReactDOM.createPortal((
 		<DialogContainerElement
