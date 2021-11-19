@@ -1,8 +1,8 @@
 import React from "react"
 import styled from "styled-components"
-import useAsync from "/src/util/useAsync"
-import { getRobloxUser, getRobloxThumbnail, RobloxThumbnailType } from "@free-draw/moderation-client"
-import API from "/src/API"
+import useAsync from "../../util/useAsync"
+import { getRobloxUser, getRobloxThumbnail, RobloxThumbnailType, Report } from "@free-draw/moderation-client"
+import API from "../../API"
 
 const DetailsUserElement = styled.a.attrs({
 	target: "_blank",
@@ -36,7 +36,9 @@ const DetailsUserNameElement = styled.span`
 	font-weight: 400;
 `
 
-function DetailsUser({ id }) {
+function DetailsUser({ id }: {
+	id: number,
+}) {
 	const user = useAsync(getRobloxUser)(API, id)
 	const avatar = useAsync(getRobloxThumbnail, [ id ])(API, {
 		id,
@@ -46,7 +48,7 @@ function DetailsUser({ id }) {
 
 	return (
 		<DetailsUserElement href={`https://www.roblox.com/users/${id}/profile`}>
-			<DetailsUserAvatarElement src={avatar} />
+			<DetailsUserAvatarElement src={avatar ?? ""} />
 			<DetailsUserTextElement>
 				<DetailsUserLabelElement>From</DetailsUserLabelElement>
 				<DetailsUserNameElement>{user ? user.name : null}</DetailsUserNameElement>
@@ -77,7 +79,9 @@ const NotesElement = styled.p`
 	max-width: 300px;
 `
 
-function Details({ report }) {
+function Details({ report }: {
+	report: Report,
+}) {
 	return (
 		<DetailsElement>
 			<NotesElement>{`"${report.notes}"`}</NotesElement>

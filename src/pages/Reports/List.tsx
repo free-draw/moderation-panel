@@ -1,27 +1,29 @@
 import React from "react"
 import styled from "styled-components"
 import { Link, useRouteMatch, useHistory } from "react-router-dom"
-import useAsync from "/src/util/useAsync"
-import { getPendingReports, getRobloxUser, getRobloxThumbnail, RobloxThumbnailType } from "@free-draw/moderation-client"
-import colors from "/src/presets/colors"
-import Spinner from "/src/components/Spinner"
-import API from "/src/API"
-import Realtime from "/src/Realtime"
+import useAsync from "../../util/useAsync"
+import { getPendingReports, getRobloxUser, getRobloxThumbnail, RobloxThumbnailType, Report } from "@free-draw/moderation-client"
+import colors from "../../presets/colors"
+import Spinner from "../../components/Spinner"
+import API from "../../API"
+import Realtime from "../../Realtime"
 import { FixedSizeList } from "react-window"
 
 const ReportContainerElement = styled.div``
 
-const ReportElement = styled(Link)`
+const ReportElement = styled(Link)<{
+	isSelected?: boolean,
+}>`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
 	box-sizing: border-box;
-	padding: ${props => props.selected ? 10 - 1 : 10}px;
+	padding: ${props => props.isSelected ? 10 - 1 : 10}px;
 	width: 320px;
 	height: 86px;
 	background: white;
-	border: ${props => props.selected ? `2px solid ${colors.brand[600]}` : `1px solid ${colors.border}`};
+	border: ${props => props.isSelected ? `2px solid ${colors.brand[600]}` : `1px solid ${colors.border}`};
 	border-radius: 8px;
 	cursor: pointer;
 	user-select: none;
@@ -51,10 +53,16 @@ const ReportReasonText = styled.span`
 	margin-top: 4px;
 `
 
-function Report({ data, index, style }) {
+function ListReport({ data, index, style }: {
+	data: Report[],
+	index: number,
+	style: React.CSSProperties,
+}) {
 	const report = data[index]
 
-	const match = useRouteMatch("/reports/:id")
+	const match = useRouteMatch<{
+		id: string,
+	}>("/reports/:id")
 
 	const user = useAsync(getRobloxUser)(API, report.target.id)
 	const avatar = useAsync(getRobloxThumbnail, [ report.target.id ])(API, {
@@ -63,27 +71,21 @@ function Report({ data, index, style }) {
 		size: "150x150",
 	})
 
-	if (user) {
-		return (
-			<ReportContainerElement style={style}>
-				<ReportElement to={`/reports/${report.id}`} selected={match && match.params.id === report.id}>
-					<ReportAvatarElement src={avatar} />
-					<ReportTextElement>
-						<ReportUsernameText>{user.name}</ReportUsernameText>
-						<ReportReasonText>{report.reason}</ReportReasonText>
-					</ReportTextElement>
-				</ReportElement>
-			</ReportContainerElement>
-		)
-	} else {
-		return (
-			<ReportContainerElement style={style}>
-				<ReportElement>
-					<Spinner />
-				</ReportElement>
-			</ReportContainerElement>
-		)
-	}
+	return (
+		<ReportContainerElement style={style}>
+			<ReportElement to={`/reports/${report.id}`} isSelected={match ? match.params.id === report.id : false}>
+				{
+					user ? <>
+						<ReportAvatarElement src={avatar ?? ""} />
+						<ReportTextElement>
+							<ReportUsernameText>{user.name}</ReportUsernameText>
+							<ReportReasonText>{report.reason}</ReportReasonText>
+						</ReportTextElement>
+					</> : <Spinner />
+				}
+			</ReportElement>
+		</ReportContainerElement>
+	)
 }
 
 const ListContainerElement = styled.div`
@@ -103,11 +105,13 @@ const ListContainerElement = styled.div`
 	}
 `
 
-function List({ reports }) {
-	const listContainerRef = React.useRef()
+function List({ reports }: {
+	reports: Report[],
+}) {
+	const listContainerRef = React.useRef() as React.RefObject<HTMLDivElement>
 	const [ listSize, setListSize ] = React.useState(0)
 	React.useLayoutEffect(() => {
-		const newListSize = listContainerRef.current.offsetHeight
+		const newListSize = listContainerRef.current!.offsetHeight
 		if (newListSize !== listSize) {
 			setListSize(newListSize)
 		}
@@ -121,16 +125,16 @@ function List({ reports }) {
 				itemSize={86 + 10}
 				itemCount={reports.length}
 				itemData={reports}
-				itemKey={report => report.id}
+				itemKey={index => reports[index].id}
 			>
-				{Report}
+				{ListReport}
 			</FixedSizeList>
 		</ListContainerElement>
 	)
 }
 
 function ListStateManager() {
-	const [ reports, setReports ] = React.useState([])
+	const [ reports, setReports ] = React.useState<Report[]>([])
 
 	React.useEffect(() => {
 		getPendingReports(API).then((newReports) => {
@@ -138,14 +142,16 @@ function ListStateManager() {
 		})
 	}, [])
 
-	const match = useRouteMatch("/reports/:id")
+	const match = useRouteMatch<{
+		id: string,
+	}>("/reports/:id")
 	const history = useHistory()
 	const currentId = match ? match.params.id : null
 	React.useEffect(() => {
-		const onReportCreate = (newReport) => {
-			setReports([ ...reports, newReport ])
+		const onReportCreate = (report: Report) => {
+			setReports([ ...reports, report ])
 		}
-		const onReportDelete = (report) => {
+		const onReportDelete = (report: Report) => {
 			if (report.id === currentId) {
 				const reportIndex = reports.findIndex(findReport => findReport.id === report.id)
 				if (reportIndex !== -1) {

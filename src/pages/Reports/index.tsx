@@ -1,19 +1,19 @@
 import React from "react"
 import { useRouteMatch } from "react-router"
 import styled from "styled-components"
-import { getReport, ReportStatus } from "@free-draw/moderation-client"
-import Page from "/src/components/Page"
-import Snapshot from "/src/components/Snapshot"
+import { getReport, Report, ReportStatus } from "@free-draw/moderation-client"
+import Page from "../../components/Page"
+import SnapshotViewer from "../../components/SnapshotViewer"
 import List from "./List"
 import Details from "./Details"
 import Actions from "./Actions"
-import API from "/src/API"
+import API from "../../API"
 
 const ReportsPageElement = styled(Page)`
 	height: 100%;
 `
 
-const SnapshotElement = styled(Snapshot)`
+const SnapshotViewerElement = styled(SnapshotViewer)`
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -22,14 +22,15 @@ const SnapshotElement = styled(Snapshot)`
 `
 
 function ReportsPage() {
-	const match = useRouteMatch("/reports/:id")
+	const match = useRouteMatch<{
+		id: string,
+	}>("/reports/:id")
 	const id = match ? match.params.id : null
 
-	const [ report, setReport ] = React.useState(null)
-	React.useEffect(async () => {
+	const [ report, setReport ] = React.useState<Report | null>(null)
+	React.useEffect(() => {
 		if (id) {
-			const fetchedReport = await getReport(API, id)
-			setReport(fetchedReport)
+			getReport(API, id).then(setReport)
 		} else {
 			setReport(null)
 		}
@@ -37,8 +38,8 @@ function ReportsPage() {
 
 	return (
 		<ReportsPageElement>
-			<SnapshotElement
-				id={report ? report.snapshot.id : null}
+			<SnapshotViewerElement
+				id={report ? report.snapshot!.id : null}
 				report={report}
 				placeholder={{
 					text: "No report selected",
@@ -56,5 +57,5 @@ export default ReportsPage
 
 export {
 	ReportsPageElement,
-	SnapshotElement,
+	SnapshotViewerElement,
 }

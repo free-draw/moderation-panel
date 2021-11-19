@@ -1,19 +1,23 @@
 import React from "react"
 import styled from "styled-components"
-import API from "/src/API"
-import { ActionType } from "@free-draw/moderation-client"
-import ModerationPresetReason, { ModerationPresetReasonStrings } from "/src/enum/ModerationPresetReason"
-import ModerationPresetDuration, { ModerationPresetDurationStrings, ModerationPresetDurationLengths } from "/src/enum/ModerationPresetDuration"
-import Dialog from "/src/components/Dialog"
-import Dropdown from "/src/components/Dropdown"
+import API from "../../../API"
+import { ActionType, Report } from "@free-draw/moderation-client"
+import ModerationPresetReason, { ModerationPresetReasonStrings } from "../../../enum/ModerationPresetReason"
+import ModerationPresetDuration, { ModerationPresetDurationStrings, ModerationPresetDurationLengths } from "../../../enum/ModerationPresetDuration"
+import Dialog from "../../../components/Dialog"
+import Dropdown from "../../../components/Dropdown"
 import AcceptIcon from "./accept-icon.svg"
 import DeclineIcon from "./decline-icon.svg"
-import colors from "/src/presets/colors"
+import colors from "../../../presets/colors"
+import ButtonStyle from "../../../enum/ButtonStyle"
 
-function ReportAcceptDialog({ report, close }) {
-	const [ reason, setReason ] = React.useState(report.reason)
-	const [ type, setType ] = React.useState(null)
-	const [ duration, setDuration ] = React.useState(null)
+function ReportAcceptDialog({ report, onClose }: {
+	report: Report,
+	onClose: () => void,
+}) {
+	const [ type, setType ] = React.useState<ActionType | null>(null)
+	const [ reason, setReason ] = React.useState<ModerationPresetReason | null>(null)
+	const [ duration, setDuration ] = React.useState<ModerationPresetDuration | null>(null)
 
 	return (
 		<Dialog
@@ -22,27 +26,27 @@ function ReportAcceptDialog({ report, close }) {
 				{
 					id: "cancel",
 					text: "Cancel",
-					style: "flat",
+					style: ButtonStyle.FLAT,
 					onClick: close,
 				},
 				{
 					id: "confirm",
 					text: "Confirm",
-					style: "bordered",
+					style: ButtonStyle.BORDERED,
 					onClick: () => {
 						if (reason && type && duration) {
 							report.accept(API, {
 								type,
 								reason: ModerationPresetReasonStrings[reason],
-								duration: duration ? ModerationPresetDurationLengths[duration] / 1000 : null,
+								duration: duration && duration !== ModerationPresetDuration.FOREVER ? ModerationPresetDurationLengths[duration]! / 1000 : undefined,
 							})
 
-							close()
+							onClose()
 						}
 					},
 				},
 			]}
-			onCancel={close}
+			onCancel={onClose}
 		>
 			<Dropdown
 				index={1}
@@ -132,7 +136,9 @@ const DeclineIconElement = styled(DeclineIcon)`
 	height: 30px;
 `
 
-function Actions({ report }) {
+function Actions({ report }: {
+	report: Report,
+}) {
 	const [ dialogOpen, setDialogOpen ] = React.useState(false)
 
 	return (
@@ -142,8 +148,8 @@ function Actions({ report }) {
 				{
 					dialogOpen ? (
 						<ReportAcceptDialog
-							close={() => setDialogOpen(false)}
 							report={report}
+							onClose={() => setDialogOpen(false)}
 						/>
 					) : null
 				}
