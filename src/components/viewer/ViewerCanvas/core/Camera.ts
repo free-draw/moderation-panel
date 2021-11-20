@@ -1,6 +1,6 @@
 import { EventEmitter2 } from "eventemitter2"
 import { Vector2 } from "@free-draw/moderation-client"
-import Maid from "../../../../class/Maid"
+import Maid from "../../../../util/Maid"
 import Input, { Pointer } from "./Input"
 
 const SCROLL_SCALE_RATE = 0.2

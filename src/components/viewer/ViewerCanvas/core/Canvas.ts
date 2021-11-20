@@ -1,8 +1,8 @@
 import { EventEmitter2 } from "eventemitter2"
 import * as PIXI from "pixi.js"
 
-import Maid from "../../../../class/Maid"
-import AABB, { AABBResult } from "../../../../class/AABB"
+import Maid from "../../../../util/Maid"
+import AABB, { AABBResult } from "../../../../util/AABB"
 
 import { clamp, getAngleDelta } from "../../../../util/number"
 import { Vector2, SnapshotPlayer, ParsedLine, ParsedLayer, ParsedFile, Snapshot } from "@free-draw/moderation-client"

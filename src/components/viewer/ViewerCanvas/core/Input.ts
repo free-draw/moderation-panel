@@ -1,7 +1,7 @@
 import { Vector2 } from "@free-draw/moderation-client"
 import { EventEmitter2 } from "eventemitter2"
 
-import Maid from "../../../../class/Maid"
+import Maid from "../../../../util/Maid"
 
 function getEventPosition(event: MouseEvent): Vector2 {
 	return new Vector2(event.offsetX, event.offsetY)
