@@ -5,11 +5,7 @@ import colors from "../../assets/colors"
 import { LogType, LogTypeData, Report, RobloxUser, Snapshot, SnapshotResolvable } from "@free-draw/moderation-client"
 import ButtonStyle from "../../types/enum/ButtonStyle"
 import { ActionTypeStrings } from "../../types/enum/data/ActionTypeData"
-
-const accountPlatforms = {
-	ROBLOX: "Roblox",
-	DISCORD: "Discord",
-}
+import { AccountPlatformStrings } from "../../types/enum/data/AccountPlatformData"
 
 const indicatorColors = {
 	create: "#43a047",
@@ -177,7 +173,7 @@ export default {
 	[LogType.LINK_MODERATOR_ACCOUNT]: ({ moderator, account }: LogTypeData[LogType.LINK_MODERATOR_ACCOUNT], source) => {
 		return {
 			color: indicatorColors.create,
-			text: <> {source} linked a <em>{accountPlatforms[account.platform]}</em> account to <em>{moderator.name}</em> </>,
+			text: <> {source} linked a <em>{AccountPlatformStrings[account.platform]}</em> account to <em>{moderator.name}</em> </>,
 			fields: [
 				useField("Platform", account.platform),
 				useField("ID", account.id),
@@ -189,7 +185,7 @@ export default {
 	[LogType.UNLINK_MODERATOR_ACCOUNT]: ({ moderator, account }: LogTypeData[LogType.UNLINK_MODERATOR_ACCOUNT], source) => {
 		return {
 			color: indicatorColors.delete,
-			text: <> {source} unlinked a <em>{accountPlatforms[account.platform]}</em> account from <em>{moderator.name}</em> </>,
+			text: <> {source} unlinked a <em>{AccountPlatformStrings[account.platform]}</em> account from <em>{moderator.name}</em> </>,
 			fields: [
 				useField("Platform", account.platform),
 				useField("ID", account.id),
