@@ -24,7 +24,7 @@ export const ContentElement = styled.div`
 function UserPageComponent() {
 	const { params } = useRouteMatch<{
 		userId: string,
-	}>("/user")!
+	}>("/users/:userId")!
 	const userId = parseInt(params.userId)
 
 	const user = useAsync(getUser)(API, userId)

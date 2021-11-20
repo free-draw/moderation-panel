@@ -61,8 +61,8 @@ function ReportComponent({ data, index, style }: {
 	const report = data[index]
 
 	const match = useRouteMatch<{
-		id: string,
-	}>("/reports/:id")
+		reportId: string,
+	}>("/reports/:reportId")
 
 	const user = useAsync(getRobloxUser)(API, report.target.id)
 	const avatar = useAsync(getRobloxThumbnail, [ report.target.id ])(API, {
@@ -73,7 +73,7 @@ function ReportComponent({ data, index, style }: {
 
 	return (
 		<ReportContainerElement style={style}>
-			<ReportElement to={`/reports/${report.id}`} isSelected={match ? match.params.id === report.id : false}>
+			<ReportElement to={`/reports/${report.id}`} isSelected={match ? match.params.reportId === report.id : false}>
 				{
 					user ? <>
 						<ReportAvatarElement src={avatar ?? ""} />
@@ -143,16 +143,16 @@ function ListStateManagerComponent() {
 	}, [])
 
 	const match = useRouteMatch<{
-		id: string,
-	}>("/reports/:id")
+		reportId: string,
+	}>("/reports/:reportId")
 	const history = useHistory()
-	const currentId = match ? match.params.id : null
+	const reportId = match ? match.params.reportId : null
 	React.useEffect(() => {
 		const onReportCreate = (report: Report) => {
 			setReports([ ...reports, report ])
 		}
 		const onReportDelete = (report: Report) => {
-			if (report.id === currentId) {
+			if (report.id === reportId) {
 				const reportIndex = reports.findIndex(findReport => findReport.id === report.id)
 				if (reportIndex !== -1) {
 					const nextReport = reports[reportIndex + 1] ?? reports[reports.length]
@@ -174,7 +174,7 @@ function ListStateManagerComponent() {
 			Realtime.off("reportCreate", onReportCreate)
 			Realtime.off("reportDelete", onReportDelete)
 		}
-	}, [ reports, currentId ])
+	}, [ reports, reportId ])
 
 	return <ListComponent reports={reports} />
 }

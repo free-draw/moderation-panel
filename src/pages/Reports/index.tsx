@@ -23,18 +23,18 @@ export const SnapshotViewerElement = styled(SnapshotViewerComponent)`
 
 function ReportsPageComponent() {
 	const match = useRouteMatch<{
-		id: string,
-	}>("/reports/:id")
-	const id = match ? match.params.id : null
+		reportId: string,
+	}>("/reports/:reportId")
+	const reportId = match ? match.params.reportId : null
 
 	const [ report, setReport ] = React.useState<Report | null>(null)
 	React.useEffect(() => {
-		if (id) {
-			getReport(API, id).then(setReport)
+		if (reportId) {
+			getReport(API, reportId).then(setReport)
 		} else {
 			setReport(null)
 		}
-	}, [ id ])
+	}, [ reportId ])
 
 	return (
 		<ReportsPageElement>

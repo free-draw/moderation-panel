@@ -16,13 +16,13 @@ export const SnapshotViewerElement = styled(SnapshotViewerComponent)`
 
 function SnapshotsPageComponent() {
 	const { params } = useRouteMatch<{
-		id: string,
-	}>("/snapshots/:id")!
+		snapshotId: string,
+	}>("/snapshots/:snapshotId")!
 
 	return (
 		<SnapshotsPageElement>
 			<SnapshotViewerElement
-				id={params.id}
+				id={params.snapshotId}
 				placeholder={{
 					text: "",
 					subtext: "",
