@@ -48,7 +48,7 @@ function LogsPageComponent() {
 	const [ filter, setFilter ] = React.useState<LogType | null>(null)
 
 	React.useEffect(() => {
-		async () => {
+		(async () => {
 			setLoaded(false)
 
 			const options = {
@@ -65,7 +65,7 @@ function LogsPageComponent() {
 			setContent([ initialPageResolved ])
 			setPage(initialPage)
 			setLoaded(true)
-		}
+		})()
 	}, [ sort, filter ])
 
 	return (
