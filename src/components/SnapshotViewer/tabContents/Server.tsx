@@ -21,7 +21,7 @@ export const SectionContentsElement = styled.span`
 
 function SectionComponent({ label, children }: {
 	label: string,
-	children: React.ReactNode[],
+	children?: React.ReactNode,
 }) {
 	return (
 		<SectionElement>

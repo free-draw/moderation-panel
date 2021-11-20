@@ -10,7 +10,7 @@ export const FieldGroupElement = styled.div`
 `
 
 function FieldGroupComponent(props: {
-	children: React.ReactNode[],
+	children?: React.ReactNode,
 }) {
 	return (
 		<FieldGroupElement>

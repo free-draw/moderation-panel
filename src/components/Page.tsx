@@ -5,7 +5,7 @@ export const PageElement = styled.div``
 
 function PageComponent({ name, children, ...props }: {
 	name: string,
-	children: React.ReactNode[],
+	children?: React.ReactNode,
 	[key: string]: any,
 }) {
 	return (
