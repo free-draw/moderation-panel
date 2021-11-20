@@ -37,7 +37,7 @@ export const SnapshotCanvasElement = styled(ViewerCanvasComponent)`
 	height: 100%;
 `
 
-const SnapshotViewerComponent({ snapshot, report, ...props }: {
+const SnapshotViewerComponent = ({ snapshot, report, ...props }: {
 	snapshot: Snapshot,
 	report?: Report,
 	[key: string]: any,
