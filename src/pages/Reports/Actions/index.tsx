@@ -12,6 +12,7 @@ import colors from "../../../assets/colors"
 import ButtonStyle from "../../../types/enum/ButtonStyle"
 import { ModerationPresetDurationLengths, ModerationPresetDurationStrings } from "../../../types/enum/data/ModerationPresetDurationData"
 import { ModerationPresetReasonStrings } from "../../../types/enum/data/ModerationPresetReasonData"
+import { ActionTypeStrings } from "../../../types/enum/data/ActionTypeData"
 
 function ReportAcceptDialogComponent({ report, onClose }: {
 	report: Report,
@@ -53,21 +54,36 @@ function ReportAcceptDialogComponent({ report, onClose }: {
 			<DropdownComponent
 				index={1}
 				placeholder="Type"
-				options={Object.values(ActionType).map(value => ({ id: value, name: value }))}
+				options={Object.values(ActionType).map((value) => {
+					return {
+						id: value,
+						name: ActionTypeStrings[value],
+					}
+				})}
 				currentOptionId={type}
 				onSelection={setType}
 			/>
 			<DropdownComponent
 				index={2}
 				placeholder="Reason"
-				options={Object.values(ModerationPresetReason).map(value => ({ id: value, name: ModerationPresetReasonStrings[value] }))}
+				options={Object.values(ModerationPresetReason).map((value) => {
+					return {
+						id: value,
+						name: ModerationPresetReasonStrings[value],
+					}
+				})}
 				currentOptionId={reason}
 				onSelection={setReason}
 			/>
 			<DropdownComponent
 				index={3}
 				placeholder="Duration"
-				options={Object.values(ModerationPresetDuration).map(value => ({ id: value, name: ModerationPresetDurationStrings[value] }))}
+				options={Object.values(ModerationPresetDuration).map((value) => {
+					return {
+						id: value,
+						name: ModerationPresetDurationStrings[value],
+					}
+				})}
 				currentOptionId={duration}
 				onSelection={setDuration}
 			/>

@@ -18,6 +18,7 @@ import FieldComponent from "../../components/fields/Field"
 import FieldGroupComponent from "../../components/fields/FieldGroup"
 import { ModerationPresetReasonStrings } from "../../types/enum/data/ModerationPresetReasonData"
 import { ModerationPresetDurationLengths, ModerationPresetDurationStrings } from "../../types/enum/data/ModerationPresetDurationData"
+import { ActionTypeStrings } from "../../types/enum/data/ActionTypeData"
 
 export const NotesTextAreaElement = styled(TextAreaComponent)`
 	height: 150px;
@@ -65,7 +66,7 @@ function CreateDialog({ onCreate, onClose }: {
 				options={Object.values(ActionType).map((value: ActionType) => {
 					return {
 						id: value,
-						name: value,
+						name: ActionTypeStrings[value],
 					}
 				})}
 				currentOptionId={type}

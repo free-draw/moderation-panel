@@ -2,14 +2,9 @@ import React from "react"
 import styled from "styled-components"
 import { Link, useHistory } from "react-router-dom"
 import colors from "../../assets/colors"
-import { ActionType, LogType, LogTypeData, Report, RobloxUser, Snapshot, SnapshotResolvable } from "@free-draw/moderation-client"
+import { LogType, LogTypeData, Report, RobloxUser, Snapshot, SnapshotResolvable } from "@free-draw/moderation-client"
 import ButtonStyle from "../../types/enum/ButtonStyle"
-
-const actionTypes = {
-	[ActionType.BAN]: "ban",
-	[ActionType.DRAWBAN]: "draw-ban",
-	[ActionType.MUTE]: "mute",
-} as Record<ActionType, string>
+import { ActionTypeStrings } from "../../types/enum/data/ActionTypeData"
 
 const accountPlatforms = {
 	ROBLOX: "Roblox",
@@ -118,7 +113,7 @@ export default {
 	[LogType.CREATE_ACTION]: ({ action, user }: LogTypeData[LogType.CREATE_ACTION], source) => {
 		return {
 			color: indicatorColors.create,
-			text: <> {source} created a <em>{actionTypes[action.type]}</em> on <em>{user.name}</em> </>,
+			text: <> {source} created a <em>{ActionTypeStrings[action.type]}</em> on <em>{user.name}</em> </>,
 			fields: [
 				useUserField("User", user),
 				useField("Type", action.type),
@@ -135,7 +130,7 @@ export default {
 	[LogType.DELETE_ACTION]: ({ action, user }: LogTypeData[LogType.DELETE_ACTION], source) => {
 		return {
 			color: indicatorColors.delete,
-			text: <> {source} removed a <em>{actionTypes[action.type]}</em> on <em>{user.name}</em> </>,
+			text: <> {source} removed a <em>{ActionTypeStrings[action.type]}</em> on <em>{user.name}</em> </>,
 			fields: [
 				useUserField("User", user),
 				useField("Type", action.type),
