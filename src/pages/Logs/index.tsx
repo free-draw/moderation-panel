@@ -8,11 +8,7 @@ import Options from "./Options"
 import LogComponent from "./Log"
 import ButtonStyle from "../../types/enum/ButtonStyle"
 import SortMethod from "../../types/enum/SortMethod"
-
-const sortMethodOptions = {
-	[SortMethod.TIME_ASCENDING]: { direction: SortDirection.DESCENDING },
-	[SortMethod.TIME_DESCENDING]: { direction: SortDirection.ASCENDING },
-} as Record<SortMethod, GetLogsOptions>
+import { SortMethodOptions } from "../../types/enum/data/SortMethodData"
 
 export const LogsPageElement = styled.div`
 	display: flex;
@@ -52,7 +48,7 @@ function LogsPageComponent() {
 			setLoaded(false)
 
 			const options = {
-				...sortMethodOptions[sort],
+				...SortMethodOptions[sort],
 				size: 30,
 			} as Partial<GetLogsOptions>
 			if (filter) {

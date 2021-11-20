@@ -3,8 +3,8 @@ import styled from "styled-components"
 import { useHistory } from "react-router-dom"
 import { mdiMagnify, mdiTrashCanOutline, mdiPlus } from "@mdi/js"
 import API from "../../API"
-import ModerationPresetReason, { ModerationPresetReasonStrings } from "../../types/enum/ModerationPresetReason"
-import ModerationPresetDuration , { ModerationPresetDurationStrings, ModerationPresetDurationLengths } from "../../types/enum/ModerationPresetDuration"
+import ModerationPresetReason from "../../types/enum/ModerationPresetReason"
+import ModerationPresetDuration from "../../types/enum/ModerationPresetDuration"
 import colors from "../../assets/colors"
 import IconButtonComponent from "../../components/IconButton"
 import DialogComponent from "../../components/Dialog"
@@ -16,6 +16,8 @@ import { User, Action, ActionOptions, UserResolvable, ActionType } from "@free-d
 import ButtonStyle from "../../types/enum/ButtonStyle"
 import FieldComponent from "../../components/fields/Field"
 import FieldGroupComponent from "../../components/fields/FieldGroup"
+import { ModerationPresetReasonStrings } from "../../types/enum/data/ModerationPresetReasonData"
+import { ModerationPresetDurationLengths, ModerationPresetDurationStrings } from "../../types/enum/data/ModerationPresetDurationData"
 
 export const NotesTextAreaElement = styled(TextAreaComponent)`
 	height: 150px;
