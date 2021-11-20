@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import ButtonStyle from "../enum/ButtonStyle"
+import ButtonStyle from "../types/enum/ButtonStyle"
 import colors from "../presets/colors"
 
 export const TextButtonElement = styled.span.attrs({

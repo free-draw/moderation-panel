@@ -6,8 +6,8 @@ import TextButtonComponent from "../../components/TextButton"
 import SpinnerComponent from "../../components/Spinner"
 import Options from "./Options"
 import LogComponent from "./Log"
-import ButtonStyle from "../../enum/ButtonStyle"
-import SortMethod from "../../enum/SortMethod"
+import ButtonStyle from "../../types/enum/ButtonStyle"
+import SortMethod from "../../types/enum/SortMethod"
 
 const sortMethodOptions = {
 	[SortMethod.TIME_ASCENDING]: { direction: SortDirection.DESCENDING },

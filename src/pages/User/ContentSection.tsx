@@ -3,7 +3,7 @@ import styled from "styled-components"
 import IconButtonComponent, { IconButtonOptions } from "../../components/IconButton"
 import TextButtonComponent from "../../components/TextButton"
 import SpinnerComponent from "../../components/Spinner"
-import ButtonStyle from "../../enum/ButtonStyle"
+import ButtonStyle from "../../types/enum/ButtonStyle"
 
 export enum ContentSectionStatus {
 	LOADED = "LOADED",

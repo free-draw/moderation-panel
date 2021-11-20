@@ -10,7 +10,7 @@ import PageComponent from "../components/Page"
 import DialogComponent from "../components/Dialog"
 import SpinnerComponent from "../components/Spinner"
 import TextBoxComponent from "../components/TextBox"
-import ButtonStyle from "../enum/ButtonStyle"
+import ButtonStyle from "../types/enum/ButtonStyle"
 
 const PARTIAL_USERNAME_REGEX = /^[a-zA-Z0-9]?[a-zA-Z0-9_]?$/
 const USERNAME_REGEX = /^[a-zA-Z0-9][a-zA-Z0-9_]{1,18}[a-zA-Z0-9]$/

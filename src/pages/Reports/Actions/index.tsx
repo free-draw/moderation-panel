@@ -2,14 +2,14 @@ import React from "react"
 import styled from "styled-components"
 import API from "../../../API"
 import { ActionType, Report } from "@free-draw/moderation-client"
-import ModerationPresetReason, { ModerationPresetReasonStrings } from "../../../enum/ModerationPresetReason"
-import ModerationPresetDuration, { ModerationPresetDurationStrings, ModerationPresetDurationLengths } from "../../../enum/ModerationPresetDuration"
+import ModerationPresetReason, { ModerationPresetReasonStrings } from "../../../types/enum/ModerationPresetReason"
+import ModerationPresetDuration, { ModerationPresetDurationStrings, ModerationPresetDurationLengths } from "../../../types/enum/ModerationPresetDuration"
 import DialogComponent from "../../../components/Dialog"
 import DropdownComponent from "../../../components/Dropdown"
 import AcceptIcon from "./accept-icon.svg"
 import DeclineIcon from "./decline-icon.svg"
 import colors from "../../../presets/colors"
-import ButtonStyle from "../../../enum/ButtonStyle"
+import ButtonStyle from "../../../types/enum/ButtonStyle"
 
 function ReportAcceptDialogComponent({ report, onClose }: {
 	report: Report,

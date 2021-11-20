@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { Link, useHistory } from "react-router-dom"
 import colors from "../../presets/colors"
 import { ActionType, LogType, LogTypeData, Report, RobloxUser, Snapshot, SnapshotResolvable } from "@free-draw/moderation-client"
-import ButtonStyle from "../../enum/ButtonStyle"
+import ButtonStyle from "../../types/enum/ButtonStyle"
 
 const actionTypes = {
 	[ActionType.BAN]: "ban",

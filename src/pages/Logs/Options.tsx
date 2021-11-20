@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import Dropdown from "../../components/Dropdown"
 import { LogType } from "@free-draw/moderation-client"
-import SortMethod from "../../enum/SortMethod"
+import SortMethod from "../../types/enum/SortMethod"
 
 export const OptionsGroupElement = styled.div`
 	display: flex;
