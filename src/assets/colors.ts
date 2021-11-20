@@ -2,6 +2,15 @@ export default {
 	divider: "#bfbfbf",
 	border: "#c7c7c7",
 
+	logs: {
+		create: "#43a047",
+		delete: "#d81b60",
+		modify: "#9c27b0",
+
+		accept: "#43a047",
+		decline: "#d81b60",
+	},
+
 	brand: {
 		[50]: "#e0f2f1",
 		[100]: "#b2dfdb",

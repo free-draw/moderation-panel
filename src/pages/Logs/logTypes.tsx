@@ -7,15 +7,6 @@ import ButtonStyle from "../../types/enum/ButtonStyle"
 import { ActionTypeStrings } from "../../types/enum/data/ActionTypeData"
 import { AccountPlatformStrings } from "../../types/enum/data/AccountPlatformData"
 
-const indicatorColors = {
-	create: "#43a047",
-	delete: "#d81b60",
-	modify: "#9c27b0",
-
-	accept: "#43a047",
-	decline: "#d81b60",
-}
-
 /* FIELDS */
 
 export type LogFieldOptions = {
@@ -108,7 +99,7 @@ export type LogTypeResult = {
 export default {
 	[LogType.CREATE_ACTION]: ({ action, user }: LogTypeData[LogType.CREATE_ACTION], source) => {
 		return {
-			color: indicatorColors.create,
+			color: colors.logs.create,
 			text: <> {source} created a <em>{ActionTypeStrings[action.type]}</em> on <em>{user.name}</em> </>,
 			fields: [
 				useUserField("User", user),
@@ -125,7 +116,7 @@ export default {
 
 	[LogType.DELETE_ACTION]: ({ action, user }: LogTypeData[LogType.DELETE_ACTION], source) => {
 		return {
-			color: indicatorColors.delete,
+			color: colors.logs.delete,
 			text: <> {source} removed a <em>{ActionTypeStrings[action.type]}</em> on <em>{user.name}</em> </>,
 			fields: [
 				useUserField("User", user),
@@ -138,7 +129,7 @@ export default {
 
 	[LogType.DELETE_ACTIONS_BULK]: ({ actions, user }: LogTypeData[LogType.DELETE_ACTIONS_BULK], source) => {
 		return {
-			color: indicatorColors.delete,
+			color: colors.logs.delete,
 			text: <> {source} removed <em>{actions.length} action(s)</em> on <em>{user.name}</em> </>,
 			fields: [
 				useUserField("User", user),
@@ -149,7 +140,7 @@ export default {
 
 	[LogType.CREATE_MODERATOR]: ({ moderator }: LogTypeData[LogType.CREATE_MODERATOR], source) => {
 		return {
-			color: indicatorColors.create,
+			color: colors.logs.create,
 			text: <> {source} created moderator <em>{moderator.name}</em> </>,
 			fields: [
 				useField("Name", moderator.name),
@@ -161,7 +152,7 @@ export default {
 
 	[LogType.DELETE_MODERATOR]: ({ moderator }: LogTypeData[LogType.DELETE_MODERATOR], source) => {
 		return {
-			color: indicatorColors.delete,
+			color: colors.logs.delete,
 			text: <> {source} deleted moderator <em>{moderator.name}</em> </>,
 			fields: [
 				useField("Name", moderator.name),
@@ -172,7 +163,7 @@ export default {
 
 	[LogType.LINK_MODERATOR_ACCOUNT]: ({ moderator, account }: LogTypeData[LogType.LINK_MODERATOR_ACCOUNT], source) => {
 		return {
-			color: indicatorColors.create,
+			color: colors.logs.create,
 			text: <> {source} linked a <em>{AccountPlatformStrings[account.platform]}</em> account to <em>{moderator.name}</em> </>,
 			fields: [
 				useField("Platform", account.platform),
@@ -184,7 +175,7 @@ export default {
 
 	[LogType.UNLINK_MODERATOR_ACCOUNT]: ({ moderator, account }: LogTypeData[LogType.UNLINK_MODERATOR_ACCOUNT], source) => {
 		return {
-			color: indicatorColors.delete,
+			color: colors.logs.delete,
 			text: <> {source} unlinked a <em>{AccountPlatformStrings[account.platform]}</em> account from <em>{moderator.name}</em> </>,
 			fields: [
 				useField("Platform", account.platform),
@@ -196,7 +187,7 @@ export default {
 
 	[LogType.UPDATE_MODERATOR]: ({ moderator, options }: LogTypeData[LogType.UPDATE_MODERATOR], source) => {
 		return {
-			color: indicatorColors.modify,
+			color: colors.logs.modify,
 			text: <> {source} updated moderator {moderator.name} </>,
 			fields: [
 				options.name !== undefined ? useField("Name", options.name) : null,
@@ -209,7 +200,7 @@ export default {
 
 	[LogType.ACCEPT_REPORT]: ({ action, report, from, target }: LogTypeData[LogType.ACCEPT_REPORT], source) => {
 		return {
-			color: indicatorColors.accept,
+			color: colors.logs.accept,
 			text: <> {source} accepted report of user <em>{target.name}</em> from <em>{from.name}</em> </>,
 			fields: [
 				useUserField("From", from),
@@ -226,7 +217,7 @@ export default {
 
 	[LogType.DECLINE_REPORT]: ({ report, from, target }: LogTypeData[LogType.DECLINE_REPORT], source) => {
 		return {
-			color: indicatorColors.decline,
+			color: colors.logs.decline,
 			text: <> {source} declined report of user <em>{target.name}</em> from <em>{from.name}</em> </>,
 			fields: [
 				useUserField("From", from),
