@@ -35,7 +35,6 @@ export const HeaderContextElement = styled.div`
 export const HeaderUserElement = styled.span`
 	font-size: 16px;
 	font-weight: 400;
-	margin-right: 18px;
 
 	em {
 		font-style: normal;
