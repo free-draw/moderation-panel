@@ -207,9 +207,9 @@ export enum ModeratorState {
 	UNKNOWN = "UNKNOWN",
 }
 
-function ActionsItemComponent({ action }: {
+const ActionsItemComponent = ({ action }: {
 	action: Action,
-}) {
+}) => {
 	const history = useHistory()
 
 	const [ expanded, setExpanded ] = React.useState(false)
@@ -306,9 +306,9 @@ function ActionsItemComponent({ action }: {
 	)
 }
 
-function ActionsComponent({ user }: {
+const ActionsComponent = ({ user }: {
 	user: User,
-}) {
+}) => {
 	const [ actions, setActions ] = React.useState(user.actions)
 	const [ dialogOpen, setDialogOpen ] = React.useState(false)
 

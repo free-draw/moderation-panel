@@ -16,11 +16,11 @@ export const ViewerPositionalOverlayElement = styled.div`
 	}
 `
 
-function ViewerPositionalOverlayComponent(props: {
+const ViewerPositionalOverlayComponent = (props: {
 	position: Vector2,
 	ignoreScale?: boolean,
 	children?: React.ReactNode,
-}) {
+}) => {
 	const context = React.useContext(ViewerContext)
 	if (!context) throw new Error("ViewerPositionalOverlay must be inside of a ViewerCanvas")
 	const { camera } = context

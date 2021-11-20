@@ -32,11 +32,11 @@ export const NavigationButtonTextElement = styled.span`
 	font-weight: 300;
 `
 
-function NavigationButtonComponent({ text, path, exact }: {
+const NavigationButtonComponent = ({ text, path, exact }: {
 	text: string,
 	path: string,
 	exact?: boolean,
-}) {
+}) => {
 	const match = useRouteMatch({ path, exact })
 
 	return (

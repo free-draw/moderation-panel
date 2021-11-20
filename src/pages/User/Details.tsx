@@ -44,9 +44,9 @@ const DetailsProfileLinkElement = styled.a.attrs({
 	margin-top: 7px;
 `
 
-function DetailsComponent({ userId }: {
+const DetailsComponent = ({ userId }: {
 	userId: number,
-}) {
+}) => {
 	const details = useAsync(getRobloxUser)(API, userId)
 	const avatar = useAsync(getRobloxThumbnail, [ userId ])(API, {
 		id: userId,

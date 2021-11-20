@@ -37,11 +37,11 @@ export const SnapshotCanvasElement = styled(ViewerCanvasComponent)`
 	height: 100%;
 `
 
-function SnapshotViewerComponent({ snapshot, report, ...props }: {
+const SnapshotViewerComponent({ snapshot, report, ...props }: {
 	snapshot: Snapshot,
 	report?: Report,
 	[key: string]: any,
-}) {
+}) => {
 	return (
 		<SnapshotElement {...props}>
 			<TabsComponent snapshot={snapshot} report={report} />
@@ -60,7 +60,7 @@ export enum SnapshotResolverState {
 	NONE = "NONE",
 }
 
-function SnapshotResolverComponent({ id, report, placeholder, ...props }: {
+const SnapshotResolverComponent = ({ id, report, placeholder, ...props }: {
 	id: string,
 	report?: Report,
 	placeholder: {
@@ -68,7 +68,7 @@ function SnapshotResolverComponent({ id, report, placeholder, ...props }: {
 		subtext: string,
 	},
 	[key: string]: any,
-}) {
+}) => {
 	const [ snapshot, setSnapshot ] = React.useState<Snapshot | null>(null)
 	const [ state, setState ] = React.useState<SnapshotResolverState>(SnapshotResolverState.NONE)
 

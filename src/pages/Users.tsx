@@ -14,10 +14,10 @@ import ButtonStyle from "../types/enum/ButtonStyle"
 const PARTIAL_USERNAME_REGEX = /^[a-zA-Z0-9]?[a-zA-Z0-9_]?$/
 const USERNAME_REGEX = /^[a-zA-Z0-9][a-zA-Z0-9_]{1,18}[a-zA-Z0-9]$/
 
-function UsersFailureDialogComponent(props: {
+const UsersFailureDialogComponent = (props: {
 	username: string,
 	onClose: () => void,
-}) {
+}) => {
 	return (
 		<DialogComponent
 			title="Couldn't find user"

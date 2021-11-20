@@ -36,9 +36,9 @@ const DetailsUserNameElement = styled.span`
 	font-weight: 400;
 `
 
-function UserComponent({ id }: {
+const UserComponent = ({ id }: {
 	id: number,
-}) {
+}) => {
 	const user = useAsync(getRobloxUser)(API, id)
 	const avatar = useAsync(getRobloxThumbnail, [ id ])(API, {
 		id,
@@ -79,9 +79,9 @@ const NotesElement = styled.p`
 	max-width: 300px;
 `
 
-function DetailsComponent({ report }: {
+const DetailsComponent = ({ report }: {
 	report: Report,
-}) {
+}) => {
 	return (
 		<DetailsElement>
 			<NotesElement>{`"${report.notes}"`}</NotesElement>

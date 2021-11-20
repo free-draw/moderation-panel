@@ -73,11 +73,11 @@ export const TabElement = styled.div<{
 	}
 `
 
-function TabComponent({ icon, isSelected, onClick }: {
+const TabComponent = ({ icon, isSelected, onClick }: {
 	icon: string,
 	isSelected: boolean,
 	onClick: React.MouseEventHandler<HTMLDivElement>,
-}) {
+}) => {
 	return (
 		<TabElement isSelected={isSelected} onClick={onClick}>
 			<Icon
@@ -120,10 +120,10 @@ export const TabContentsElement = styled.div`
 	pointer-events: all;
 `
 
-function TabsComponent({ snapshot, report }: {
+const TabsComponent = ({ snapshot, report }: {
 	snapshot: Snapshot,
 	report?: Report,
-}) {
+}) => {
 	const [ currentTabId, setCurrentTabId ] = React.useState<TabId>(tabs[0].id)
 	const currentTab = tabs.find(tab => tab.id == currentTabId)!
 

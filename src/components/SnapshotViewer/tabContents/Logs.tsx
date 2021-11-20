@@ -54,9 +54,9 @@ export const LogsTabElement = styled.div`
 	padding: 20px;
 `
 
-function LogsTabComponent({ snapshot }: {
+const LogsTabComponent = ({ snapshot }: {
 	snapshot: Snapshot,
-}) {
+}) => {
 	return (
 		<LogsTabElement>
 			{

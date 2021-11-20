@@ -12,11 +12,11 @@ export const ViewerCanvasElement = styled.div`
 	overflow: hidden;
 `
 
-function ViewerCanvasComponent({ data, className, children }: {
+const ViewerCanvasComponent = ({ data, className, children }: {
 	data: Snapshot["canvas"],
 	className?: string,
 	children?: React.ReactNode[],
-}) {
+}) => {
 	const ref = React.useRef() as React.RefObject<HTMLDivElement>
 
 	const canvas = useStaticValue(() => new Canvas())

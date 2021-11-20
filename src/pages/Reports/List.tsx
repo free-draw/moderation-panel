@@ -53,11 +53,11 @@ export const ReportReasonText = styled.span`
 	margin-top: 4px;
 `
 
-function ReportComponent({ data, index, style }: {
+const ReportComponent = ({ data, index, style }: {
 	data: Report[],
 	index: number,
 	style: React.CSSProperties,
-}) {
+}) => {
 	const report = data[index]
 
 	const match = useRouteMatch<{
@@ -105,9 +105,9 @@ export const ListContainerElement = styled.div`
 	}
 `
 
-function ListComponent({ reports }: {
+const ListComponent = ({ reports }: {
 	reports: Report[],
-}) {
+}) => {
 	const listContainerRef = React.useRef() as React.RefObject<HTMLDivElement>
 	const [ listSize, setListSize ] = React.useState(0)
 	React.useLayoutEffect(() => {

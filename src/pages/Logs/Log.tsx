@@ -25,10 +25,10 @@ const LogExtendedDetailsButtonsElement = styled.div`
 	justify-content: flex-end;
 `
 
-function LogExtendedDetailsComponent({ fields, buttons }: {
+const LogExtendedDetailsComponent = ({ fields, buttons }: {
 	fields: LogFieldOptions[],
 	buttons: LogButtonOptions[],
-}) {
+}) => {
 	fields = fields.filter(fieldData => fieldData !== null)
 	buttons = buttons.filter(buttonData => buttonData !== null)
 
@@ -122,11 +122,11 @@ const LogArrowElement = styled(Arrow)<{
 	${props => props.isOpen ? "transform: rotate(90deg)" : ""};
 `
 
-function LogComponent({ log, moderator, data }: {
+const LogComponent = ({ log, moderator, data }: {
 	log: Log,
 	moderator: Moderator,
 	data: LogTypeData[keyof LogTypeData],
-}) {
+}) => {
 	const logType = logTypes[log.type]
 	const { color, text, fields, buttons } = logType(
 		data,

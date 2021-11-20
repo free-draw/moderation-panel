@@ -32,13 +32,13 @@ export const DropdownItemNameElement = styled.span`
 	font-weight: 400;
 `
 
-function DropdownItemComponent({ isPrimary, name, icon, isPlaceholder, onClick }: {
+const DropdownItemComponent = ({ isPrimary, name, icon, isPlaceholder, onClick }: {
 	isPrimary?: boolean,
 	name: string,
 	icon?: string,
 	isPlaceholder?: boolean,
 	onClick: React.MouseEventHandler<HTMLDivElement>,
-}) {
+}) => {
 	return (
 		<DropdownItemElement
 			isPrimary={isPrimary}
@@ -98,13 +98,13 @@ export type DropdownOption = {
 	name: string,
 }
 
-function DropdownComponent({ options, currentOptionId, placeholder, index, onSelection }: {
+const DropdownComponent = ({ options, currentOptionId, placeholder, index, onSelection }: {
 	options: DropdownOption[],
 	currentOptionId: any,
 	placeholder: string,
 	index?: number,
 	onSelection: (id: any) => void,
-}) {
+}) => {
 	const [ open, setOpen ] = React.useState<boolean>(false)
 
 	const currentOption = options.find(option => option.id === currentOptionId)

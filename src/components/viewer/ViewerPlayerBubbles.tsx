@@ -35,10 +35,10 @@ export const ViewerPlayerBubbleNameElement = styled.span`
 	margin-top: 12px;
 `
 
-function ViewerPlayerBubbleComponent({ player, position }: {
+const ViewerPlayerBubbleComponent = ({ player, position }: {
 	player: SnapshotPlayer,
 	position: Vector2,
-}) {
+}) => {
 	const avatar = useAsync(getRobloxThumbnail, [ player.id ])(API, {
 		id: player.id,
 		type: RobloxThumbnailType.AVATAR_HEADSHOT,
@@ -57,9 +57,9 @@ function ViewerPlayerBubbleComponent({ player, position }: {
 
 export const ViewerPlayerBubblesElement = styled.div``
 
-function ViewerPlayerBubblesComponent({ players }: {
+const ViewerPlayerBubblesComponent = ({ players }: {
 	players: Snapshot["players"],
-}) {
+}) => {
 	return (
 		<ViewerPlayerBubblesElement>
 			{

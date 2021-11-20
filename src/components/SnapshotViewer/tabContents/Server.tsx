@@ -19,10 +19,10 @@ export const SectionContentsElement = styled.span`
 	margin-top: 12px;
 `
 
-function SectionComponent({ label, children }: {
+const SectionComponent = ({ label, children }: {
 	label: string,
 	children?: React.ReactNode,
-}) {
+}) => {
 	return (
 		<SectionElement>
 			<SectionLabelElement>{label}</SectionLabelElement>
@@ -89,11 +89,11 @@ export const PlayerButtonElement = styled.span`
 	}
 `
 
-function PlayerComponent({ player, breadcrumb, isEmphasized }: {
+const PlayerComponent = ({ player, breadcrumb, isEmphasized }: {
 	player: SnapshotPlayer,
 	breadcrumb?: string,
 	isEmphasized?: boolean,
-}) {
+}) => {
 	return (
 		<PlayerElement href={`https://www.roblox.com/users/${player.id}/profile`}>
 			<PlayerNameElement isEmphasized={isEmphasized}>{player.name}</PlayerNameElement>
@@ -123,10 +123,10 @@ export const ServerTabElement = styled.div`
 	padding: 20px;
 `
 
-function ServerTabComponent({ snapshot, report }: {
+const ServerTabComponent = ({ snapshot, report }: {
 	snapshot: Snapshot,
 	report: Report,
-}) {
+}) => {
 	return (
 		<ServerTabElement>
 			<SectionComponent label="Players">

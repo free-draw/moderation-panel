@@ -9,9 +9,9 @@ export const FieldGroupElement = styled.div`
 	position: relative;
 `
 
-function FieldGroupComponent(props: {
+const FieldGroupComponent = (props: {
 	children?: React.ReactNode,
-}) {
+}) => {
 	return (
 		<FieldGroupElement>
 			{props.children}

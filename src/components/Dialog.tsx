@@ -63,13 +63,13 @@ export const DialogButtonsElement = styled.div`
 	}
 `
 
-function DialogComponent({ title, description, buttons, onCancel, children }: {
+const DialogComponent = ({ title, description, buttons, onCancel, children }: {
 	title?: string,
 	description?: string,
 	buttons?: (TextButtonOptions & { id: string })[],
 	onCancel?: () => void,
 	children?: React.ReactNode[],
-}) {
+}) => {
 	return ReactDOM.createPortal((
 		<DialogContainerElement
 			onClick={(event) => {

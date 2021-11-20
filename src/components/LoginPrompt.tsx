@@ -43,12 +43,12 @@ export const LoginProviderTextElement = styled.span`
 	}
 `
 
-function LoginProviderComponent({ id, name, textColor, backgroundColor }: {
+const LoginProviderComponent = ({ id, name, textColor, backgroundColor }: {
 	id: string,
 	name: string,
 	textColor: string,
 	backgroundColor: string,
-}) {
+}) => {
 	return (
 		<LoginProviderElement
 			href={`/api/auth/redirect/${id}`}

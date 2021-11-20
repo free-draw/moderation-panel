@@ -25,9 +25,9 @@ export const ContentSectionStatusEmptyElement = styled.span`
 	font-weight: 400;
 `
 
-function ContentSectionStatusComponent({ status }: {
+const ContentSectionStatusComponent = ({ status }: {
 	status: ContentSectionStatus,
-}) {
+}) => {
 	switch (status) {
 		case ContentSectionStatus.LOADED:
 			return null
@@ -91,12 +91,12 @@ export const ContentSectionFooterElement = styled.div`
 	height: 80px;
 `
 
-function ContentSectionComponent({ name, buttons, status, children }: {
+const ContentSectionComponent = ({ name, buttons, status, children }: {
 	name: string,
 	buttons: (IconButtonOptions & { id: string })[],
 	status: ContentSectionStatus,
 	children?: React.ReactNode[],
-}) {
+}) => {
 	const [ expanded, setExpanded ] = React.useState<boolean>(false)
 
 	return (

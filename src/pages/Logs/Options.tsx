@@ -24,10 +24,10 @@ export const OptionsGroupContentsElement = styled.div`
 	margin-top: 12px;
 `
 
-function OptionsGroupComponent({ name, children }: {
+const OptionsGroupComponent = ({ name, children }: {
 	name: React.ReactNode,
 	children?: React.ReactNode,
-}) {
+}) => {
 	return (
 		<OptionsGroupElement>
 			<OptionsGroupLabelElement>{name}</OptionsGroupLabelElement>
@@ -46,12 +46,12 @@ export const OptionsElement = styled.div`
 	margin-right: 20px;
 `
 
-function OptionsComponent({ sort, setSort, filter, setFilter }: {
+const OptionsComponent = ({ sort, setSort, filter, setFilter }: {
 	sort: SortMethod,
 	setSort: (sort: SortMethod) => void,
 	filter: LogType | null,
 	setFilter: (filter: LogType) => void,
-}) {
+}) => {
 	return (
 		<OptionsElement>
 			<OptionsGroupComponent name="Sort">

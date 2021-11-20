@@ -14,10 +14,10 @@ import { ModerationPresetDurationLengths, ModerationPresetDurationStrings } from
 import { ModerationPresetReasonStrings } from "../../../types/enum/data/ModerationPresetReasonData"
 import { ActionTypeStrings } from "../../../types/enum/data/ActionTypeData"
 
-function ReportAcceptDialogComponent({ report, onClose }: {
+const ReportAcceptDialogComponent = ({ report, onClose }: {
 	report: Report,
 	onClose: () => void,
-}) {
+}) => {
 	const [ type, setType ] = React.useState<ActionType | null>(null)
 	const [ reason, setReason ] = React.useState<ModerationPresetReason | null>(null)
 	const [ duration, setDuration ] = React.useState<ModerationPresetDuration | null>(null)
@@ -154,9 +154,9 @@ export const DeclineIconElement = styled(DeclineIcon)`
 	height: 30px;
 `
 
-function ActionsComponent({ report }: {
+const ActionsComponent = ({ report }: {
 	report: Report,
-}) {
+}) => {
 	const [ dialogOpen, setDialogOpen ] = React.useState(false)
 
 	return (
