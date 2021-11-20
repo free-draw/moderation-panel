@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { getModerator, getToken, TokenType } from "@free-draw/moderation-client"
 import API from "../../API"
 import Logo from "../../assets/logo.svg"
-import Navigation from "./Navigation"
+import NavigationComponent from "./Navigation"
 
 const HeaderElement = styled.div`
 	position: relative;
@@ -43,7 +43,7 @@ const HeaderUserElement = styled.span`
 	}
 `
 
-function Header() {
+function HeaderComponent() {
 	const [ loaded, setLoaded ] = React.useState(false)
 	const [ name, setName ] = React.useState("")
 
@@ -67,7 +67,7 @@ function Header() {
 	return (
 		<HeaderElement>
 			<HeaderLogoElement />
-			<Navigation />
+			<NavigationComponent />
 			<HeaderSpacerElement />
 			<HeaderContextElement>
 				{
@@ -82,7 +82,7 @@ function Header() {
 	)
 }
 
-export default Header
+export default HeaderComponent
 
 export {
 	HeaderElement,

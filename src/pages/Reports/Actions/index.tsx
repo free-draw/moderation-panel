@@ -4,14 +4,14 @@ import API from "../../../API"
 import { ActionType, Report } from "@free-draw/moderation-client"
 import ModerationPresetReason, { ModerationPresetReasonStrings } from "../../../enum/ModerationPresetReason"
 import ModerationPresetDuration, { ModerationPresetDurationStrings, ModerationPresetDurationLengths } from "../../../enum/ModerationPresetDuration"
-import Dialog from "../../../components/Dialog"
-import Dropdown from "../../../components/Dropdown"
+import DialogComponent from "../../../components/Dialog"
+import DropdownComponent from "../../../components/Dropdown"
 import AcceptIcon from "./accept-icon.svg"
 import DeclineIcon from "./decline-icon.svg"
 import colors from "../../../presets/colors"
 import ButtonStyle from "../../../enum/ButtonStyle"
 
-function ReportAcceptDialog({ report, onClose }: {
+function ReportAcceptDialogComponent({ report, onClose }: {
 	report: Report,
 	onClose: () => void,
 }) {
@@ -20,7 +20,7 @@ function ReportAcceptDialog({ report, onClose }: {
 	const [ duration, setDuration ] = React.useState<ModerationPresetDuration | null>(null)
 
 	return (
-		<Dialog
+		<DialogComponent
 			title="Accept report"
 			buttons={[
 				{
@@ -48,28 +48,28 @@ function ReportAcceptDialog({ report, onClose }: {
 			]}
 			onCancel={onClose}
 		>
-			<Dropdown
+			<DropdownComponent
 				index={1}
 				placeholder="Type"
 				options={Object.values(ActionType).map(value => ({ id: value, name: value }))}
 				currentOptionId={type}
 				onSelection={setType}
 			/>
-			<Dropdown
+			<DropdownComponent
 				index={2}
 				placeholder="Reason"
 				options={Object.values(ModerationPresetReason).map(value => ({ id: value, name: ModerationPresetReasonStrings[value] }))}
 				currentOptionId={reason}
 				onSelection={setReason}
 			/>
-			<Dropdown
+			<DropdownComponent
 				index={3}
 				placeholder="Duration"
 				options={Object.values(ModerationPresetDuration).map(value => ({ id: value, name: ModerationPresetDurationStrings[value] }))}
 				currentOptionId={duration}
 				onSelection={setDuration}
 			/>
-		</Dialog>
+		</DialogComponent>
 	)
 }
 
@@ -136,7 +136,7 @@ const DeclineIconElement = styled(DeclineIcon)`
 	height: 30px;
 `
 
-function Actions({ report }: {
+function ActionsComponent({ report }: {
 	report: Report,
 }) {
 	const [ dialogOpen, setDialogOpen ] = React.useState(false)
@@ -147,7 +147,7 @@ function Actions({ report }: {
 				<AcceptIconElement />
 				{
 					dialogOpen ? (
-						<ReportAcceptDialog
+						<ReportAcceptDialogComponent
 							report={report}
 							onClose={() => setDialogOpen(false)}
 						/>
@@ -162,7 +162,7 @@ function Actions({ report }: {
 	)
 }
 
-export default Actions
+export default ActionsComponent
 
 export {
 	ActionsElement,

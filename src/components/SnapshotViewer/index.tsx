@@ -3,13 +3,10 @@ import styled from "styled-components"
 import { Snapshot, getSnapshot, Report } from "@free-draw/moderation-client"
 import API from "../../API"
 import Spinner from "../Spinner"
-import {
-	ViewerCanvas,
-	ViewerHoverDetails,
-	ViewerPlayerBubbles,
-} from "../viewer"
-
-import Tabs from "./Tabs"
+import ViewerCanvasComponent from "../viewer/ViewerCanvas"
+import ViewerHoverDetailsComponent from "../viewer/ViewerHoverDetails"
+import ViewerPlayerBubblesComponent from "../viewer/ViewerPlayerBubbles"
+import TabsComponent from "./Tabs"
 
 const SnapshotElement = styled.div`
 	width: 100%;
@@ -32,7 +29,7 @@ const SnapshotStateSubtextElement = styled.span`
 	margin-top: 8px;
 `
 
-const SnapshotCanvasElement = styled(ViewerCanvas)`
+const SnapshotCanvasElement = styled(ViewerCanvasComponent)`
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -40,17 +37,17 @@ const SnapshotCanvasElement = styled(ViewerCanvas)`
 	height: 100%;
 `
 
-function SnapshotViewer({ snapshot, report, ...props }: {
+function SnapshotViewerComponent({ snapshot, report, ...props }: {
 	snapshot: Snapshot,
 	report?: Report,
 	[key: string]: any,
 }) {
 	return (
 		<SnapshotElement {...props}>
-			<Tabs snapshot={snapshot} report={report} />
+			<TabsComponent snapshot={snapshot} report={report} />
 			<SnapshotCanvasElement data={snapshot.canvas}>
-				<ViewerHoverDetails />
-				<ViewerPlayerBubbles players={snapshot.players} />
+				<ViewerHoverDetailsComponent />
+				<ViewerPlayerBubblesComponent players={snapshot.players} />
 			</SnapshotCanvasElement>
 		</SnapshotElement>
 	)
@@ -63,7 +60,7 @@ enum SnapshotResolverState {
 	NONE = "NONE",
 }
 
-function SnapshotResolver({ id, report, placeholder, ...props }: {
+function SnapshotResolverComponent({ id, report, placeholder, ...props }: {
 	id: string,
 	report?: Report,
 	placeholder: {
@@ -95,7 +92,7 @@ function SnapshotResolver({ id, report, placeholder, ...props }: {
 
 	switch (state) {
 		case SnapshotResolverState.LOADED:
-			return <SnapshotViewer snapshot={snapshot!} report={report} />
+			return <SnapshotViewerComponent snapshot={snapshot!} report={report} />
 
 		case SnapshotResolverState.LOADING:
 			return (
@@ -122,7 +119,7 @@ function SnapshotResolver({ id, report, placeholder, ...props }: {
 	}
 }
 
-export default SnapshotResolver
+export default SnapshotResolverComponent
 
 export {
 	SnapshotElement,

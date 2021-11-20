@@ -12,7 +12,7 @@ const ViewerCanvasElement = styled.div`
 	overflow: hidden;
 `
 
-function ViewerCanvas({ data, className, children }: {
+function ViewerCanvasComponent({ data, className, children }: {
 	data: Snapshot["canvas"],
 	className?: string,
 	children?: React.ReactNode[],
@@ -61,7 +61,7 @@ function ViewerCanvas({ data, className, children }: {
 	)
 }
 
-export default ViewerCanvas
+export default ViewerCanvasComponent
 
 export {
 	ViewerCanvasElement,

@@ -6,21 +6,21 @@ import { mdiSend } from "@mdi/js"
 import { getRobloxUsername } from "@free-draw/moderation-client"
 import API from "../API"
 import colors from "../presets/colors"
-import Page from "../components/Page"
-import Dialog from "../components/Dialog"
-import Spinner from "../components/Spinner"
-import TextBox from "../components/TextBox"
+import PageComponent from "../components/Page"
+import DialogComponent from "../components/Dialog"
+import SpinnerComponent from "../components/Spinner"
+import TextBoxComponent from "../components/TextBox"
 import ButtonStyle from "../enum/ButtonStyle"
 
 const PARTIAL_USERNAME_REGEX = /^[a-zA-Z0-9]?[a-zA-Z0-9_]?$/
 const USERNAME_REGEX = /^[a-zA-Z0-9][a-zA-Z0-9_]{1,18}[a-zA-Z0-9]$/
 
-function UsersFailureDialog(props: {
+function UsersFailureDialogComponent(props: {
 	username: string,
 	onClose: () => void,
 }) {
 	return (
-		<Dialog
+		<DialogComponent
 			title="Couldn't find user"
 			description={`Roblox user with username "${props.username}" couldn't be found. Please ensure it's typed correctly.`}
 			buttons={[
@@ -36,7 +36,7 @@ function UsersFailureDialog(props: {
 	)
 }
 
-const UsersPageElement = styled(Page).attrs({
+const UsersPageElement = styled(PageComponent).attrs({
 	fixed: true,
 })`
 	height: 100%;
@@ -60,7 +60,7 @@ const SearchFormElement = styled.form`
 	margin: 0;
 `
 
-const SearchFormEntryElement = styled(TextBox)`
+const SearchFormEntryElement = styled(TextBoxComponent)`
 	width: 100%;
 	height: 100%;
 	padding: 0 14px;
@@ -79,7 +79,7 @@ const SearchFormSubmitElement = styled(Icon).attrs({
 	color: ${colors.brand[600]};
 `
 
-const SearchFormSpinnerElement = styled(Spinner)`
+const SearchFormSpinnerElement = styled(SpinnerComponent)`
 	position: absolute;
 	right: 14px;
 	top: calc(50% - (24px / 2));
@@ -100,7 +100,7 @@ const SearchFormHintElement = styled.span<{
 	}
 `
 
-function UsersPage() {
+function UsersPageComponent() {
 	const history = useHistory()
 
 	const [ content, setContent ] = React.useState<string>("")
@@ -152,13 +152,13 @@ function UsersPage() {
 			</SearchFormContainerElement>
 
 			{
-				failure ? <UsersFailureDialog username={content} onClose={() => setFailure(false)} /> : null
+				failure ? <UsersFailureDialogComponent username={content} onClose={() => setFailure(false)} /> : null
 			}
 		</UsersPageElement>
 	)
 }
 
-export default UsersPage
+export default UsersPageComponent
 
 export {
 	UsersPageElement,

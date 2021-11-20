@@ -24,7 +24,7 @@ const ViewerHoverDetailsNameElement = styled.span`
 	font-size: 16px;
 `
 
-const ViewerHoverDetails = () => {
+const ViewerHoverDetailsComponent = () => {
 	const ref = React.useRef() as React.RefObject<HTMLDivElement>
 
 	const context = React.useContext(ViewerContext)
@@ -69,7 +69,7 @@ const ViewerHoverDetails = () => {
 	)
 }
 
-export default ViewerHoverDetails
+export default ViewerHoverDetailsComponent
 
 export {
 	ViewerHoverDetailsElement,

@@ -22,7 +22,7 @@ type IconButtonOptions = {
 	onClick: React.MouseEventHandler<HTMLDivElement>,
 }
 
-function IconButton(props: IconButtonOptions) {
+function IconButtonComponent(props: IconButtonOptions) {
 	return (
 		<IconButtonElement
 			onClick={(event) => {
@@ -39,7 +39,7 @@ function IconButton(props: IconButtonOptions) {
 	)
 }
 
-export default IconButton
+export default IconButtonComponent
 
 export {
 	IconButtonOptions,

@@ -19,7 +19,7 @@ const SectionContentsElement = styled.span`
 	margin-top: 12px;
 `
 
-function Section({ label, children }: {
+function SectionComponent({ label, children }: {
 	label: string,
 	children: React.ReactNode[],
 }) {
@@ -89,7 +89,7 @@ const PlayerButtonElement = styled.span`
 	}
 `
 
-function Player({ player, breadcrumb, isEmphasized }: {
+function PlayerComponent({ player, breadcrumb, isEmphasized }: {
 	player: SnapshotPlayer,
 	breadcrumb?: string,
 	isEmphasized?: boolean,
@@ -123,13 +123,13 @@ const ServerTabElement = styled.div`
 	padding: 20px;
 `
 
-function ServerTab({ snapshot, report }: {
+function ServerTabComponent({ snapshot, report }: {
 	snapshot: Snapshot,
 	report: Report,
 }) {
 	return (
 		<ServerTabElement>
-			<Section label="Players">
+			<SectionComponent label="Players">
 				{
 					Object.values(snapshot.players).map((player) => {
 						let breadcrumb
@@ -142,7 +142,7 @@ function ServerTab({ snapshot, report }: {
 							}
 						}
 
-						return <Player
+						return <PlayerComponent
 							key={player.id}
 							player={player}
 							breadcrumb={breadcrumb}
@@ -150,12 +150,12 @@ function ServerTab({ snapshot, report }: {
 						/>
 					})
 				}
-			</Section>
+			</SectionComponent>
 		</ServerTabElement>
 	)
 }
 
-export default ServerTab
+export default ServerTabComponent
 
 export {
 	SectionElement,

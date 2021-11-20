@@ -4,7 +4,7 @@ import { Link, useRouteMatch, useHistory } from "react-router-dom"
 import useAsync from "../../util/useAsync"
 import { getPendingReports, getRobloxUser, getRobloxThumbnail, RobloxThumbnailType, Report } from "@free-draw/moderation-client"
 import colors from "../../presets/colors"
-import Spinner from "../../components/Spinner"
+import SpinnerComponent from "../../components/Spinner"
 import API from "../../API"
 import Realtime from "../../Realtime"
 import { FixedSizeList } from "react-window"
@@ -53,7 +53,7 @@ const ReportReasonText = styled.span`
 	margin-top: 4px;
 `
 
-function ListReport({ data, index, style }: {
+function ReportComponent({ data, index, style }: {
 	data: Report[],
 	index: number,
 	style: React.CSSProperties,
@@ -81,7 +81,7 @@ function ListReport({ data, index, style }: {
 							<ReportUsernameText>{user.name}</ReportUsernameText>
 							<ReportReasonText>{report.reason}</ReportReasonText>
 						</ReportTextElement>
-					</> : <Spinner />
+					</> : <SpinnerComponent />
 				}
 			</ReportElement>
 		</ReportContainerElement>
@@ -105,7 +105,7 @@ const ListContainerElement = styled.div`
 	}
 `
 
-function List({ reports }: {
+function ListComponent({ reports }: {
 	reports: Report[],
 }) {
 	const listContainerRef = React.useRef() as React.RefObject<HTMLDivElement>
@@ -127,13 +127,13 @@ function List({ reports }: {
 				itemData={reports}
 				itemKey={index => reports[index].id}
 			>
-				{ListReport}
+				{ReportComponent}
 			</FixedSizeList>
 		</ListContainerElement>
 	)
 }
 
-function ListStateManager() {
+function ListStateManagerComponent() {
 	const [ reports, setReports ] = React.useState<Report[]>([])
 
 	React.useEffect(() => {
@@ -176,10 +176,10 @@ function ListStateManager() {
 		}
 	}, [ reports, currentId ])
 
-	return <List reports={reports} />
+	return <ListComponent reports={reports} />
 }
 
-export default ListStateManager
+export default ListStateManagerComponent
 
 export {
 	ListContainerElement,

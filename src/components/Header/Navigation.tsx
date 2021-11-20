@@ -1,7 +1,6 @@
 import React from "react"
 import styled from "styled-components"
 import { Link, useRouteMatch } from "react-router-dom"
-
 import colors from "../../presets/colors"
 
 const NavigationButtonElement = styled(Link)<{
@@ -33,7 +32,7 @@ const NavigationButtonTextElement = styled.span`
 	font-weight: 300;
 `
 
-function NavigationButton({ text, path, exact }: {
+function NavigationButtonComponent({ text, path, exact }: {
 	text: string,
 	path: string,
 	exact?: boolean,
@@ -56,18 +55,18 @@ const NavigationElement = styled.div`
 	user-select: none;
 `
 
-function Navigation() {
+function NavigationComponent() {
 	return (
 		<NavigationElement>
-			<NavigationButton text="Home" path="/" exact />
-			<NavigationButton text="Reports" path="/reports" />
-			<NavigationButton text="Users" path="/users" />
-			<NavigationButton text="Logs" path="/logs" />
+			<NavigationButtonComponent text="Home" path="/" exact />
+			<NavigationButtonComponent text="Reports" path="/reports" />
+			<NavigationButtonComponent text="Users" path="/users" />
+			<NavigationButtonComponent text="Logs" path="/logs" />
 		</NavigationElement>
 	)
 }
 
-export default Navigation
+export default NavigationComponent
 
 export {
 	NavigationButtonElement,

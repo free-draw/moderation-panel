@@ -31,7 +31,7 @@ type FieldOptions = {
 	isEmpty?: boolean,
 }
 
-export function Field({ name, value, isInline, isEmpty }: FieldOptions) {
+function FieldComponent({ name, value, isInline, isEmpty }: FieldOptions) {
 	return (
 		<FieldElement isInline={isInline}>
 			<FieldNameElement>{name}</FieldNameElement>
@@ -42,30 +42,4 @@ export function Field({ name, value, isInline, isEmpty }: FieldOptions) {
 	)
 }
 
-const FieldGroupElement = styled.div`
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	gap: 16px;
-	position: relative;
-`
-
-export function FieldGroup(props: {
-	children: React.ReactNode[],
-}) {
-	return (
-		<FieldGroupElement>
-			{props.children}
-		</FieldGroupElement>
-	)
-}
-
-export {
-	FieldOptions,
-
-	FieldElement,
-	FieldNameElement,
-	FieldValueElement,
-
-	FieldGroupElement,
-}
+export default FieldComponent

@@ -34,7 +34,7 @@ const SpinnerForegroundElement = styled(SpinnerForeground)`
 	color: ${colors.brand[600]};
 `
 
-export default function Spinner(props: Record<string, any>) {
+function SpinnerComponent(props: Record<string, any>) {
 	return (
 		<SpinnerElement {...props}>
 			<SpinnerBackgroundElement />
@@ -43,6 +43,7 @@ export default function Spinner(props: Record<string, any>) {
 	)
 }
 
+export default SpinnerComponent
 export {
 	SpinnerElement,
 

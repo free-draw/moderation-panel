@@ -6,17 +6,18 @@ import API from "../../API"
 import ModerationPresetReason, { ModerationPresetReasonStrings } from "../../enum/ModerationPresetReason"
 import ModerationPresetDuration , { ModerationPresetDurationStrings, ModerationPresetDurationLengths } from "../../enum/ModerationPresetDuration"
 import colors from "../../presets/colors"
-import IconButton from "../../components/IconButton"
-import Dialog from "../../components/Dialog"
-import Dropdown from "../../components/Dropdown"
-import TextArea from "../../components/TextArea"
-import { Field, FieldGroup } from "../../components/fields"
+import IconButtonComponent from "../../components/IconButton"
+import DialogComponent from "../../components/Dialog"
+import DropdownComponent from "../../components/Dropdown"
+import TextAreaComponent from "../../components/TextArea"
 import Realtime from "../../Realtime"
 import ContentSection, { ContentSectionStatus } from "./ContentSection"
 import { User, Action, ActionOptions, UserResolvable, ActionType } from "@free-draw/moderation-client"
 import ButtonStyle from "../../enum/ButtonStyle"
+import FieldComponent from "../../components/fields/Field"
+import FieldGroupComponent from "../../components/fields/FieldGroup"
 
-const NotesTextAreaElement = styled(TextArea)`
+const NotesTextAreaElement = styled(TextAreaComponent)`
 	height: 150px;
 `
 
@@ -30,7 +31,7 @@ function CreateDialog({ onCreate, onClose }: {
 	const [ notes, setNotes ] = React.useState("")
 
 	return (
-		<Dialog
+		<DialogComponent
 			title="Create action"
 			buttons={[
 				{
@@ -57,7 +58,7 @@ function CreateDialog({ onCreate, onClose }: {
 			]}
 			onCancel={onClose}
 		>
-			<Dropdown
+			<DropdownComponent
 				placeholder="Type"
 				options={Object.values(ActionType).map((value: ActionType) => {
 					return {
@@ -69,7 +70,7 @@ function CreateDialog({ onCreate, onClose }: {
 				onSelection={setType}
 				index={1}
 			/>
-			<Dropdown
+			<DropdownComponent
 				placeholder="Reason"
 				options={Object.values(ModerationPresetReason).map((value: ModerationPresetReason) => {
 					return {
@@ -81,7 +82,7 @@ function CreateDialog({ onCreate, onClose }: {
 				onSelection={setReason}
 				index={2}
 			/>
-			<Dropdown
+			<DropdownComponent
 				placeholder="Duration"
 				options={Object.values(ModerationPresetDuration).map((value: ModerationPresetDuration) => {
 					return {
@@ -97,7 +98,7 @@ function CreateDialog({ onCreate, onClose }: {
 				placeholder="Notes"
 				onChange={event => setNotes(event.target.value)}
 			/>
-		</Dialog>
+		</DialogComponent>
 	)
 }
 
@@ -107,7 +108,7 @@ function DeleteDialog({ action, onDelete, onClose }: {
 	onClose: () => void,
 }) {
 	return (
-		<Dialog
+		<DialogComponent
 			title="Delete action?"
 			description={`You're about to delete this ${action.type}. This is permanent.`}
 			buttons={[
@@ -203,7 +204,7 @@ enum ModeratorState {
 	UNKNOWN = "UNKNOWN",
 }
 
-function ActionsItem({ action }: {
+function ActionsItemComponent({ action }: {
 	action: Action,
 }) {
 	const history = useHistory()
@@ -239,7 +240,7 @@ function ActionsItem({ action }: {
 				<ActionButtonsElement>
 					{
 						action.report || action.snapshot ? (
-							<IconButton
+							<IconButtonComponent
 								icon={mdiMagnify}
 								onClick={() => history.push(action.report ? `/reports/${action.report.id}` : `/snapshots/${action.snapshot!.id}`)}
 							/>
@@ -248,7 +249,7 @@ function ActionsItem({ action }: {
 					<>
 						{
 							action.active ? (
-								<IconButton
+								<IconButtonComponent
 									icon={mdiTrashCanOutline}
 									onClick={() => setPrompt(true)}
 								/>
@@ -270,39 +271,39 @@ function ActionsItem({ action }: {
 				</ActionButtonsElement>
 			</ActionDetailsElement>
 			<ActionExtendedDetailsElement isExpanded={expanded}>
-				<FieldGroup>
-					<Field
+				<FieldGroupComponent>
+					<FieldComponent
 						name="Notes"
 						value={action.notes ?? "No notes specified"}
 						isEmpty={!action.notes}
 					/>
-					<Field
+					<FieldComponent
 						name="Moderator"
 						value={moderatorName ?? "Unknown"}
 						isEmpty={moderatorState === "UNKNOWN"}
 						isInline
 					/>
-					<Field
+					<FieldComponent
 						name="Created"
 						value={action.created.toLocaleString()}
 						isInline
 					/>
 					{
 						action.expiry ? (
-							<Field
+							<FieldComponent
 								name="Expiry"
 								value={action.expiry.toLocaleString()}
 								isInline
 							/>
 						) : null
 					}
-				</FieldGroup>
+				</FieldGroupComponent>
 			</ActionExtendedDetailsElement>
 		</ActionElement>
 	)
 }
 
-function Actions({ user }: {
+function ActionsComponent({ user }: {
 	user: User,
 }) {
 	const [ actions, setActions ] = React.useState(user.actions)
@@ -359,7 +360,7 @@ function Actions({ user }: {
 					actions && actions.length > 0 ? (
 						[ ...actions ]
 							.sort((B, A) => A.created.getTime() - B.created.getTime())
-							.map(action => <ActionsItem key={action.id} action={action} />)
+							.map(action => <ActionsItemComponent key={action.id} action={action} />)
 					) : undefined
 				}
 			</ContentSection>
@@ -377,7 +378,7 @@ function Actions({ user }: {
 	)
 }
 
-export default Actions
+export default ActionsComponent
 
 export {
 	ActionElement,

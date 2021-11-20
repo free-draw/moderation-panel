@@ -43,7 +43,7 @@ const LoginProviderTextElement = styled.span`
 	}
 `
 
-function LoginProvider({ id, name, textColor, backgroundColor }: {
+function LoginProviderComponent({ id, name, textColor, backgroundColor }: {
 	id: string,
 	name: string,
 	textColor: string,
@@ -99,7 +99,7 @@ const LoginProvidersElement = styled.div`
 	flex-direction: column;
 `
 
-function LoginPrompt() {
+function LoginPromptComponent() {
 	return (
 		<LoginPromptContainerElement>
 			<LoginPromptLogoElement />
@@ -108,7 +108,7 @@ function LoginPrompt() {
 				<LoginProvidersElement>
 					{
 						loginProviders.map((loginProviderData) => {
-							return <LoginProvider key={loginProviderData.id} {...loginProviderData} />
+							return <LoginProviderComponent key={loginProviderData.id} {...loginProviderData} />
 						})
 					}
 				</LoginProvidersElement>
@@ -117,7 +117,7 @@ function LoginPrompt() {
 	)
 }
 
-export default LoginPrompt
+export default LoginPromptComponent
 
 export {
 	LoginProviderElement,

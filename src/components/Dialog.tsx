@@ -1,8 +1,7 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import styled from "styled-components"
-import ButtonStyle from "../enum/ButtonStyle"
-import TextButton, { TextButtonOptions } from "./TextButton"
+import TextButtonComponent, { TextButtonOptions } from "./TextButton"
 
 const DialogContainerElement = styled.div`
 	position: fixed;
@@ -64,7 +63,7 @@ const DialogButtonsElement = styled.div`
 	}
 `
 
-function Dialog({ title, description, buttons, onCancel, children }: {
+function DialogComponent({ title, description, buttons, onCancel, children }: {
 	title?: string,
 	description?: string,
 	buttons?: (TextButtonOptions & { id: string })[],
@@ -96,7 +95,7 @@ function Dialog({ title, description, buttons, onCancel, children }: {
 							{
 								buttons.map((buttonData) => {
 									return (
-										<TextButton
+										<TextButtonComponent
 											key={buttonData.id}
 											text={buttonData.text}
 											style={buttonData.style}
@@ -113,7 +112,7 @@ function Dialog({ title, description, buttons, onCancel, children }: {
 	), document.body)
 }
 
-export default Dialog
+export default DialogComponent
 
 export {
 	DialogContainerElement,

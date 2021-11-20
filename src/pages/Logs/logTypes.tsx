@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import { Link, useHistory } from "react-router-dom"
 import colors from "../../presets/colors"
-import { ActionType, Log, LogType, LogTypeData, Report, RobloxUser, Snapshot, SnapshotResolvable } from "@free-draw/moderation-client"
+import { ActionType, LogType, LogTypeData, Report, RobloxUser, Snapshot, SnapshotResolvable } from "@free-draw/moderation-client"
 import ButtonStyle from "../../enum/ButtonStyle"
 
 const actionTypes = {

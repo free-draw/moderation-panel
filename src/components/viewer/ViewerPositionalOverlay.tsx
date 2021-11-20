@@ -16,7 +16,7 @@ const ViewerPositionalOverlayElement = styled.div`
 	}
 `
 
-function ViewerPositionalOverlay(props: {
+function ViewerPositionalOverlayComponent(props: {
 	position: Vector2,
 	ignoreScale?: boolean,
 	children: React.ReactNode[],
@@ -48,7 +48,7 @@ function ViewerPositionalOverlay(props: {
 	)
 }
 
-export default ViewerPositionalOverlay
+export default ViewerPositionalOverlayComponent
 
 export {
 	ViewerPositionalOverlayElement,

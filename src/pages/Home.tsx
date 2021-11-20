@@ -23,7 +23,7 @@ const SlartTextElement = styled.span`
 	font-weight: 400;
 `
 
-function HomePage() {
+function HomePageComponent() {
 	return (
 		<HomePageElement>
 			<SlartElement />
@@ -32,7 +32,7 @@ function HomePage() {
 	)
 }
 
-export default HomePage
+export default HomePageComponent
 
 export {
 	HomePageElement,

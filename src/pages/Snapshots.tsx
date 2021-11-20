@@ -1,12 +1,12 @@
 import React from "react"
 import styled from "styled-components"
 import { useRouteMatch } from "react-router"
-import Page from "../components/Page"
-import SnapshotViewer from "../components/SnapshotViewer"
+import PageComponent from "../components/Page"
+import SnapshotViewerComponent from "../components/SnapshotViewer"
 
-const SnapshotsPageElement = styled(Page)``
+const SnapshotsPageElement = styled(PageComponent)``
 
-const SnapshotViewerElement = styled(SnapshotViewer)`
+const SnapshotViewerElement = styled(SnapshotViewerComponent)`
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -14,7 +14,7 @@ const SnapshotViewerElement = styled(SnapshotViewer)`
 	height: 100%;
 `
 
-function SnapshotsPage() {
+function SnapshotsPageComponent() {
 	const { params } = useRouteMatch<{
 		id: string,
 	}>("/snapshots/:id")!
@@ -32,7 +32,7 @@ function SnapshotsPage() {
 	)
 }
 
-export default SnapshotsPage
+export default SnapshotsPageComponent
 
 export {
 	SnapshotsPageElement,

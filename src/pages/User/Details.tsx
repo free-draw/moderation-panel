@@ -4,7 +4,7 @@ import useAsync from "../../util/useAsync"
 import { getRobloxUser, getRobloxThumbnail, RobloxThumbnailType } from "@free-draw/moderation-client"
 import API from "../../API"
 import colors from "../../presets/colors"
-import Spinner from "../../components/Spinner"
+import SpinnerComponent from "../../components/Spinner"
 
 const DetailsElement = styled.div`
 	width: 200px;
@@ -44,7 +44,7 @@ const DetailsProfileLinkElement = styled.a.attrs({
 	margin-top: 7px;
 `
 
-function Details({ userId }: {
+function DetailsComponent({ userId }: {
 	userId: number,
 }) {
 	const details = useAsync(getRobloxUser)(API, userId)
@@ -63,7 +63,7 @@ function Details({ userId }: {
 							{
 								avatar ? (
 									<DetailsAvatarElement src={avatar} />
-								) : <Spinner />
+								) : <SpinnerComponent />
 							}
 						</DetailsAvatarContainerElement>
 						<DetailsUsernameElement>{details.name}</DetailsUsernameElement>
@@ -71,11 +71,11 @@ function Details({ userId }: {
 							Go to Roblox profile
 						</DetailsProfileLinkElement>
 					</>
-				) : <Spinner />
+				) : <SpinnerComponent />
 			}
 		</DetailsElement>
 	)
 }
 
-export default Details
+export default DetailsComponent
 

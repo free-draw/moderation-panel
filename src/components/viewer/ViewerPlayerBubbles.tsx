@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { getRobloxThumbnail, RobloxThumbnailType, Snapshot, SnapshotPlayer, Vector2 } from "@free-draw/moderation-client"
 import API from "../../API"
 import useAsync from "../../util/useAsync"
-import ViewerPositionalOverlay from "./ViewerPositionalOverlay"
+import ViewerPositionalOverlayComponent from "./ViewerPositionalOverlay"
 
 const size = 64
 
@@ -35,7 +35,7 @@ const ViewerPlayerBubbleNameElement = styled.span`
 	margin-top: 12px;
 `
 
-function ViewerPlayerBubble({ player, position }: {
+function ViewerPlayerBubbleComponent({ player, position }: {
 	player: SnapshotPlayer,
 	position: Vector2,
 }) {
@@ -46,18 +46,18 @@ function ViewerPlayerBubble({ player, position }: {
 	})
 
 	return (
-		<ViewerPositionalOverlay position={position} ignoreScale>
+		<ViewerPositionalOverlayComponent position={position} ignoreScale>
 			<ViewerPlayerBubbleElement href={`https://www.roblox.com/users/${player.id}/profile`}>
 				<ViewerPlayerBubbleAvatarElement src={avatar ?? ""} />
 				<ViewerPlayerBubbleNameElement>{player.name}</ViewerPlayerBubbleNameElement>
 			</ViewerPlayerBubbleElement>
-		</ViewerPositionalOverlay>
+		</ViewerPositionalOverlayComponent>
 	)
 }
 
 const ViewerPlayerBubblesElement = styled.div``
 
-function ViewerPlayerBubbles({ players }: {
+function ViewerPlayerBubblesComponent({ players }: {
 	players: Snapshot["players"],
 }) {
 	return (
@@ -65,7 +65,7 @@ function ViewerPlayerBubbles({ players }: {
 			{
 				Object.values(players).map((player) => {
 					return (
-						<ViewerPlayerBubble
+						<ViewerPlayerBubbleComponent
 							key={player.id}
 							player={player}
 							position={player.position}
@@ -77,7 +77,7 @@ function ViewerPlayerBubbles({ players }: {
 	)
 }
 
-export default ViewerPlayerBubbles
+export default ViewerPlayerBubblesComponent
 
 export {
 	ViewerPlayerBubbleElement,

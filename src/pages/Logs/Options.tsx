@@ -24,7 +24,7 @@ const OptionsGroupContentsElement = styled.div`
 	margin-top: 12px;
 `
 
-function OptionsGroup({ name, children }: {
+function OptionsGroupComponent({ name, children }: {
 	name: React.ReactNode,
 	children?: React.ReactNode,
 }) {
@@ -46,7 +46,7 @@ const OptionsElement = styled.div`
 	margin-right: 20px;
 `
 
-function Options({ sort, setSort, filter, setFilter }: {
+function OptionsComponent({ sort, setSort, filter, setFilter }: {
 	sort: SortMethod,
 	setSort: (sort: SortMethod) => void,
 	filter: LogType | null,
@@ -54,7 +54,7 @@ function Options({ sort, setSort, filter, setFilter }: {
 }) {
 	return (
 		<OptionsElement>
-			<OptionsGroup name="Sort">
+			<OptionsGroupComponent name="Sort">
 				<Dropdown
 					options={[
 						{ id: "timeDescending", name: "Newest" },
@@ -64,8 +64,8 @@ function Options({ sort, setSort, filter, setFilter }: {
 					currentOptionId={sort}
 					onSelection={setSort}
 				/>
-			</OptionsGroup>
-			<OptionsGroup name="Filter">
+			</OptionsGroupComponent>
+			<OptionsGroupComponent name="Filter">
 				<Dropdown
 					options={[
 						{ id: null, name: "All" },
@@ -87,12 +87,12 @@ function Options({ sort, setSort, filter, setFilter }: {
 					currentOptionId={filter}
 					onSelection={setFilter}
 				/>
-			</OptionsGroup>
+			</OptionsGroupComponent>
 		</OptionsElement>
 	)
 }
 
-export default Options
+export default OptionsComponent
 
 export {
 	OptionsGroupElement,

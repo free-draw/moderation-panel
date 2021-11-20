@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 const PageElement = styled.div``
 
-function Page({ name, children, ...props }: {
+function PageComponent({ name, children, ...props }: {
 	name: string,
 	children: React.ReactNode[],
 	[key: string]: any,
@@ -15,7 +15,7 @@ function Page({ name, children, ...props }: {
 	)
 }
 
-export default Page
+export default PageComponent
 
 export {
 	PageElement,

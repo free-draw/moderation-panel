@@ -32,7 +32,7 @@ const DropdownItemNameElement = styled.span`
 	font-weight: 400;
 `
 
-function DropdownItem({ isPrimary, name, icon, isPlaceholder, onClick }: {
+function DropdownItemComponent({ isPrimary, name, icon, isPlaceholder, onClick }: {
 	isPrimary?: boolean,
 	name: string,
 	icon?: string,
@@ -98,7 +98,7 @@ type DropdownOption = {
 	name: string,
 }
 
-function Dropdown({ options, currentOptionId, placeholder, index, onSelection }: {
+function DropdownComponent({ options, currentOptionId, placeholder, index, onSelection }: {
 	options: DropdownOption[],
 	currentOptionId: any,
 	placeholder: string,
@@ -118,7 +118,7 @@ function Dropdown({ options, currentOptionId, placeholder, index, onSelection }:
 							{
 								options.map((option) => {
 									return (
-										<DropdownItem
+										<DropdownItemComponent
 											key={option.id}
 											name={option.name}
 											onClick={(event) => {
@@ -132,7 +132,7 @@ function Dropdown({ options, currentOptionId, placeholder, index, onSelection }:
 							}
 						</DropdownOptionsElement>
 					) : (
-						<DropdownItem
+						<DropdownItemComponent
 							isPrimary
 							isPlaceholder={!currentOption}
 							name={currentOption ? currentOption.name : placeholder}
@@ -149,7 +149,7 @@ function Dropdown({ options, currentOptionId, placeholder, index, onSelection }:
 	)
 }
 
-export default Dropdown
+export default DropdownComponent
 
 export {
 	DropdownItemElement,

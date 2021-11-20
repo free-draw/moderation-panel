@@ -36,7 +36,7 @@ const DetailsUserNameElement = styled.span`
 	font-weight: 400;
 `
 
-function DetailsUser({ id }: {
+function UserComponent({ id }: {
 	id: number,
 }) {
 	const user = useAsync(getRobloxUser)(API, id)
@@ -79,15 +79,15 @@ const NotesElement = styled.p`
 	max-width: 300px;
 `
 
-function Details({ report }: {
+function DetailsComponent({ report }: {
 	report: Report,
 }) {
 	return (
 		<DetailsElement>
 			<NotesElement>{`"${report.notes}"`}</NotesElement>
-			<DetailsUser id={report.from.id} />
+			<UserComponent id={report.from.id} />
 		</DetailsElement>
 	)
 }
 
-export default Details
+export default DetailsComponent

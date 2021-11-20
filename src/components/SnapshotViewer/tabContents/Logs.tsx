@@ -38,7 +38,7 @@ const LogElement = styled.span`
 	}
 `
 
-function Log({ type, player, data }: SnapshotLog) {
+function LogComponent({ type, player, data }: SnapshotLog) {
 	const text = logTextBuilders[type](player, data)
 
 	return (
@@ -54,19 +54,19 @@ const LogsTabElement = styled.div`
 	padding: 20px;
 `
 
-function LogsTab({ snapshot }: {
+function LogsTabComponent({ snapshot }: {
 	snapshot: Snapshot,
 }) {
 	return (
 		<LogsTabElement>
 			{
-				snapshot.logs.map((log, index) => <Log key={index} {...log} />)
+				snapshot.logs.map((log, index) => <LogComponent key={index} {...log} />)
 			}
 		</LogsTabElement>
 	)
 }
 
-export default LogsTab
+export default LogsTabComponent
 
 export {
 	LogElement,

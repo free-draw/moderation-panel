@@ -1,0 +1,25 @@
+import React from "react"
+import styled from "styled-components"
+
+const FieldGroupElement = styled.div`
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 16px;
+	position: relative;
+`
+
+function FieldGroupComponent(props: {
+	children: React.ReactNode[],
+}) {
+	return (
+		<FieldGroupElement>
+			{props.children}
+		</FieldGroupElement>
+	)
+}
+
+export default FieldGroupComponent
+export {
+	FieldGroupElement,
+}

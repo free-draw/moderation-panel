@@ -2,13 +2,13 @@ import React from "react"
 import styled from "styled-components"
 import useAsync from "../../util/useAsync"
 import { getUser } from "@free-draw/moderation-client"
-import Page from "../../components/Page"
-import Details from "./Details"
-import Actions from "./Actions"
+import PageComponent from "../../components/Page"
+import DetailsComponent from "./Details"
+import ActionsComponent from "./Actions"
 import API from "../../API"
 import { useRouteMatch } from "react-router"
 
-const UserPageElement = styled(Page)`
+const UserPageElement = styled(PageComponent)`
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -21,7 +21,7 @@ const ContentElement = styled.div`
 	flex-direction: column;
 `
 
-function UserPage() {
+function UserPageComponent() {
 	const { params } = useRouteMatch<{
 		userId: string,
 	}>("/user")!
@@ -31,15 +31,15 @@ function UserPage() {
 
 	return (
 		<UserPageElement>
-			<Details userId={userId} />
+			<DetailsComponent userId={userId} />
 			<ContentElement>
-				{user ? <Actions user={user} /> : null}
+				{user ? <ActionsComponent user={user} /> : null}
 			</ContentElement>
 		</UserPageElement>
 	)
 }
 
-export default UserPage
+export default UserPageComponent
 
 export {
 	UserPageElement,

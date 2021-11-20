@@ -3,8 +3,8 @@ import styled from "styled-components"
 import Icon from "@mdi/react"
 import { mdiPresentation, mdiServerNetwork, mdiLayers, mdiMessageText } from "@mdi/js"
 import colors from "../../presets/colors"
-import ServerTab from "./tabContents/Server"
-import LogsTab from "./tabContents/Logs"
+import ServerTabComponent from "./tabContents/Server"
+import LogsTabComponent from "./tabContents/Logs"
 import { Snapshot, Report } from "@free-draw/moderation-client"
 
 enum TabId {
@@ -35,7 +35,7 @@ const tabs = [
 		id: TabId.SERVER,
 		name: "Server",
 		icon: mdiServerNetwork,
-		component: ServerTab,
+		component: ServerTabComponent,
 	},
 
 	{
@@ -48,7 +48,7 @@ const tabs = [
 		id: TabId.LOGS,
 		name: "Logs",
 		icon: mdiMessageText,
-		component: LogsTab,
+		component: LogsTabComponent,
 	},
 ] as Tab[]
 
@@ -73,7 +73,7 @@ const TabElement = styled.div<{
 	}
 `
 
-function Tab({ icon, isSelected, onClick }: {
+function TabComponent({ icon, isSelected, onClick }: {
 	icon: string,
 	isSelected: boolean,
 	onClick: React.MouseEventHandler<HTMLDivElement>,
@@ -120,7 +120,7 @@ const TabContentsElement = styled.div`
 	pointer-events: all;
 `
 
-function Tabs({ snapshot, report }: {
+function TabsComponent({ snapshot, report }: {
 	snapshot: Snapshot,
 	report?: Report,
 }) {
@@ -133,7 +133,7 @@ function Tabs({ snapshot, report }: {
 				{
 					tabs.map((tab) => {
 						return (
-							<Tab
+							<TabComponent
 								key={tab.id}
 								isSelected={tab === currentTab}
 								onClick={() => setCurrentTabId(tab.id)}
@@ -156,7 +156,7 @@ function Tabs({ snapshot, report }: {
 	)
 }
 
-export default Tabs
+export default TabsComponent
 
 export {
 	TabElement,

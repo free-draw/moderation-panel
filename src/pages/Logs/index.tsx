@@ -2,8 +2,8 @@ import React from "react"
 import styled from "styled-components"
 import { getLogs, LogResolved, GetLogsOptions, LogsPage, SortDirection, LogType } from "@free-draw/moderation-client"
 import API from "../../API"
-import TextButton from "../../components/TextButton"
-import Spinner from "../../components/Spinner"
+import TextButtonComponent from "../../components/TextButton"
+import SpinnerComponent from "../../components/Spinner"
 import Options from "./Options"
 import LogComponent from "./Log"
 import ButtonStyle from "../../enum/ButtonStyle"
@@ -96,7 +96,7 @@ function LogsPageComponent() {
 				<ContentFooterElement>
 					{
 						loaded ? (
-							<TextButton
+							<TextButtonComponent
 								text="View More"
 								style={ButtonStyle.FILLED}
 								onClick={async () => {
@@ -113,7 +113,7 @@ function LogsPageComponent() {
 									setLoaded(true)
 								}}
 							/>
-						) : <Spinner />
+						) : <SpinnerComponent />
 					}
 				</ContentFooterElement>
 			</ContentContainerElement>

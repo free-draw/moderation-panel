@@ -2,18 +2,18 @@ import React from "react"
 import { useRouteMatch } from "react-router"
 import styled from "styled-components"
 import { getReport, Report, ReportStatus } from "@free-draw/moderation-client"
-import Page from "../../components/Page"
-import SnapshotViewer from "../../components/SnapshotViewer"
-import List from "./List"
-import Details from "./Details"
-import Actions from "./Actions"
+import PageComponent from "../../components/Page"
+import SnapshotViewerComponent from "../../components/SnapshotViewer"
+import ListComponent from "./List"
+import DetailsComponent from "./Details"
+import ActionsComponent from "./Actions"
 import API from "../../API"
 
-const ReportsPageElement = styled(Page)`
+const ReportsPageElement = styled(PageComponent)`
 	height: 100%;
 `
 
-const SnapshotViewerElement = styled(SnapshotViewer)`
+const SnapshotViewerElement = styled(SnapshotViewerComponent)`
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -21,7 +21,7 @@ const SnapshotViewerElement = styled(SnapshotViewer)`
 	height: 100%;
 `
 
-function ReportsPage() {
+function ReportsPageComponent() {
 	const match = useRouteMatch<{
 		id: string,
 	}>("/reports/:id")
@@ -46,14 +46,14 @@ function ReportsPage() {
 					subtext: "Click on a report to get started!",
 				}}
 			/>
-			<List />
-			{report ? <Details report={report} /> : null}
-			{report && report.status === ReportStatus.PENDING ? <Actions report={report} /> : null}
+			<ListComponent />
+			{report ? <DetailsComponent report={report} /> : null}
+			{report && report.status === ReportStatus.PENDING ? <ActionsComponent report={report} /> : null}
 		</ReportsPageElement>
 	)
 }
 
-export default ReportsPage
+export default ReportsPageComponent
 
 export {
 	ReportsPageElement,

@@ -1,8 +1,8 @@
 import React from "react"
 import styled from "styled-components"
-import IconButton, { IconButtonOptions } from "../../components/IconButton"
-import TextButton from "../../components/TextButton"
-import Spinner from "../../components/Spinner"
+import IconButtonComponent, { IconButtonOptions } from "../../components/IconButton"
+import TextButtonComponent from "../../components/TextButton"
+import SpinnerComponent from "../../components/Spinner"
 import ButtonStyle from "../../enum/ButtonStyle"
 
 enum ContentSectionStatus {
@@ -25,7 +25,7 @@ const ContentSectionStatusEmptyElement = styled.span`
 	font-weight: 400;
 `
 
-function ContentSectionStatusDisplay({ status }: {
+function ContentSectionStatusComponent({ status }: {
 	status: ContentSectionStatus,
 }) {
 	switch (status) {
@@ -35,7 +35,7 @@ function ContentSectionStatusDisplay({ status }: {
 		case ContentSectionStatus.LOADING:
 			return (
 				<ContentSectionStatusElement>
-					<Spinner />
+					<SpinnerComponent />
 				</ContentSectionStatusElement>
 			)
 
@@ -91,7 +91,7 @@ const ContentSectionFooterElement = styled.div`
 	height: 80px;
 `
 
-function ContentSection({ name, buttons, status, children }: {
+function ContentSectionComponent({ name, buttons, status, children }: {
 	name: string,
 	buttons: (IconButtonOptions & { id: string })[],
 	status: ContentSectionStatus,
@@ -105,19 +105,19 @@ function ContentSection({ name, buttons, status, children }: {
 				<ContentSectionHeaderTextElement>{name}</ContentSectionHeaderTextElement>
 				<ContentSectionHeaderSpacerElement />
 				<ContentSectionHeaderButtonsElement>
-					{buttons.map(buttonData => <IconButton key={buttonData.id} {...buttonData} />)}
+					{buttons.map(buttonData => <IconButtonComponent key={buttonData.id} {...buttonData} />)}
 				</ContentSectionHeaderButtonsElement>
 			</ContentSectionHeaderElement>
 			<ContentSectionContainerElement>
 				{
 					children && children.length > 0 ? (
 						expanded ? children : children.slice(0, 3)
-					) : <ContentSectionStatusDisplay status={status} />
+					) : <ContentSectionStatusComponent status={status} />
 				}
 				{
 					children && children.length > 3 ? (
 						<ContentSectionFooterElement>
-							<TextButton
+							<TextButtonComponent
 								text={expanded ? "Show Less" : "Show More"}
 								style={ButtonStyle.FLAT}
 								onClick={() => setExpanded(!expanded)}
@@ -130,7 +130,7 @@ function ContentSection({ name, buttons, status, children }: {
 	)
 }
 
-export default ContentSection
+export default ContentSectionComponent
 
 export {
 	ContentSectionStatus,

@@ -1,13 +1,14 @@
 import React from "react"
 import styled from "styled-components"
-import { Field, FieldGroup } from "../../components/fields"
 import TextButton from "../../components/TextButton"
 import colors from "../../presets/colors"
 import Arrow from "../../assets/arrow.svg"
 import logTypes, { LogButtonOptions, LogFieldOptions } from "./logTypes"
 import { Log, LogTypeData, Moderator } from "@free-draw/moderation-client"
+import FieldComponent from "../../components/fields/Field"
 import day from "dayjs"
 import "dayjs/plugin/relativeTime"
+import FieldGroupComponent from "../../components/fields/FieldGroup"
 
 const LogExtendedDetailsElement = styled.div`
 	padding: 4px 20px 16px;
@@ -15,7 +16,7 @@ const LogExtendedDetailsElement = styled.div`
 	flex-direction: column;
 `
 
-const LogExtendedDetailsFieldsElement = styled(FieldGroup)``
+const LogExtendedDetailsFieldsElement = styled(FieldGroupComponent)``
 
 const LogExtendedDetailsButtonsElement = styled.div`
 	margin-top: 20px;
@@ -24,7 +25,7 @@ const LogExtendedDetailsButtonsElement = styled.div`
 	justify-content: flex-end;
 `
 
-function LogExtendedDetails({ fields, buttons }: {
+function LogExtendedDetailsComponent({ fields, buttons }: {
 	fields: LogFieldOptions[],
 	buttons: LogButtonOptions[],
 }) {
@@ -36,7 +37,7 @@ function LogExtendedDetails({ fields, buttons }: {
 			{
 				fields.length > 0 ? (
 					<LogExtendedDetailsFieldsElement>
-						{fields.map(fieldData => <Field key={fieldData.name} {...fieldData} />)}
+						{fields.map(fieldData => <FieldComponent key={fieldData.name} {...fieldData} />)}
 					</LogExtendedDetailsFieldsElement>
 				) : null
 			}
@@ -121,7 +122,7 @@ const LogArrowElement = styled(Arrow)<{
 	${props => props.isOpen ? "transform: rotate(90deg)" : ""};
 `
 
-function LogsLog({ log, moderator, data }: {
+function LogComponent({ log, moderator, data }: {
 	log: Log,
 	moderator: Moderator,
 	data: LogTypeData[keyof LogTypeData],
@@ -153,13 +154,13 @@ function LogsLog({ log, moderator, data }: {
 			</LogDetailsElement>
 			{
 				open ? (
-					<LogExtendedDetails
+					<LogExtendedDetailsComponent
 						fields={[
 							...fields,
 							{
 								name: "Time",
 								value: log.time.toLocaleString(),
-								inline: true,
+								isInline: true,
 							},
 						]}
 						buttons={buttons}
@@ -170,4 +171,4 @@ function LogsLog({ log, moderator, data }: {
 	)
 }
 
-export default LogsLog
+export default LogComponent
