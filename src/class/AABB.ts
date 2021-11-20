@@ -1,6 +1,6 @@
 import { Vector2 } from "@free-draw/moderation-client"
 
-type AABBResult = {
+export type AABBResult = {
 	min: Vector2,
 	max: Vector2,
 }
@@ -44,4 +44,3 @@ class AABB {
 }
 
 export default AABB
-export { AABBResult }

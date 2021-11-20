@@ -3,7 +3,7 @@ import styled from "styled-components"
 import ButtonStyle from "../enum/ButtonStyle"
 import colors from "../presets/colors"
 
-const TextButtonElement = styled.span.attrs({
+export const TextButtonElement = styled.span.attrs({
 	role: "button",
 })`
 	position: relative;
@@ -19,7 +19,7 @@ const TextButtonElement = styled.span.attrs({
 	user-select: none;
 `
 
-const FlatTextButtonElement = styled(TextButtonElement)`
+export const FlatTextButtonElement = styled(TextButtonElement)`
 	color: black;
 
 	&:hover {
@@ -27,11 +27,11 @@ const FlatTextButtonElement = styled(TextButtonElement)`
 	}
 `
 
-const BorderedTextButtonElement = styled(FlatTextButtonElement)`
+export const BorderedTextButtonElement = styled(FlatTextButtonElement)`
 	border: 1px solid colors.$border;
 `
 
-const FilledTextButtonElement = styled(TextButtonElement)`
+export const FilledTextButtonElement = styled(TextButtonElement)`
 	color: white;
 	background: ${colors.brand[600]};
 	font-weight: 500;
@@ -41,7 +41,7 @@ const FilledTextButtonElement = styled(TextButtonElement)`
 	}
 `
 
-function getButtonElement(style?: ButtonStyle) {
+export function getButtonElement(style?: ButtonStyle) {
 	switch (style) {
 		case ButtonStyle.FLAT:
 			return FlatTextButtonElement
@@ -54,7 +54,7 @@ function getButtonElement(style?: ButtonStyle) {
 	return FlatTextButtonElement
 }
 
-type TextButtonOptions = {
+export type TextButtonOptions = {
 	text: string,
 	style?: ButtonStyle,
 	onClick: React.MouseEventHandler<HTMLSpanElement>,
@@ -75,13 +75,3 @@ function TextButtonComponent({ text, style, onClick }: TextButtonOptions) {
 }
 
 export default TextButtonComponent
-
-export {
-	TextButtonOptions,
-
-	TextButtonElement,
-
-	FlatTextButtonElement,
-	BorderedTextButtonElement,
-	FilledTextButtonElement,
-}

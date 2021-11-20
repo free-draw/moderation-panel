@@ -1,4 +1,4 @@
-enum ModerationPresetReason {
+export enum ModerationPresetReason {
 	GRIEFING = "GRIEFING",
 	NSFW = "NSFW",
 	SCRIBBLING = "SCRIBBLING",
@@ -10,7 +10,7 @@ enum ModerationPresetReason {
 	OTHER = "OTHER",
 }
 
-const ModerationPresetReasonStrings = {
+export const ModerationPresetReasonStrings = {
 	[ModerationPresetReason.GRIEFING]: "Griefing",
 	[ModerationPresetReason.NSFW]: "NSFW",
 	[ModerationPresetReason.SCRIBBLING]: "Scribbling",
@@ -23,4 +23,3 @@ const ModerationPresetReasonStrings = {
 } as Record<ModerationPresetReason, string>
 
 export default ModerationPresetReason
-export { ModerationPresetReasonStrings }

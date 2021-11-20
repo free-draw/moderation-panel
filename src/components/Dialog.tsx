@@ -3,7 +3,7 @@ import ReactDOM from "react-dom"
 import styled from "styled-components"
 import TextButtonComponent, { TextButtonOptions } from "./TextButton"
 
-const DialogContainerElement = styled.div`
+export const DialogContainerElement = styled.div`
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -16,7 +16,7 @@ const DialogContainerElement = styled.div`
 	z-index: 100;
 `
 
-const DialogElement = styled.div`
+export const DialogElement = styled.div`
 	display: flex;
 	flex-direction: column;
 	padding: 20px 0;
@@ -25,13 +25,13 @@ const DialogElement = styled.div`
 	width: 340px;
 `
 
-const DialogTitleElement = styled.span`
+export const DialogTitleElement = styled.span`
 	font-size: 24px;
 	font-weight: 700;
 	margin: 0 25px;
 `
 
-const DialogDescriptionElement = styled.span`
+export const DialogDescriptionElement = styled.span`
 	font-size: 15px;
 	font-weight: 400;
 	line-height: 20px;
@@ -42,7 +42,7 @@ const DialogDescriptionElement = styled.span`
 	}
 `
 
-const DialogEmbedElement = styled.div`
+export const DialogEmbedElement = styled.div`
 	margin: 20px 25px 0;
 	z-index: 10;
 
@@ -51,7 +51,7 @@ const DialogEmbedElement = styled.div`
 	}
 `
 
-const DialogButtonsElement = styled.div`
+export const DialogButtonsElement = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-end;
@@ -113,12 +113,3 @@ function DialogComponent({ title, description, buttons, onCancel, children }: {
 }
 
 export default DialogComponent
-
-export {
-	DialogContainerElement,
-	DialogElement,
-	DialogTitleElement,
-	DialogDescriptionElement,
-	DialogEmbedElement,
-	DialogButtonsElement,
-}

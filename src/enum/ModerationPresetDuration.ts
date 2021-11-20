@@ -11,7 +11,7 @@ enum ModerationPresetDuration {
 	FOREVER = "FOREVER",
 }
 
-const ModerationPresetDurationStrings = {
+export const ModerationPresetDurationStrings = {
 	[ModerationPresetDuration.THREE_DAYS]: "3 days",
 	[ModerationPresetDuration.ONE_WEEK]: "1 week",
 	[ModerationPresetDuration.TWO_WEEKS]: "2 weeks",
@@ -22,7 +22,7 @@ const ModerationPresetDurationStrings = {
 	[ModerationPresetDuration.FOREVER]: "Forever",
 } as Record<ModerationPresetDuration, string>
 
-const ModerationPresetDurationLengths = {
+export const ModerationPresetDurationLengths = {
 	[ModerationPresetDuration.THREE_DAYS]: ms("3d"),
 	[ModerationPresetDuration.ONE_WEEK]: ms("7d"),
 	[ModerationPresetDuration.TWO_WEEKS]: ms("2w"),
@@ -34,4 +34,3 @@ const ModerationPresetDurationLengths = {
 } as Record<ModerationPresetDuration, number | null>
 
 export default ModerationPresetDuration
-export { ModerationPresetDurationStrings, ModerationPresetDurationLengths }

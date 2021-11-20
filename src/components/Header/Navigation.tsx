@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { Link, useRouteMatch } from "react-router-dom"
 import colors from "../../presets/colors"
 
-const NavigationButtonElement = styled(Link)<{
+export const NavigationButtonElement = styled(Link)<{
 	isSelected: boolean,
 }>`
 	position: relative;
@@ -27,7 +27,7 @@ const NavigationButtonElement = styled(Link)<{
 	}
 `
 
-const NavigationButtonTextElement = styled.span`
+export const NavigationButtonTextElement = styled.span`
 	font-size: 17px;
 	font-weight: 300;
 `
@@ -46,7 +46,7 @@ function NavigationButtonComponent({ text, path, exact }: {
 	)
 }
 
-const NavigationElement = styled.div`
+export const NavigationElement = styled.div`
 	height: 100%;
 	margin: 0 32px;
 	display: flex;
@@ -67,10 +67,3 @@ function NavigationComponent() {
 }
 
 export default NavigationComponent
-
-export {
-	NavigationButtonElement,
-	NavigationButtonTextElement,
-
-	NavigationElement,
-}

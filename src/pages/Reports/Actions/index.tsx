@@ -73,7 +73,7 @@ function ReportAcceptDialogComponent({ report, onClose }: {
 	)
 }
 
-const ActionsElement = styled.div`
+export const ActionsElement = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -84,7 +84,7 @@ const ActionsElement = styled.div`
 	z-index: 10;
 `
 
-const ActionElement = styled.div`
+export const ActionElement = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -118,20 +118,20 @@ const ActionElement = styled.div`
 	}
 `
 
-const AcceptActionElement = styled(ActionElement).attrs({
+export const AcceptActionElement = styled(ActionElement).attrs({
 	color: colors.brand[600],
 })``
 
-const AcceptIconElement = styled(AcceptIcon)`
+export const AcceptIconElement = styled(AcceptIcon)`
 	width: 35px;
 	height: 26px;
 `
 
-const DeclineActionElement = styled(ActionElement).attrs({
+export const DeclineActionElement = styled(ActionElement).attrs({
 	color: "#d81b60",
 })``
 
-const DeclineIconElement = styled(DeclineIcon)`
+export const DeclineIconElement = styled(DeclineIcon)`
 	width: 30px;
 	height: 30px;
 `
@@ -163,11 +163,3 @@ function ActionsComponent({ report }: {
 }
 
 export default ActionsComponent
-
-export {
-	ActionsElement,
-
-	ActionElement,
-	AcceptActionElement,
-	DeclineActionElement,
-}

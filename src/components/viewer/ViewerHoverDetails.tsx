@@ -4,7 +4,7 @@ import styled from "styled-components"
 import { Pointer } from "./ViewerCanvas/core/Input"
 import ViewerContext from "./ViewerContext"
 
-const ViewerHoverDetailsElement = styled.div<{
+export const ViewerHoverDetailsElement = styled.div<{
 	isEnabled: boolean,
 }>`
 	position: absolute;
@@ -19,7 +19,7 @@ const ViewerHoverDetailsElement = styled.div<{
 	border-radius: 8px;
 `
 
-const ViewerHoverDetailsNameElement = styled.span`
+export const ViewerHoverDetailsNameElement = styled.span`
 	color: white;
 	font-size: 16px;
 `
@@ -70,8 +70,3 @@ const ViewerHoverDetailsComponent = () => {
 }
 
 export default ViewerHoverDetailsComponent
-
-export {
-	ViewerHoverDetailsElement,
-	ViewerHoverDetailsNameElement,
-}

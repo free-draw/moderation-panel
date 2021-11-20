@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import Icon from "@mdi/react"
 
-const IconButtonElement = styled.div.attrs({
+export const IconButtonElement = styled.div.attrs({
 	role: "button",
 })`
 	display: inline-block;
@@ -16,7 +16,7 @@ const IconButtonElement = styled.div.attrs({
 	}
 `
 
-type IconButtonOptions = {
+export type IconButtonOptions = {
 	icon: string,
 	color?: string,
 	onClick: React.MouseEventHandler<HTMLDivElement>,
@@ -40,9 +40,3 @@ function IconButtonComponent(props: IconButtonOptions) {
 }
 
 export default IconButtonComponent
-
-export {
-	IconButtonOptions,
-
-	IconButtonElement,
-}

@@ -6,7 +6,7 @@ import Arrow from "../assets/arrow.svg"
 
 const height = 42
 
-const DropdownItemElement = styled.div<{
+export const DropdownItemElement = styled.div<{
 	isPrimary?: boolean,
 	isPlaceholder?: boolean,
 }>`
@@ -26,7 +26,7 @@ const DropdownItemElement = styled.div<{
 	}
 `
 
-const DropdownItemNameElement = styled.span`
+export const DropdownItemNameElement = styled.span`
 	margin-left: 12px;
 	font-size: 16px;
 	font-weight: 400;
@@ -59,7 +59,7 @@ function DropdownItemComponent({ isPrimary, name, icon, isPlaceholder, onClick }
 	)
 }
 
-const DropdownContainerElement = styled.div<{
+export const DropdownContainerElement = styled.div<{
 	zIndex: number,
 }>`
 	width: 100%;
@@ -68,7 +68,7 @@ const DropdownContainerElement = styled.div<{
 	z-index: ${props => props.zIndex};
 `
 
-const DropdownElement = styled.div`
+export const DropdownElement = styled.div`
 	display: flex;
 	flex-direction: column;
 	width: 100%;
@@ -77,7 +77,7 @@ const DropdownElement = styled.div`
 	background: white;
 `
 
-const DropdownArrowElement = styled(Arrow)<{
+export const DropdownArrowElement = styled(Arrow)<{
 	isOpen: boolean,
 }>`
 	position: absolute;
@@ -91,9 +91,9 @@ const DropdownArrowElement = styled(Arrow)<{
 	${props => props.isOpen ? "transform: rotate(90deg)" : null};
 `
 
-const DropdownOptionsElement = styled.div``
+export const DropdownOptionsElement = styled.div``
 
-type DropdownOption = {
+export type DropdownOption = {
 	id: any,
 	name: string,
 }
@@ -150,13 +150,3 @@ function DropdownComponent({ options, currentOptionId, placeholder, index, onSel
 }
 
 export default DropdownComponent
-
-export {
-	DropdownItemElement,
-	DropdownItemNameElement,
-
-	DropdownContainerElement,
-	DropdownElement,
-	DropdownArrowElement,
-	DropdownOptionsElement,
-}

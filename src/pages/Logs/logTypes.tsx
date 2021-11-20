@@ -27,7 +27,7 @@ const indicatorColors = {
 
 /* FIELDS */
 
-type LogFieldOptions = {
+export type LogFieldOptions = {
 	name: string,
 	value: any,
 	isInline: boolean,
@@ -69,7 +69,7 @@ function useUserField(name: string, user: RobloxUser, inline?: boolean): LogFiel
 
 /* BUTTONS */
 
-type LogButtonOptions = {
+export type LogButtonOptions = {
 	id: string,
 	text: string,
 	style?: ButtonStyle,
@@ -107,7 +107,7 @@ function useViewReportButton(report: Report): LogButtonOptions {
 
 /* LOG TYPES */
 
-type LogTypeResult = {
+export type LogTypeResult = {
 	color: string,
 	text: React.ReactNode,
 	fields: LogFieldOptions[],
@@ -247,9 +247,3 @@ export default {
 		}
 	},
 } as Record<LogType, (data: LogTypeData[keyof LogTypeData], source: React.ReactNode) => LogTypeResult>
-
-export {
-	LogButtonOptions,
-	LogFieldOptions,
-	LogTypeResult,
-}

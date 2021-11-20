@@ -5,13 +5,13 @@ import TextButtonComponent from "../../components/TextButton"
 import SpinnerComponent from "../../components/Spinner"
 import ButtonStyle from "../../enum/ButtonStyle"
 
-enum ContentSectionStatus {
+export enum ContentSectionStatus {
 	LOADED = "LOADED",
 	LOADING = "LOADING",
 	EMPTY = "EMPTY",
 }
 
-const ContentSectionStatusElement = styled.div`
+export const ContentSectionStatusElement = styled.div`
 	height: 80px;
 	display: flex;
 	flex-direction: row;
@@ -19,7 +19,7 @@ const ContentSectionStatusElement = styled.div`
 	justify-content: center;
 `
 
-const ContentSectionStatusEmptyElement = styled.span`
+export const ContentSectionStatusEmptyElement = styled.span`
 	color: rgba(0, 0, 0, 0.5);
 	font-size: 16px;
 	font-weight: 400;
@@ -48,28 +48,28 @@ function ContentSectionStatusComponent({ status }: {
 	}
 }
 
-const ContentSectionElement = styled.div`
+export const ContentSectionElement = styled.div`
 	display: flex;
 	flex-direction: column;
 `
 
-const ContentSectionHeaderElement = styled.div`
+export const ContentSectionHeaderElement = styled.div`
 	height: 32px;
 	width: 100%;
 	display: flex;
 	flex-direction: row;
 `
 
-const ContentSectionHeaderTextElement = styled.span`
+export const ContentSectionHeaderTextElement = styled.span`
 	font-size: 24px;
 	font-weight: 600;
 `
 
-const ContentSectionHeaderSpacerElement = styled.div`
+export const ContentSectionHeaderSpacerElement = styled.div`
 	flex-grow: 1;
 `
 
-const ContentSectionHeaderButtonsElement = styled.div`
+export const ContentSectionHeaderButtonsElement = styled.div`
 	flex-direction: row;
 
 	> * + * {
@@ -77,13 +77,13 @@ const ContentSectionHeaderButtonsElement = styled.div`
 	}
 `
 
-const ContentSectionContainerElement = styled.div`
+export const ContentSectionContainerElement = styled.div`
 	margin-top: 20px;
 	display: flex;
 	flex-direction: column;
 `
 
-const ContentSectionFooterElement = styled.div`
+export const ContentSectionFooterElement = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -131,18 +131,3 @@ function ContentSectionComponent({ name, buttons, status, children }: {
 }
 
 export default ContentSectionComponent
-
-export {
-	ContentSectionStatus,
-
-	ContentSectionStatusElement,
-	ContentSectionStatusEmptyElement,
-
-	ContentSectionElement,
-	ContentSectionHeaderElement,
-	ContentSectionHeaderTextElement,
-	ContentSectionHeaderSpacerElement,
-	ContentSectionHeaderButtonsElement,
-	ContentSectionContainerElement,
-	ContentSectionFooterElement,
-}

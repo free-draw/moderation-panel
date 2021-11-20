@@ -5,7 +5,7 @@ import API from "../../API"
 import Logo from "../../assets/logo.svg"
 import NavigationComponent from "./Navigation"
 
-const HeaderElement = styled.div`
+export const HeaderElement = styled.div`
 	position: relative;
 	width: 100%;
 	min-height: 58px;
@@ -17,22 +17,22 @@ const HeaderElement = styled.div`
 	margin-bottom: 1px;
 `
 
-const HeaderLogoElement = styled(Logo)`
+export const HeaderLogoElement = styled(Logo)`
 	height: 34px;
 	user-select: none;
 `
 
-const HeaderSpacerElement = styled.div`
+export const HeaderSpacerElement = styled.div`
 	flex-grow: 1;
 `
 
-const HeaderContextElement = styled.div`
+export const HeaderContextElement = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 `
 
-const HeaderUserElement = styled.span`
+export const HeaderUserElement = styled.span`
 	font-size: 16px;
 	font-weight: 400;
 	margin-right: 18px;
@@ -83,11 +83,3 @@ function HeaderComponent() {
 }
 
 export default HeaderComponent
-
-export {
-	HeaderElement,
-	HeaderLogoElement,
-	HeaderSpacerElement,
-	HeaderContextElement,
-	HeaderUserElement,
-}

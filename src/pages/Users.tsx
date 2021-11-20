@@ -36,7 +36,7 @@ function UsersFailureDialogComponent(props: {
 	)
 }
 
-const UsersPageElement = styled(PageComponent).attrs({
+export const UsersPageElement = styled(PageComponent).attrs({
 	fixed: true,
 })`
 	height: 100%;
@@ -45,7 +45,7 @@ const UsersPageElement = styled(PageComponent).attrs({
 	justify-content: center;
 `
 
-const SearchFormContainerElement = styled.div`
+export const SearchFormContainerElement = styled.div`
 	width: 450px;
 	position: relative;
 	display: flex;
@@ -53,20 +53,20 @@ const SearchFormContainerElement = styled.div`
 	align-items: flex-start;
 `
 
-const SearchFormElement = styled.form`
+export const SearchFormElement = styled.form`
 	position: relative;
 	width: 100%;
 	height: 48px;
 	margin: 0;
 `
 
-const SearchFormEntryElement = styled(TextBoxComponent)`
+export const SearchFormEntryElement = styled(TextBoxComponent)`
 	width: 100%;
 	height: 100%;
 	padding: 0 14px;
 `
 
-const SearchFormSubmitElement = styled(Icon).attrs({
+export const SearchFormSubmitElement = styled(Icon).attrs({
 	path: mdiSend,
 	size: 1,
 })<{
@@ -79,13 +79,13 @@ const SearchFormSubmitElement = styled(Icon).attrs({
 	color: ${colors.brand[600]};
 `
 
-const SearchFormSpinnerElement = styled(SpinnerComponent)`
+export const SearchFormSpinnerElement = styled(SpinnerComponent)`
 	position: absolute;
 	right: 14px;
 	top: calc(50% - (24px / 2));
 `
 
-const SearchFormHintElement = styled.span<{
+export const SearchFormHintElement = styled.span<{
 	isError: boolean,
 }>`
 	margin-top: 14px;
@@ -159,14 +159,3 @@ function UsersPageComponent() {
 }
 
 export default UsersPageComponent
-
-export {
-	UsersPageElement,
-
-	SearchFormContainerElement,
-	SearchFormElement,
-	SearchFormEntryElement,
-	SearchFormSubmitElement,
-	SearchFormSpinnerElement,
-	SearchFormHintElement,
-}

@@ -25,7 +25,3 @@ const TextBoxElement = styled.input.attrs({
 `
 
 export default TextBoxElement
-
-export {
-	TextBoxElement,
-}

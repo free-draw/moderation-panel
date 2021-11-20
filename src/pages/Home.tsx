@@ -3,7 +3,7 @@ import styled from "styled-components"
 import Page from "../components/Page"
 import slart from "url:/src/assets/slart.png"
 
-const HomePageElement = styled(Page)`
+export const HomePageElement = styled(Page)`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -11,13 +11,13 @@ const HomePageElement = styled(Page)`
 	height: 100%;
 `
 
-const SlartElement = styled.img.attrs({
+export const SlartElement = styled.img.attrs({
 	src: slart,
 })`
 	height: 40%;
 `
 
-const SlartTextElement = styled.span`
+export const SlartTextElement = styled.span`
 	margin-top: 14px;
 	font-size: 48px;
 	font-weight: 400;
@@ -33,7 +33,3 @@ function HomePageComponent() {
 }
 
 export default HomePageComponent
-
-export {
-	HomePageElement,
-}

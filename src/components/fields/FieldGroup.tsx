@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 
-const FieldGroupElement = styled.div`
+export const FieldGroupElement = styled.div`
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -20,6 +20,3 @@ function FieldGroupComponent(props: {
 }
 
 export default FieldGroupComponent
-export {
-	FieldGroupElement,
-}

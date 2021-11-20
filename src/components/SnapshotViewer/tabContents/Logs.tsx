@@ -23,7 +23,7 @@ const logTextBuilders = {
 	},
 }
 
-const LogElement = styled.span`
+export const LogElement = styled.span`
 	font-size: 15px;
 	font-weight: 300;
 
@@ -48,7 +48,7 @@ function LogComponent({ type, player, data }: SnapshotLog) {
 	)
 }
 
-const LogsTabElement = styled.div`
+export const LogsTabElement = styled.div`
 	display: flex;
 	flex-direction: column;
 	padding: 20px;
@@ -67,8 +67,3 @@ function LogsTabComponent({ snapshot }: {
 }
 
 export default LogsTabComponent
-
-export {
-	LogElement,
-	LogsTabElement,
-}

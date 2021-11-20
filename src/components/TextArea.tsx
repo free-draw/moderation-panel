@@ -24,7 +24,3 @@ const TextAreaElement = styled.textarea`
 `
 
 export default TextAreaElement
-
-export {
-	TextAreaElement,
-}

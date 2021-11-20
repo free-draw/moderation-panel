@@ -9,9 +9,9 @@ import API from "../../API"
 import Realtime from "../../Realtime"
 import { FixedSizeList } from "react-window"
 
-const ReportContainerElement = styled.div``
+export const ReportContainerElement = styled.div``
 
-const ReportElement = styled(Link)<{
+export const ReportElement = styled(Link)<{
 	isSelected?: boolean,
 }>`
 	display: flex;
@@ -29,25 +29,25 @@ const ReportElement = styled(Link)<{
 	user-select: none;
 `
 
-const ReportAvatarElement = styled.img`
+export const ReportAvatarElement = styled.img`
 	width: 64px;
 	height: 64px;
 	border-radius: 50%;
 `
 
-const ReportTextElement = styled.div`
+export const ReportTextElement = styled.div`
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
 	margin-left: 20px;
 `
 
-const ReportUsernameText = styled.span`
+export const ReportUsernameText = styled.span`
 	font-size: 18px;
 	font-weight: 700;
 `
 
-const ReportReasonText = styled.span`
+export const ReportReasonText = styled.span`
 	font-size: 16px;
 	font-weight: 400;
 	margin-top: 4px;
@@ -88,7 +88,7 @@ function ReportComponent({ data, index, style }: {
 	)
 }
 
-const ListContainerElement = styled.div`
+export const ListContainerElement = styled.div`
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -180,7 +180,3 @@ function ListStateManagerComponent() {
 }
 
 export default ListStateManagerComponent
-
-export {
-	ListContainerElement,
-}

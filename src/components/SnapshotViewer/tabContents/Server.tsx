@@ -5,17 +5,17 @@ import { mdiCameraControl } from "@mdi/js"
 import colors from "../../../presets/colors"
 import { Report, Snapshot, SnapshotPlayer } from "@free-draw/moderation-client"
 
-const SectionElement = styled.div`
+export const SectionElement = styled.div`
 	display: flex;
 	flex-direction: column;
 `
 
-const SectionLabelElement = styled.span`
+export const SectionLabelElement = styled.span`
 	font-size: 14px;
 	font-weight: 700;
 `
 
-const SectionContentsElement = styled.span`
+export const SectionContentsElement = styled.span`
 	margin-top: 12px;
 `
 
@@ -31,7 +31,7 @@ function SectionComponent({ label, children }: {
 	)
 }
 
-const PlayerElement = styled.a.attrs({
+export const PlayerElement = styled.a.attrs({
 	target: "_blank",
 })`
 	display: flex;
@@ -48,7 +48,7 @@ const PlayerElement = styled.a.attrs({
 	}
 `
 
-const PlayerNameElement = styled.span<{
+export const PlayerNameElement = styled.span<{
 	isEmphasized?: boolean,
 }>`
 	font-size: 16px;
@@ -56,7 +56,7 @@ const PlayerNameElement = styled.span<{
 	color: ${props => props.isEmphasized ? colors.brand[600] : "black"};
 `
 
-const PlayerBreadcrumbElement = styled.span`
+export const PlayerBreadcrumbElement = styled.span`
 	font-size: 12px;
 	font-weight: 600;
 	text-transform: uppercase;
@@ -67,15 +67,15 @@ const PlayerBreadcrumbElement = styled.span`
 	padding: 2px 5px;
 `
 
-const PlayerSpacerElement = styled.div`
+export const PlayerSpacerElement = styled.div`
 	flex-grow: 1;
 `
 
-const PlayerButtonsElement = styled.div`
+export const PlayerButtonsElement = styled.div`
 	flex-direction: row;
 `
 
-const PlayerButtonElement = styled.span`
+export const PlayerButtonElement = styled.span`
 	user-select: none;
 	cursor: pointer;
 	opacity: 0;
@@ -117,7 +117,7 @@ function PlayerComponent({ player, breadcrumb, isEmphasized }: {
 	)
 }
 
-const ServerTabElement = styled.div`
+export const ServerTabElement = styled.div`
 	display: flex;
 	flex-direction: column;
 	padding: 20px;
@@ -156,18 +156,3 @@ function ServerTabComponent({ snapshot, report }: {
 }
 
 export default ServerTabComponent
-
-export {
-	SectionElement,
-	SectionLabelElement,
-	SectionContentsElement,
-
-	PlayerElement,
-	PlayerNameElement,
-	PlayerBreadcrumbElement,
-	PlayerSpacerElement,
-	PlayerButtonsElement,
-	PlayerButtonElement,
-
-	ServerTabElement,
-}

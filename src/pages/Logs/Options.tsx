@@ -4,7 +4,7 @@ import Dropdown from "../../components/Dropdown"
 import { LogType } from "@free-draw/moderation-client"
 import SortMethod from "../../enum/SortMethod"
 
-const OptionsGroupElement = styled.div`
+export const OptionsGroupElement = styled.div`
 	display: flex;
 	flex-direction: column;
 
@@ -13,14 +13,14 @@ const OptionsGroupElement = styled.div`
 	}
 `
 
-const OptionsGroupLabelElement = styled.span`
+export const OptionsGroupLabelElement = styled.span`
 	font-size: 14px;
 	font-weight: 700;
 	letter-spacing: 3px;
 	text-transform: uppercase;
 `
 
-const OptionsGroupContentsElement = styled.div`
+export const OptionsGroupContentsElement = styled.div`
 	margin-top: 12px;
 `
 
@@ -36,7 +36,7 @@ function OptionsGroupComponent({ name, children }: {
 	)
 }
 
-const OptionsElement = styled.div`
+export const OptionsElement = styled.div`
 	width: 280px;
 	padding: 20px;
 	display: flex;
@@ -93,11 +93,3 @@ function OptionsComponent({ sort, setSort, filter, setFilter }: {
 }
 
 export default OptionsComponent
-
-export {
-	OptionsGroupElement,
-	OptionsGroupLabelElement,
-	OptionsGroupContentsElement,
-
-	OptionsElement,
-}

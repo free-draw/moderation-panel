@@ -14,23 +14,23 @@ const sortMethodOptions = {
 	[SortMethod.TIME_DESCENDING]: { direction: SortDirection.ASCENDING },
 } as Record<SortMethod, GetLogsOptions>
 
-const LogsPageElement = styled.div`
+export const LogsPageElement = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	padding-top: 50px;
 `
 
-const OptionsContainerElement = styled.div``
+export const OptionsContainerElement = styled.div``
 
-const ContentContainerElement = styled.div`
+export const ContentContainerElement = styled.div`
 	width: 750px;
 	position: relative;
 	display: flex;
 	flex-direction: column;
 `
 
-const ContentFooterElement = styled.div`
+export const ContentFooterElement = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -122,7 +122,3 @@ function LogsPageComponent() {
 }
 
 export default LogsPageComponent
-
-export {
-	LogsPageElement,
-}

@@ -7,7 +7,7 @@ import useStaticValue from "../../../util/useStaticValue"
 import ViewerContext from "../ViewerContext"
 import { Snapshot } from "@free-draw/moderation-client"
 
-const ViewerCanvasElement = styled.div`
+export const ViewerCanvasElement = styled.div`
 	position: relative;
 	overflow: hidden;
 `
@@ -62,7 +62,3 @@ function ViewerCanvasComponent({ data, className, children }: {
 }
 
 export default ViewerCanvasComponent
-
-export {
-	ViewerCanvasElement,
-}

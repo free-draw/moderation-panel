@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { Vector2 } from "@free-draw/moderation-client"
 import ViewerContext from "./ViewerContext"
 
-const ViewerPositionalOverlayElement = styled.div`
+export const ViewerPositionalOverlayElement = styled.div`
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -49,7 +49,3 @@ function ViewerPositionalOverlayComponent(props: {
 }
 
 export default ViewerPositionalOverlayComponent
-
-export {
-	ViewerPositionalOverlayElement,
-}

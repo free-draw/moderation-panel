@@ -3,7 +3,7 @@ import styled from "styled-components"
 import colors from "../presets/colors"
 import Logo from "../assets/logo.svg"
 
-type LoginProvider = {
+export type LoginProvider = {
 	id: string,
 	name: string,
 	textColor: string,
@@ -19,7 +19,7 @@ const loginProviders = [
 	},
 ] as LoginProvider[]
 
-const LoginProviderElement = styled.a`
+export const LoginProviderElement = styled.a`
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -33,7 +33,7 @@ const LoginProviderElement = styled.a`
 	}
 `
 
-const LoginProviderTextElement = styled.span`
+export const LoginProviderTextElement = styled.span`
 	font-size: 16px;
 	font-weight: 400;
 
@@ -64,7 +64,7 @@ function LoginProviderComponent({ id, name, textColor, backgroundColor }: {
 	)
 }
 
-const LoginPromptContainerElement = styled.div`
+export const LoginPromptContainerElement = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -73,12 +73,12 @@ const LoginPromptContainerElement = styled.div`
 	height: 100%;
 `
 
-const LoginPromptLogoElement = styled(Logo)`
+export const LoginPromptLogoElement = styled(Logo)`
 	max-width: 200px;
 	margin-bottom: 20px;
 `
 
-const LoginPromptElement = styled.div`
+export const LoginPromptElement = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -88,13 +88,13 @@ const LoginPromptElement = styled.div`
 	position: relative;
 `
 
-const LoginPromptHeaderElement = styled.div`
+export const LoginPromptHeaderElement = styled.div`
 	font-size: 14px;
 	font-weight: 400;
 	color: #7F7F7F;
 `
 
-const LoginProvidersElement = styled.div`
+export const LoginProvidersElement = styled.div`
 	display: flex;
 	flex-direction: column;
 `
@@ -118,14 +118,3 @@ function LoginPromptComponent() {
 }
 
 export default LoginPromptComponent
-
-export {
-	LoginProviderElement,
-	LoginProviderTextElement,
-
-	LoginPromptContainerElement,
-	LoginPromptLogoElement,
-	LoginPromptElement,
-	LoginPromptHeaderElement,
-	LoginProvidersElement,
-}

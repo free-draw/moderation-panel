@@ -9,11 +9,11 @@ import DetailsComponent from "./Details"
 import ActionsComponent from "./Actions"
 import API from "../../API"
 
-const ReportsPageElement = styled(PageComponent)`
+export const ReportsPageElement = styled(PageComponent)`
 	height: 100%;
 `
 
-const SnapshotViewerElement = styled(SnapshotViewerComponent)`
+export const SnapshotViewerElement = styled(SnapshotViewerComponent)`
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -54,8 +54,3 @@ function ReportsPageComponent() {
 }
 
 export default ReportsPageComponent
-
-export {
-	ReportsPageElement,
-	SnapshotViewerElement,
-}

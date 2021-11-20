@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 
-const PageElement = styled.div``
+export const PageElement = styled.div``
 
 function PageComponent({ name, children, ...props }: {
 	name: string,
@@ -16,7 +16,3 @@ function PageComponent({ name, children, ...props }: {
 }
 
 export default PageComponent
-
-export {
-	PageElement,
-}

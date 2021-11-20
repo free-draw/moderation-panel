@@ -29,13 +29,13 @@ function getCornerOffset(points: Vector2[], index: number) {
 	}
 }
 
-type CollisionDetails = {
+export type CollisionDetails = {
 	aabb: AABBResult,
 	center: Vector2,
 	radius: number,
 }
 
-class Line {
+export class Line {
 	public layer: Layer
 
 	public points: Vector2[]
@@ -171,7 +171,7 @@ class Line {
 	}
 }
 
-class Layer extends EventEmitter2 {
+export class Layer extends EventEmitter2 {
 	public collector: Collector
 
 	public index: number
@@ -219,7 +219,7 @@ class Layer extends EventEmitter2 {
 	}
 }
 
-class Collector extends EventEmitter2 {
+export class Collector extends EventEmitter2 {
 	public owner: SnapshotPlayer
 	public layers: Layer[]
 
@@ -378,10 +378,3 @@ class Canvas extends EventEmitter2 {
 }
 
 export default Canvas
-
-export {
-	Canvas,
-	Collector,
-	Layer,
-	Line,
-}

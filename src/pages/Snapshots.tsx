@@ -4,9 +4,9 @@ import { useRouteMatch } from "react-router"
 import PageComponent from "../components/Page"
 import SnapshotViewerComponent from "../components/SnapshotViewer"
 
-const SnapshotsPageElement = styled(PageComponent)``
+export const SnapshotsPageElement = styled(PageComponent)``
 
-const SnapshotViewerElement = styled(SnapshotViewerComponent)`
+export const SnapshotViewerElement = styled(SnapshotViewerComponent)`
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -33,7 +33,3 @@ function SnapshotsPageComponent() {
 }
 
 export default SnapshotsPageComponent
-
-export {
-	SnapshotsPageElement,
-}

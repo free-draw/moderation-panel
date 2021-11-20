@@ -7,9 +7,9 @@ function getEventPosition(event: MouseEvent): Vector2 {
 	return new Vector2(event.offsetX, event.offsetY)
 }
 
-type PointerMethod = "onPointerDown" | "onPointerMove" | "onPointerUp"
+export type PointerMethod = "onPointerDown" | "onPointerMove" | "onPointerUp"
 
-class Pointer extends EventEmitter2 {
+export class Pointer extends EventEmitter2 {
 	public active: boolean
 	public position: Vector2
 
@@ -95,4 +95,3 @@ class Input extends EventEmitter2 {
 }
 
 export default Input
-export { Pointer }

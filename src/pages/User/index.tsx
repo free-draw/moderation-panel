@@ -8,14 +8,14 @@ import ActionsComponent from "./Actions"
 import API from "../../API"
 import { useRouteMatch } from "react-router"
 
-const UserPageElement = styled(PageComponent)`
+export const UserPageElement = styled(PageComponent)`
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	padding: 50px 0;
 `
 
-const ContentElement = styled.div`
+export const ContentElement = styled.div`
 	width: 650px;
 	display: flex;
 	flex-direction: column;
@@ -40,8 +40,3 @@ function UserPageComponent() {
 }
 
 export default UserPageComponent
-
-export {
-	UserPageElement,
-	ContentElement,
-}

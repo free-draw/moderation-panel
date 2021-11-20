@@ -17,7 +17,7 @@ import ButtonStyle from "../../enum/ButtonStyle"
 import FieldComponent from "../../components/fields/Field"
 import FieldGroupComponent from "../../components/fields/FieldGroup"
 
-const NotesTextAreaElement = styled(TextAreaComponent)`
+export const NotesTextAreaElement = styled(TextAreaComponent)`
 	height: 150px;
 `
 
@@ -129,7 +129,7 @@ function DeleteDialog({ action, onDelete, onClose }: {
 	)
 }
 
-const ActionElement = styled.div<{
+export const ActionElement = styled.div<{
 	isEnabled: boolean,
 	isExpanded: boolean,
 }>`
@@ -149,22 +149,22 @@ const ActionElement = styled.div<{
 	}
 `
 
-const ActionDetailsElement = styled.div`
+export const ActionDetailsElement = styled.div`
 	position: relative;
 `
 
-const ActionTextElement = styled.div`
+export const ActionTextElement = styled.div`
 	display: flex;
 	flex-direction: column;
 `
 
-const ActionReasonElement = styled.span`
+export const ActionReasonElement = styled.span`
 	font-size: 18px;
 	font-weight: 600;
 	color: ${colors.brand[600]};
 `
 
-const ActionTypeElement = styled.span`
+export const ActionTypeElement = styled.span`
 	font-size: 14px;
 	font-weight: 400;
 	letter-spacing: 1px;
@@ -172,14 +172,14 @@ const ActionTypeElement = styled.span`
 	margin-top: 6px;
 `
 
-const ActionExtendedDetailsElement = styled.div<{
+export const ActionExtendedDetailsElement = styled.div<{
 	isExpanded: boolean,
 }>`
 	display: ${props => props.isExpanded ? "flex" : "none"};
 	margin-top: 16px;
 `
 
-const ActionButtonsElement = styled.div`
+export const ActionButtonsElement = styled.div`
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -198,7 +198,7 @@ const ActionButtonsElement = styled.div`
 	}
 `
 
-enum ModeratorState {
+export enum ModeratorState {
 	LOADED = "LOADED",
 	LOADING = "LOADING",
 	UNKNOWN = "UNKNOWN",
@@ -379,15 +379,3 @@ function ActionsComponent({ user }: {
 }
 
 export default ActionsComponent
-
-export {
-	ActionElement,
-
-	ActionDetailsElement,
-	ActionTextElement,
-	ActionReasonElement,
-	ActionTypeElement,
-
-	ActionExtendedDetailsElement,
-	ActionButtonsElement,
-}

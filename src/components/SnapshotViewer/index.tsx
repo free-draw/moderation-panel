@@ -8,7 +8,7 @@ import ViewerHoverDetailsComponent from "../viewer/ViewerHoverDetails"
 import ViewerPlayerBubblesComponent from "../viewer/ViewerPlayerBubbles"
 import TabsComponent from "./Tabs"
 
-const SnapshotElement = styled.div`
+export const SnapshotElement = styled.div`
 	width: 100%;
 	height: 100%;
 	position: relative;
@@ -18,18 +18,18 @@ const SnapshotElement = styled.div`
 	justify-content: center;
 `
 
-const SnapshotStateTextElement = styled.span`
+export const SnapshotStateTextElement = styled.span`
 	font-size: 28px;
 	font-weight: 700;
 `
 
-const SnapshotStateSubtextElement = styled.span`
+export const SnapshotStateSubtextElement = styled.span`
 	font-size: 16px;
 	font-weight: 300;
 	margin-top: 8px;
 `
 
-const SnapshotCanvasElement = styled(ViewerCanvasComponent)`
+export const SnapshotCanvasElement = styled(ViewerCanvasComponent)`
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -53,7 +53,7 @@ function SnapshotViewerComponent({ snapshot, report, ...props }: {
 	)
 }
 
-enum SnapshotResolverState {
+export enum SnapshotResolverState {
 	LOADED = "LOADED",
 	LOADING = "LOADING",
 	ERROR = "ERROR",
@@ -120,10 +120,3 @@ function SnapshotResolverComponent({ id, report, placeholder, ...props }: {
 }
 
 export default SnapshotResolverComponent
-
-export {
-	SnapshotElement,
-	SnapshotStateTextElement,
-	SnapshotStateSubtextElement,
-	SnapshotCanvasElement,
-}

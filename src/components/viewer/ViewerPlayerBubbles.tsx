@@ -7,7 +7,7 @@ import ViewerPositionalOverlayComponent from "./ViewerPositionalOverlay"
 
 const size = 64
 
-const ViewerPlayerBubbleElement = styled.a.attrs({
+export const ViewerPlayerBubbleElement = styled.a.attrs({
 	target: "_blank",
 })`
 	width: 64px;
@@ -19,7 +19,7 @@ const ViewerPlayerBubbleElement = styled.a.attrs({
 	pointer-events: none;
 `
 
-const ViewerPlayerBubbleAvatarElement = styled.img`
+export const ViewerPlayerBubbleAvatarElement = styled.img`
 	width: ${size};
 	height: ${size};
 	border-radius: 50%;
@@ -28,7 +28,7 @@ const ViewerPlayerBubbleAvatarElement = styled.img`
 	pointer-events: all;
 `
 
-const ViewerPlayerBubbleNameElement = styled.span`
+export const ViewerPlayerBubbleNameElement = styled.span`
 	color: black;
 	font-size: 16px;
 	font-weight: 700;
@@ -55,7 +55,7 @@ function ViewerPlayerBubbleComponent({ player, position }: {
 	)
 }
 
-const ViewerPlayerBubblesElement = styled.div``
+export const ViewerPlayerBubblesElement = styled.div``
 
 function ViewerPlayerBubblesComponent({ players }: {
 	players: Snapshot["players"],
@@ -78,11 +78,3 @@ function ViewerPlayerBubblesComponent({ players }: {
 }
 
 export default ViewerPlayerBubblesComponent
-
-export {
-	ViewerPlayerBubbleElement,
-	ViewerPlayerBubbleAvatarElement,
-	ViewerPlayerBubbleNameElement,
-
-	ViewerPlayerBubblesElement,
-}

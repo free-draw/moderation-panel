@@ -7,14 +7,14 @@ import ServerTabComponent from "./tabContents/Server"
 import LogsTabComponent from "./tabContents/Logs"
 import { Snapshot, Report } from "@free-draw/moderation-client"
 
-enum TabId {
+export enum TabId {
 	CANVAS = "CANVAS",
 	SERVER = "SERVER",
 	LAYERS = "LAYERS",
 	LOGS = "LOGS",
 }
 
-type Tab = {
+export type Tab = {
 	id: TabId,
 	name: string,
 	icon: string,
@@ -52,7 +52,7 @@ const tabs = [
 	},
 ] as Tab[]
 
-const TabElement = styled.div<{
+export const TabElement = styled.div<{
 	isSelected: boolean,
 }>`
 	width: 56px;
@@ -89,7 +89,7 @@ function TabComponent({ icon, isSelected, onClick }: {
 	)
 }
 
-const TabsContainerElement = styled.div`
+export const TabsContainerElement = styled.div`
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -101,16 +101,16 @@ const TabsContainerElement = styled.div`
 	z-index: 10;
 `
 
-const TabsElement = styled.div`
+export const TabsElement = styled.div`
 	display: flex;
 	flex-direction: column;
 `
 
-const TabContentsContainerElement = styled.div`
+export const TabContentsContainerElement = styled.div`
 	margin-left: 20px;
 `
 
-const TabContentsElement = styled.div`
+export const TabContentsElement = styled.div`
 	border: 1px solid ${colors.border};
 	border-radius: 12px;
 	width: 350px;
@@ -157,12 +157,3 @@ function TabsComponent({ snapshot, report }: {
 }
 
 export default TabsComponent
-
-export {
-	TabElement,
-
-	TabsContainerElement,
-	TabsElement,
-	TabContentsContainerElement,
-	TabContentsElement,
-}
