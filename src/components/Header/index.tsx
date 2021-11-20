@@ -43,7 +43,7 @@ export const HeaderUserElement = styled.span`
 	}
 `
 
-function HeaderComponent() {
+const HeaderComponent = () => {
 	const [ loaded, setLoaded ] = React.useState(false)
 	const [ name, setName ] = React.useState("")
 

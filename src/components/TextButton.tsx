@@ -60,7 +60,7 @@ export type TextButtonOptions = {
 	onClick: React.MouseEventHandler<HTMLSpanElement>,
 }
 
-function TextButtonComponent({ text, style, onClick }: TextButtonOptions) {
+const TextButtonComponent = ({ text, style, onClick }: TextButtonOptions) => {
 	const ButtonElement = getButtonElement(style)
 	return (
 		<ButtonElement

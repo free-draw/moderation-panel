@@ -99,7 +99,7 @@ export const SearchFormHintElement = styled.span<{
 	}
 `
 
-function UsersPageComponent() {
+const UsersPageComponent = () => {
 	const history = useHistory()
 
 	const [ content, setContent ] = React.useState<string>("")

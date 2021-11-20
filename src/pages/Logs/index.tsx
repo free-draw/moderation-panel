@@ -34,7 +34,7 @@ export const ContentFooterElement = styled.div`
 	height: 100px;
 `
 
-function LogsPageComponent() {
+const LogsPageComponent = () => {
 	const [ loaded, setLoaded ] = React.useState(false)
 
 	const [ content, setContent ] = React.useState<LogResolved[][]>([])

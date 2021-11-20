@@ -99,7 +99,7 @@ export const LoginProvidersElement = styled.div`
 	flex-direction: column;
 `
 
-function LoginPromptComponent() {
+const LoginPromptComponent = () => {
 	return (
 		<LoginPromptContainerElement>
 			<LoginPromptLogoElement />

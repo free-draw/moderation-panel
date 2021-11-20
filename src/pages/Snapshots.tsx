@@ -13,7 +13,7 @@ export const SnapshotViewerElement = styled(SnapshotViewerComponent)`
 	height: 100%;
 `
 
-function SnapshotsPageComponent() {
+const SnapshotsPageComponent = () => {
 	const { params } = useRouteMatch<{
 		snapshotId: string,
 	}>("/snapshots/:snapshotId")!

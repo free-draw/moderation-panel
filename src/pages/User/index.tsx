@@ -20,7 +20,7 @@ export const ContentElement = styled.div`
 	flex-direction: column;
 `
 
-function UserPageComponent() {
+const UserPageComponent = () => {
 	const { params } = useRouteMatch<{
 		userId: string,
 	}>("/users/:userId")!

@@ -20,7 +20,7 @@ export const SnapshotViewerElement = styled(SnapshotViewerComponent)`
 	height: 100%;
 `
 
-function ReportsPageComponent() {
+const ReportsPageComponent = () => {
 	const match = useRouteMatch<{
 		reportId: string,
 	}>("/reports/:reportId")

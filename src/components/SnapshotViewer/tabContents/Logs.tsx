@@ -38,7 +38,7 @@ export const LogElement = styled.span`
 	}
 `
 
-function LogComponent({ type, player, data }: SnapshotLog) {
+const LogComponent = ({ type, player, data }: SnapshotLog) => {
 	const text = logTextBuilders[type](player, data)
 
 	return (

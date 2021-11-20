@@ -63,7 +63,7 @@ enum LoginStatus {
 	DEACTIVATED_ACCOUNT = "DEACTIVATED_ACCOUNT",
 }
 
-function AppComponent() {
+const AppComponent = () => {
 	const [ loginStatus, setLoginStatus ] = React.useState<LoginStatus>(LoginStatus.UNKNOWN)
 	React.useEffect(() => {
 		getToken(API).then((token) => {

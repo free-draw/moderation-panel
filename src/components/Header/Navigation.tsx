@@ -55,7 +55,7 @@ export const NavigationElement = styled.div`
 	user-select: none;
 `
 
-function NavigationComponent() {
+const NavigationComponent = () => {
 	return (
 		<NavigationElement>
 			<NavigationButtonComponent text="Home" path="/" exact />

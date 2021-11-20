@@ -31,7 +31,7 @@ type FieldOptions = {
 	isEmpty?: boolean,
 }
 
-function FieldComponent({ name, value, isInline, isEmpty }: FieldOptions) {
+const FieldComponent = ({ name, value, isInline, isEmpty }: FieldOptions) => {
 	return (
 		<FieldElement isInline={isInline}>
 			<FieldNameElement>{name}</FieldNameElement>

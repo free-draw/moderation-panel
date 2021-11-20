@@ -133,7 +133,7 @@ function ListComponent({ reports }: {
 	)
 }
 
-function ListStateManagerComponent() {
+const ListStateManagerComponent = () => {
 	const [ reports, setReports ] = React.useState<Report[]>([])
 
 	React.useEffect(() => {
