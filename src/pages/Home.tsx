@@ -1,9 +1,8 @@
 import React from "react"
 import styled from "styled-components"
-import Page from "../components/Page"
 import slart from "url:/src/assets/slart.png"
 
-export const HomePageElement = styled(Page)`
+export const HomePageElement = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;

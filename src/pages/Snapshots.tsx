@@ -1,10 +1,9 @@
 import React from "react"
 import styled from "styled-components"
 import { useRouteMatch } from "react-router"
-import PageComponent from "../components/Page"
 import SnapshotViewerComponent from "../components/SnapshotViewer"
 
-export const SnapshotsPageElement = styled(PageComponent)``
+export const SnapshotsPageElement = styled.div``
 
 export const SnapshotViewerElement = styled(SnapshotViewerComponent)`
 	position: absolute;

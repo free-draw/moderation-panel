@@ -2,13 +2,12 @@ import React from "react"
 import styled from "styled-components"
 import useAsync from "../../util/useAsync"
 import { getUser } from "@free-draw/moderation-client"
-import PageComponent from "../../components/Page"
 import DetailsComponent from "./Details"
 import ActionsComponent from "./Actions"
 import API from "../../API"
 import { useRouteMatch } from "react-router"
 
-export const UserPageElement = styled(PageComponent)`
+export const UserPageElement = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: center;

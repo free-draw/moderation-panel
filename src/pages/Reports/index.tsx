@@ -2,14 +2,13 @@ import React from "react"
 import { useRouteMatch } from "react-router"
 import styled from "styled-components"
 import { getReport, Report, ReportStatus } from "@free-draw/moderation-client"
-import PageComponent from "../../components/Page"
 import SnapshotViewerComponent from "../../components/SnapshotViewer"
 import ListComponent from "./List"
 import DetailsComponent from "./Details"
 import ActionsComponent from "./Actions"
 import API from "../../API"
 
-export const ReportsPageElement = styled(PageComponent)`
+export const ReportsPageElement = styled.div`
 	height: 100%;
 `
 

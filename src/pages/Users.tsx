@@ -6,7 +6,6 @@ import { mdiSend } from "@mdi/js"
 import { getRobloxUsername } from "@free-draw/moderation-client"
 import API from "../API"
 import colors from "../presets/colors"
-import PageComponent from "../components/Page"
 import DialogComponent from "../components/Dialog"
 import SpinnerComponent from "../components/Spinner"
 import TextBoxComponent from "../components/TextBox"
@@ -36,7 +35,7 @@ function UsersFailureDialogComponent(props: {
 	)
 }
 
-export const UsersPageElement = styled(PageComponent).attrs({
+export const UsersPageElement = styled.div.attrs({
 	fixed: true,
 })`
 	height: 100%;
