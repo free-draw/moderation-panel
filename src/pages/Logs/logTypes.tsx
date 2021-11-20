@@ -30,16 +30,16 @@ const indicatorColors = {
 type LogFieldOptions = {
 	name: string,
 	value: any,
-	inline: boolean,
-	empty?: boolean,
+	isInline: boolean,
+	isEmpty?: boolean,
 }
 
-function useField(name: string, value?: any, inline?: boolean): LogFieldOptions {
+function useField(name: string, value?: any, isInline?: boolean): LogFieldOptions {
 	return {
 		name: name,
 		value: value ?? "N/A",
-		inline: inline ?? true,
-		empty: !value,
+		isInline: isInline ?? true,
+		isEmpty: !value,
 	}
 }
 
