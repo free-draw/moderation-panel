@@ -1,7 +1,7 @@
 import { Snapshot, SnapshotLog, SnapshotLogType, SnapshotPlayerPartial } from "@free-draw/moderation-client"
 import React from "react"
 import styled from "styled-components"
-import colors from "../../../presets/colors"
+import colors from "../../../assets/colors"
 
 const logTextBuilders = {
 	[SnapshotLogType.CHAT]: (player: SnapshotPlayerPartial, data: {

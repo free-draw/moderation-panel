@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import TextButton from "../../components/TextButton"
-import colors from "../../presets/colors"
+import colors from "../../assets/colors"
 import Arrow from "../../assets/arrow.svg"
 import logTypes, { LogButtonOptions, LogFieldOptions } from "./logTypes"
 import { Log, LogTypeData, Moderator } from "@free-draw/moderation-client"

@@ -8,7 +8,7 @@ import DialogComponent from "../../../components/Dialog"
 import DropdownComponent from "../../../components/Dropdown"
 import AcceptIcon from "./accept-icon.svg"
 import DeclineIcon from "./decline-icon.svg"
-import colors from "../../../presets/colors"
+import colors from "../../../assets/colors"
 import ButtonStyle from "../../../types/enum/ButtonStyle"
 
 function ReportAcceptDialogComponent({ report, onClose }: {

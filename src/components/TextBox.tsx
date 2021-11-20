@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import colors from "../presets/colors"
+import colors from "../assets/colors"
 
 const TextBoxElement = styled.input.attrs({
 	type: "text",

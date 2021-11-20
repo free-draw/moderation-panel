@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { Link, useHistory } from "react-router-dom"
-import colors from "../../presets/colors"
+import colors from "../../assets/colors"
 import { ActionType, LogType, LogTypeData, Report, RobloxUser, Snapshot, SnapshotResolvable } from "@free-draw/moderation-client"
 import ButtonStyle from "../../types/enum/ButtonStyle"
 

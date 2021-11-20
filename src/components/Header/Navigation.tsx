@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { Link, useRouteMatch } from "react-router-dom"
-import colors from "../../presets/colors"
+import colors from "../../assets/colors"
 
 export const NavigationButtonElement = styled(Link)<{
 	isSelected: boolean,

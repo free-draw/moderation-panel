@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import colors from "../presets/colors"
+import colors from "../assets/colors"
 import Logo from "../assets/logo.svg"
 
 export type LoginProvider = {

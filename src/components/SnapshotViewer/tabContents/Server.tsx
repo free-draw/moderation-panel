@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import Icon from "@mdi/react"
 import { mdiCameraControl } from "@mdi/js"
-import colors from "../../../presets/colors"
+import colors from "../../../assets/colors"
 import { Report, Snapshot, SnapshotPlayer } from "@free-draw/moderation-client"
 
 export const SectionElement = styled.div`

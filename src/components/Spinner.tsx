@@ -1,6 +1,6 @@
 import React from "react"
 import styled, { keyframes } from "styled-components"
-import colors from "../presets/colors"
+import colors from "../assets/colors"
 import SpinnerBackground from "../assets/spinner/background.svg"
 import SpinnerForeground from "../assets/spinner/foreground.svg"
 

@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import Icon from "@mdi/react"
-import colors from "../presets/colors"
+import colors from "../assets/colors"
 import Arrow from "../assets/arrow.svg"
 
 const height = 42

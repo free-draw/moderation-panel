@@ -3,7 +3,7 @@ import styled from "styled-components"
 import useAsync from "../../util/useAsync"
 import { getRobloxUser, getRobloxThumbnail, RobloxThumbnailType } from "@free-draw/moderation-client"
 import API from "../../API"
-import colors from "../../presets/colors"
+import colors from "../../assets/colors"
 import SpinnerComponent from "../../components/Spinner"
 
 const DetailsElement = styled.div`

@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import colors from "../presets/colors"
+import colors from "../assets/colors"
 
 const TextAreaElement = styled.textarea`
 	position: relative;
