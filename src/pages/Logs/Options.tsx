@@ -1,6 +1,8 @@
 import React from "react"
 import styled from "styled-components"
-import Dropdown from "/src/components/Dropdown"
+import Dropdown from "../../components/Dropdown"
+import { LogType } from "@free-draw/moderation-client"
+import SortMethod from "../../enum/SortMethod"
 
 const OptionsGroupElement = styled.div`
 	display: flex;
@@ -22,7 +24,10 @@ const OptionsGroupContentsElement = styled.div`
 	margin-top: 12px;
 `
 
-function OptionsGroup({ name, children }) {
+function OptionsGroup({ name, children }: {
+	name: React.ReactNode,
+	children?: React.ReactNode,
+}) {
 	return (
 		<OptionsGroupElement>
 			<OptionsGroupLabelElement>{name}</OptionsGroupLabelElement>
@@ -41,7 +46,12 @@ const OptionsElement = styled.div`
 	margin-right: 20px;
 `
 
-function Options({ sort, setSort, filter, setFilter }) {
+function Options({ sort, setSort, filter, setFilter }: {
+	sort: SortMethod,
+	setSort: (sort: SortMethod) => void,
+	filter: LogType | null,
+	setFilter: (filter: LogType) => void,
+}) {
 	return (
 		<OptionsElement>
 			<OptionsGroup name="Sort">
@@ -50,6 +60,7 @@ function Options({ sort, setSort, filter, setFilter }) {
 						{ id: "timeDescending", name: "Newest" },
 						{ id: "timeAscending", name: "Oldest" },
 					]}
+					placeholder="Sort"
 					currentOptionId={sort}
 					onSelection={setSort}
 				/>
@@ -60,18 +71,19 @@ function Options({ sort, setSort, filter, setFilter }) {
 						{ id: null, name: "All" },
 
 						{ id: "CREATE_ACTION", name: "Create Action" },
-						{ id: "DISCARD_ACTION_BY_ID", name: "Discard Action (by ID)" },
-						{ id: "DISCARD_ACTION_BY_TYPE", name: "Discard Action (by type)" },
+						{ id: "DELETE_ACTION", name: "Delete Action" },
+						{ id: "DELETE_ACTIONS_BULK", name: "Delete Actions Bulk" },
 
 						{ id: "CREATE_MODERATOR", name: "Create Moderator" },
 						{ id: "DELETE_MODERATOR", name: "Delete Moderator" },
-						{ id: "CREATE_MODERATOR_ACCOUNT", name: "Create Moderator Account" },
-						{ id: "DELETE_MODERATOR_ACCOUNT", name: "Delete Moderator Account" },
+						{ id: "LINK_MODERATOR_ACCOUNT", name: "Link Moderator Account" },
+						{ id: "UNLINK_MODERATOR_ACCOUNT", name: "Unlink Moderator Account" },
 						{ id: "UPDATE_MODERATOR", name: "Update Moderator" },
 
 						{ id: "ACCEPT_REPORT", name: "Accept Report" },
 						{ id: "DECLINE_REPORT", name: "Decline Report" },
 					]}
+					placeholder="Filter"
 					currentOptionId={filter}
 					onSelection={setFilter}
 				/>

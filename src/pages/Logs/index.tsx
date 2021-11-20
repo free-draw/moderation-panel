@@ -1,19 +1,20 @@
 import React from "react"
 import styled from "styled-components"
-import { getLogs } from "@free-draw/moderation-client"
-import API from "/src/API"
-import Page from "/src/components/Page"
-import TextButton from "/src/components/TextButton"
-import Spinner from "/src/components/Spinner"
+import { getLogs, LogResolved, GetLogsOptions, LogsPage, SortDirection, LogType } from "@free-draw/moderation-client"
+import API from "../../API"
+import TextButton from "../../components/TextButton"
+import Spinner from "../../components/Spinner"
 import Options from "./Options"
-import Log from "./Log"
+import LogComponent from "./Log"
+import ButtonStyle from "../../enum/ButtonStyle"
+import SortMethod from "../../enum/SortMethod"
 
-const sortMethods = {
-	timeDescending: { direction: "DESCENDING" },
-	timeAscending: { direction: "ASCENDING" },
-}
+const sortMethodOptions = {
+	[SortMethod.TIME_ASCENDING]: { direction: SortDirection.DESCENDING },
+	[SortMethod.TIME_DESCENDING]: { direction: SortDirection.ASCENDING },
+} as Record<SortMethod, GetLogsOptions>
 
-const LogsPageElement = styled(Page)`
+const LogsPageElement = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -37,32 +38,34 @@ const ContentFooterElement = styled.div`
 	height: 100px;
 `
 
-function LogsPage() {
+function LogsPageComponent() {
 	const [ loaded, setLoaded ] = React.useState(false)
 
-	const [ content, setContent ] = React.useState([])
-	const [ page, setPage ] = React.useState(null)
+	const [ content, setContent ] = React.useState<LogResolved[][]>([])
+	const [ page, setPage ] = React.useState<LogsPage | null>(null)
 
-	const [ sort, setSort ] = React.useState("timeDescending")
-	const [ filter, setFilter ] = React.useState(null)
+	const [ sort, setSort ] = React.useState<SortMethod>(SortMethod.TIME_DESCENDING)
+	const [ filter, setFilter ] = React.useState<LogType | null>(null)
 
-	React.useEffect(async () => {
-		setLoaded(false)
+	React.useEffect(() => {
+		async () => {
+			setLoaded(false)
 
-		const options = {
-			...sortMethods[sort],
-			size: 30,
+			const options = {
+				...sortMethodOptions[sort],
+				size: 30,
+			} as Partial<GetLogsOptions>
+			if (filter) {
+				options.type = filter
+			}
+
+			const initialPage = await getLogs(API, options)
+			const initialPageResolved = await initialPage.resolveAll(API)
+
+			setContent([ initialPageResolved ])
+			setPage(initialPage)
+			setLoaded(true)
 		}
-		if (filter) {
-			options.type = filter
-		}
-
-		const initialPage = await getLogs(API, options)
-		const initialPageResolved = await initialPage.resolveAll(API)
-
-		setContent([ initialPageResolved ])
-		setPage(initialPage)
-		setLoaded(true)
 	}, [ sort, filter ])
 
 	return (
@@ -80,7 +83,7 @@ function LogsPage() {
 					content.flatMap((pageResolved) => {
 						return pageResolved.map((logResolved, index) => {
 							return (
-								<Log
+								<LogComponent
 									key={index}
 									log={logResolved.log}
 									data={logResolved.data}
@@ -95,11 +98,11 @@ function LogsPage() {
 						loaded ? (
 							<TextButton
 								text="View More"
-								style="filled"
+								style={ButtonStyle.FILLED}
 								onClick={async () => {
 									setLoaded(false)
 
-									const newPage = await page.next(API)
+									const newPage = await page!.next(API)
 									if (newPage.logs.length > 0) {
 										const newPageResolved = await newPage.resolveAll(API)
 
@@ -118,7 +121,7 @@ function LogsPage() {
 	)
 }
 
-export default LogsPage
+export default LogsPageComponent
 
 export {
 	LogsPageElement,

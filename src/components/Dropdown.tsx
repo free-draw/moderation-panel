@@ -102,7 +102,7 @@ function Dropdown({ options, currentOptionId, placeholder, index, onSelection }:
 	options: DropdownOption[],
 	currentOptionId: any,
 	placeholder: string,
-	index: number,
+	index?: number,
 	onSelection: (id: any) => void,
 }) {
 	const [ open, setOpen ] = React.useState<boolean>(false)
@@ -110,7 +110,7 @@ function Dropdown({ options, currentOptionId, placeholder, index, onSelection }:
 	const currentOption = options.find(option => option.id === currentOptionId)
 
 	return (
-		<DropdownContainerElement zIndex={100 - index}>
+		<DropdownContainerElement zIndex={index ? 100 - index : 0}>
 			<DropdownElement>
 				{
 					open ? (

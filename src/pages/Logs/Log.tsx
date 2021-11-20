@@ -1,15 +1,13 @@
 import React from "react"
 import styled from "styled-components"
+import { Field, FieldGroup } from "../../components/fields"
+import TextButton from "../../components/TextButton"
+import colors from "../../presets/colors"
+import Arrow from "../../assets/arrow.svg"
+import logTypes, { LogButtonOptions, LogFieldOptions } from "./logTypes"
+import { Log, LogTypeData, Moderator } from "@free-draw/moderation-client"
 import day from "dayjs"
-
-import { Field, FieldGroup } from "/src/components/fields"
-import TextButton from "/src/components/TextButton"
-
-import colors from "/src/presets/colors"
-
-import Arrow from "/src/assets/arrow.svg"
-
-import * as logTypes from "./logTypes"
+import "dayjs/plugin/relativeTime"
 
 const LogExtendedDetailsElement = styled.div`
 	padding: 4px 20px 16px;
@@ -26,7 +24,10 @@ const LogExtendedDetailsButtonsElement = styled.div`
 	justify-content: flex-end;
 `
 
-function LogExtendedDetails({ fields, buttons }) {
+function LogExtendedDetails({ fields, buttons }: {
+	fields: LogFieldOptions[],
+	buttons: LogButtonOptions[],
+}) {
 	fields = fields.filter(fieldData => fieldData !== null)
 	buttons = buttons.filter(buttonData => buttonData !== null)
 
@@ -111,21 +112,25 @@ const LogArrowContainerElement = styled.div`
 	max-height: 12px;
 `
 
-const LogArrowElement = styled(Arrow)`
+const LogArrowElement = styled(Arrow)<{
+	isOpen: boolean,
+}>`
 	color: #828282;
 	max-height: 12px;
 
-	${props => props.open ? "transform: rotate(90deg)" : ""};
+	${props => props.isOpen ? "transform: rotate(90deg)" : ""};
 `
 
-function Log({ log, data, moderator }) {
+function LogsLog({ log, moderator, data }: {
+	log: Log,
+	moderator: Moderator,
+	data: LogTypeData[keyof LogTypeData],
+}) {
 	const logType = logTypes[log.type]
-
-	const { color, text, fields, buttons } = logType({
+	const { color, text, fields, buttons } = logType(
 		data,
-		moderator,
-		source: <LogTextSourceElement>{moderator.name}</LogTextSourceElement>,
-	})
+		<LogTextSourceElement>{moderator.name}</LogTextSourceElement>
+	)
 
 	const [ open, setOpen ] = React.useState(false)
 
@@ -143,7 +148,7 @@ function Log({ log, data, moderator }) {
 					{day().to(day(log.time))}
 				</LogTimeElement>
 				<LogArrowContainerElement>
-					<LogArrowElement open={open} />
+					<LogArrowElement isOpen={open} />
 				</LogArrowContainerElement>
 			</LogDetailsElement>
 			{
@@ -165,4 +170,4 @@ function Log({ log, data, moderator }) {
 	)
 }
 
-export default Log
+export default LogsLog

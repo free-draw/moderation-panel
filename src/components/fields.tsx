@@ -24,12 +24,14 @@ const FieldValueElement = styled.span<{
 	opacity: ${props => props.isEmpty ? "50%" : "100%"};
 `
 
-export function Field({ name, value, isInline, isEmpty }: {
+type FieldOptions = {
 	name: string,
 	value: string,
 	isInline?: boolean,
 	isEmpty?: boolean,
-}) {
+}
+
+export function Field({ name, value, isInline, isEmpty }: FieldOptions) {
 	return (
 		<FieldElement isInline={isInline}>
 			<FieldNameElement>{name}</FieldNameElement>
@@ -59,6 +61,8 @@ export function FieldGroup(props: {
 }
 
 export {
+	FieldOptions,
+
 	FieldElement,
 	FieldNameElement,
 	FieldValueElement,

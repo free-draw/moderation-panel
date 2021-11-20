@@ -3,7 +3,7 @@ lockfileVersion: 5.3
 specifiers:
   '@babel/core': ^7.16.0
   '@fontsource/inter': ^4.5.1
-  '@free-draw/moderation-client': ^0.6.2
+  '@free-draw/moderation-client': ^0.6.7
   '@mdi/js': ^5.9.55
   '@mdi/react': ^1.5.0
   '@parcel/config-default': ^2.0.1
@@ -46,7 +46,7 @@ specifiers:
 dependencies:
   '@babel/core': 7.16.0
   '@fontsource/inter': 4.5.1
-  '@free-draw/moderation-client': 0.6.2
+  '@free-draw/moderation-client': 0.6.7
   '@mdi/js': 5.9.55
   '@mdi/react': 1.5.0
   '@parcel/config-default': 2.0.1
@@ -382,8 +382,8 @@ packages:
     resolution: {integrity: sha512-mvtOvXNNVLlF1p/UbLgLrmz2RCOl6Ow+TqyiK10SosoLKX7edsXYiHFHb7XIZdjII6F2sJVPPsJXWhBnbXT2DQ==}
     dev: false
 
-  /@free-draw/moderation-client/0.6.2:
-    resolution: {integrity: sha512-hUjCUbIrvONcR/YgNrDmRKBUgErMEkLg0zPpxHMf1JQF9N+fGxnCiEzv7NPUMD7LW0bivSlOaxVTqgThpc7AFA==}
+  /@free-draw/moderation-client/0.6.7:
+    resolution: {integrity: sha512-hDBsRGJTd9uQ/zAsWHi0hA1VlTfM6W6NrSJknG/L261vtPHNpo1tlLz+cz/hWlcYcYoy/zx7pOcaznAZ0lSRmA==}
     dependencies:
       axios: 0.24.0
       binary-parser: 2.0.1
@@ -2595,7 +2595,7 @@ packages:
   /@types/http-proxy/1.17.7:
     resolution: {integrity: sha512-9hdj6iXH64tHSLTY+Vt2eYOGzSogC+JQ2H7bdPWkuh7KXP5qLllWx++t+K9Wk556c3dkDdPws/SpMRi0sdCT1w==}
     dependencies:
-      '@types/node': 16.11.8
+      '@types/node': 16.11.9
 
   /@types/js-cookie/3.0.1:
     resolution: {integrity: sha512-7wg/8gfHltklehP+oyJnZrz9XBuX5ZPP4zB6UsI84utdlkRYLnOm2HfpLXazTwZA+fpGn0ir8tGNgVnMEleBGQ==}
@@ -2609,8 +2609,8 @@ packages:
     resolution: {integrity: sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA==}
     dev: false
 
-  /@types/node/16.11.8:
-    resolution: {integrity: sha512-hmT5gfpRkkHr7DZZHMf3jBe/zNcVGN+jXSL2f8nAsYfBPxQFToKwQlS/zES4Sjp488Bi73i+p6bvrNRRGU0x9Q==}
+  /@types/node/16.11.9:
+    resolution: {integrity: sha512-MKmdASMf3LtPzwLyRrFjtFFZ48cMf8jmX5VRYrDQiJa8Ybu5VAmkqBWqKU8fdCwD8ysw4mQ9nrEHvzg6gunR7A==}
 
   /@types/parse-json/4.0.0:
     resolution: {integrity: sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==}
@@ -7095,8 +7095,8 @@ packages:
       urix: 0.1.0
     dev: false
 
-  /source-map-support/0.5.20:
-    resolution: {integrity: sha512-n1lZZ8Ve4ksRqizaBQgxXDgKwttHDhyfQjA6YZZn8+AroHbsIz+JjwxQDxbp+7y5OYCI8t1Yk7etjD9CRd2hIw==}
+  /source-map-support/0.5.21:
+    resolution: {integrity: sha512-uBHU3L3czsIyYXKX88fdrGovxdSCoTGDRZ6SYXtSRxLZUzHg5P/66Ht6uoUlHu9EZod+inXhKo3qQgwXUT/y1w==}
     dependencies:
       buffer-from: 1.1.2
       source-map: 0.6.1
@@ -7419,7 +7419,7 @@ packages:
     dependencies:
       commander: 2.20.3
       source-map: 0.7.3
-      source-map-support: 0.5.20
+      source-map-support: 0.5.21
     dev: false
 
   /timers-browserify/2.0.12:
