@@ -51,7 +51,7 @@ function CreateDialog({ onCreate, onClose }: {
 							onCreate({
 								type,
 								reason: ModerationPresetReasonStrings[reason!],
-								duration: duration && duration !== ModerationPresetDuration.FOREVER ? ModerationPresetDurationLengths[duration]! / 1000 : undefined,
+								duration: duration && duration !== ModerationPresetDuration.FOREVER ? ModerationPresetDurationLengths[duration]! : undefined,
 								notes,
 							})
 							onClose()

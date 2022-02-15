@@ -13,12 +13,12 @@ export const ModerationPresetDurationStrings = {
 } as Record<ModerationPresetDuration, string>
 
 export const ModerationPresetDurationLengths = {
-	[ModerationPresetDuration.THREE_DAYS]: ms("3d"),
-	[ModerationPresetDuration.ONE_WEEK]: ms("7d"),
-	[ModerationPresetDuration.TWO_WEEKS]: ms("2w"),
-	[ModerationPresetDuration.FOUR_WEEKS]: ms("4w"),
-	[ModerationPresetDuration.TWELVE_WEEKS]: ms("12w"),
-	[ModerationPresetDuration.TWENTY_FOUR_WEEKS]: ms("24w"),
-	[ModerationPresetDuration.ONE_YEAR]: ms("1y"),
+	[ModerationPresetDuration.THREE_DAYS]: ms("3d") / 1000,
+	[ModerationPresetDuration.ONE_WEEK]: ms("7d") / 1000,
+	[ModerationPresetDuration.TWO_WEEKS]: ms("2w") / 1000,
+	[ModerationPresetDuration.FOUR_WEEKS]: ms("4w") / 1000,
+	[ModerationPresetDuration.TWELVE_WEEKS]: ms("12w") / 1000,
+	[ModerationPresetDuration.TWENTY_FOUR_WEEKS]: ms("24w") / 1000,
+	[ModerationPresetDuration.ONE_YEAR]: ms("1y") / 1000,
 	[ModerationPresetDuration.FOREVER]: null,
 } as Record<ModerationPresetDuration, number | null>

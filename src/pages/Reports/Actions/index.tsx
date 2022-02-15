@@ -41,7 +41,7 @@ const ReportAcceptDialogComponent = ({ report, onClose }: {
 							report.accept(API, {
 								type,
 								reason: ModerationPresetReasonStrings[reason],
-								duration: duration && duration !== ModerationPresetDuration.FOREVER ? ModerationPresetDurationLengths[duration]! / 1000 : undefined,
+								duration: duration && duration !== ModerationPresetDuration.FOREVER ? ModerationPresetDurationLengths[duration]! : undefined,
 							})
 
 							onClose()
